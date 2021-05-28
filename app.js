@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fs = require('fs');
 const bot = new Discord.Client();
 require('dotenv').config();
 
@@ -34,8 +35,6 @@ bot.on('message', msg => {
     }
 });
 
-
-
 const badjokes = 
 [
     "Why did the chicken cross the road? Because it was disabled",
@@ -47,7 +46,6 @@ const badjokes =
     "Error. System reboot. Sike, fuck you.",
     "What do you call an alligator that wants to be a detective? An investigator. ACK ACK ACK",
     "HAMBURGER PLS",
-
 ];
 
 bot.on('message', (msg) => {
@@ -55,3 +53,7 @@ bot.on('message', (msg) => {
         msg.channel.send(badjokes[Math.floor(Math.random() * badjokes.length)]);
     }
 });
+
+
+
+
