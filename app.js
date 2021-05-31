@@ -1,10 +1,9 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const bot = new Discord.Client();
 require('dotenv').config();
 const Client = require('./client/Client');
 const TOKEN  = process.env.TOKEN;
-bot.login(TOKEN);
+client.login(TOKEN);
 const {prefix} = require('./config.json');
 const client = new Client();
 client.commands = new Discord.Collection();
@@ -38,29 +37,29 @@ client.on('message', async message => {
     }
 });
 
-bot.on('ready', () => {
+client.on('ready', () => {
     console.info(`Logged in as ${bot.user.tag}!`);
 });
 
-bot.on('message', msg => {
+client.on('message', msg => {
     if(msg.content === 'ping') {
         msg.channel.send('pong')
     }
 });
 
-bot.on('message', msg => {
+client.on('message', msg => {
     if(msg.content === 'Hi') {
         msg.reply('Harro')
     }
 });
 
-bot.on('message', msg => {
+client.on('message', msg => {
     if(msg.content === 'Hello') {
         msg.reply('Harro')
     }
 });
 
-bot.on('message', msg => {
+client.on('message', msg => {
     if(msg.content === 'Marco') {
         msg.channel.send('Pollo bitch')
     }
@@ -79,7 +78,7 @@ const badjokes =
     "HAMBURGER PLS",
 ];
 
-bot.on('message', (msg) => {
+client.on('message', (msg) => {
     if(msg.content === '?joke') {
         msg.channel.send(badjokes[Math.floor(Math.random() * badjokes.length)]);
     }
