@@ -68,7 +68,15 @@ module.exports = {
         }
 
         const dispatcher = queueSong.connection
+        .play(ytdl(song.url))
+        .on("finish", () => {
+            queueSong.songs.shift();
+            this.play(message, queueSong.songs[0]);
+        })
+        .on("error", error => console.log(error));
+        dispatcher.setVolumeLogarithmic(queueSong.volume / 5);
+        queueSong.textChannel.send(`Playing **${song.title}**`);
     }
-}
+};
 
 
