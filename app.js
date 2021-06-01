@@ -1,14 +1,12 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-require('dotenv').config();
-const Client = require('./client/Client');
-const TOKEN  = process.env.TOKEN;
-client.login(TOKEN);
 const {prefix} = require('./config.json');
+const Client = require('./client/Client');
+require('dotenv').config();
+const TOKEN  = process.env.TOKEN;
 const client = new Client();
 client.commands = new Discord.Collection();
 const command = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
 
 for(const file of command) {
     const commandInput = require(`./commands/${file}`);
@@ -38,7 +36,7 @@ client.on('message', async message => {
 });
 
 client.on('ready', () => {
-    console.info(`Logged in as ${bot.user.tag}!`);
+    console.info(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('message', msg => {
@@ -84,6 +82,6 @@ client.on('message', (msg) => {
     }
 });
 
-
+client.login(TOKEN);
 
 

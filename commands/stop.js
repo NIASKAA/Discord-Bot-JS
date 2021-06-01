@@ -1,4 +1,3 @@
-
 module.exports = {
     name: 'stop',
     description: 'Stop a song',
