@@ -1,39 +1,9 @@
 const Discord = require('discord.js');
-const fs = require('fs');
-const {prefix} = require('./config.json');
-const Client = require('./client/Client');
+const client = new Discord.Client();
 require('dotenv').config();
-const TOKEN  = process.env.TOKEN;
-const client = new Client();
-client.commands = new Discord.Collection();
-const command = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const TOKEN = process.env.TOKEN;
 
-for(const file of command) {
-    const commandInput = require(`./commands/${file}`);
-    client.commands.set(commandInput.name, commandInput);
-}
-
-client.on('message', async message => {
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const commandName = args.shift().toLowerCase();
-    const command = client.commands.get(commandName);
-
-    if(message.author.bot) 
-    return;
-    if(!message.content.startsWith(prefix))
-    return;
-
-    try {
-        if(commandName == "ban" || commandName == "userinfo") {
-            command.execute(message, client);
-        } else {
-            command.execute(message);
-        }
-    } catch (error) {
-        console.error(error);
-        message.reply("That didn't really work...")
-    }
-});
+client.login(TOKEN);
 
 client.on('ready', () => {
     console.info(`Logged in as ${client.user.tag}!`);
@@ -82,6 +52,6 @@ client.on('message', (msg) => {
     }
 });
 
-client.login(TOKEN);
+
 
 
