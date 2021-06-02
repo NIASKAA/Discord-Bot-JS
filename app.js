@@ -4,6 +4,7 @@ require('dotenv').config();
 const TOKEN = process.env.TOKEN;
 
 client.login(TOKEN);
+const prefix = '!';
 
 client.on('ready', () => {
     console.info(`Logged in as ${client.user.tag}!`);
@@ -52,6 +53,18 @@ client.on('message', (msg) => {
     }
 });
 
+client.on('guildMemberAdd', guildMember => {
+    let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'member');
+    guildMember.roles.add(welcomeRole);
+});
 
-
-
+client.on('message', message => {
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const command = args.shift().toLowerCase();
+    if(command === 'play') {
+        client.commands.get('play').execute(message, args);
+    } else if(command === 'leave') {
+        client.commands.get('leave').execute(message, args)
+    }
+});
