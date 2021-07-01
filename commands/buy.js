@@ -5,8 +5,9 @@ module.exports = {
     name: 'buy',
     description: 'Buy something from the shop',
     async execute(message, args, cmd, client, Discord, profileData) {
-        if(!args[0]) return message.reply('Specify which item you want to buy brah');
-        const itemToBuy = args[0].toLowerCase();
+        const arg = args.join(" ")
+        if(!arg) return message.reply('Specify which item you want to buy brah');
+        const itemToBuy = arg;
 
         const validItem = !!items.find((val) => val.item.toLowerCase() === itemToBuy);
         if(!validItem) return message.reply('The item is not valid');
@@ -28,14 +29,21 @@ module.exports = {
                 } else {
                     data.inventory[itemToBuy]++;
                 }
-                await profileModel.findOneAndUpdate({
+                await profileModel.updateMany({
                     userID: message.author.id,
                 },
                 {
                     $inc: {
                         coins: -itemPrice,
+                    },
+                    $set: {
+                        inventory: itemToBuy
                     }
-                }, data);
+                },
+                {
+                    upsert: true
+                });
+                
             } else {
                 new profileModel({
                     userID: message.author.id,

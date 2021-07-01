@@ -1,7 +1,17 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
     name: "balance",
     description: "Check user balance",
     async execute(message, args, cmd, client, Discord, profileData) {
-        message.channel.send(`Your balance is ${profileData.coins}, your bank balance is ${profileData.bank}`);
+        const Embed = new MessageEmbed()
+        .setColor("YELLOW")
+        .setTitle("Balance Info")
+        .setDescription(`
+            On you: ${profileData.coins} \n
+            Bank: ${profileData.bank} \n
+            Inventory: ${profileData.inventory}
+        `)
+        message.channel.send(Embed);
     }
 }

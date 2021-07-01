@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'price',
@@ -16,7 +17,14 @@ module.exports = {
                 );
 
                 if(!data[coin][currency]) throw err;
-                return message.reply(`The current price of 1 ${coin} = ${data[coin][currency]} ${currency}`);
+                const Embed = new MessageEmbed()
+                .setColor("RED")
+                .setTitle("Crypto Rates")
+                .setDescription(`
+                1 ${coin} \n
+                = ${data[coin][currency]} ${currency}
+                `)
+                return message.reply(Embed);
             } catch (err) {
                 return message.reply('Input should be for example: !price bitcoin usd');
             }

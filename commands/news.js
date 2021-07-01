@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'news',
@@ -14,13 +15,16 @@ module.exports = {
                 url
             } = data.articles[0];
 
-            return message.reply(`
-            Latest news to crypto: \n
-            Title: ${title}\n
-            Description: ${description}\n
-            Source: ${name}\n
-            Link to article: ${url}
-            `);
+            const Embed = new MessageEmbed()
+            .setColor('BLUE')
+            .setTitle("Crypto News!")
+            .setDescription(`
+            Title: ${title} \n
+            Description: ${description} \n 
+            Source: ${name} \n
+            Link: ${url} \n
+            `)
+            return message.reply(Embed);
         } catch (err) {
             return message.reply('Error, try again later');
         }

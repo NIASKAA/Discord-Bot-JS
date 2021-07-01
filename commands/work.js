@@ -20,7 +20,7 @@ module.exports = {
         ];
 
         const jobList = Math.floor(Math.random() * jobs.length);
-        const dailyPay = Math.floor(Math.random() * 250) + 1;
+        const dailyPay = Math.floor(Math.random() * 1000) + 1;
         const response = await profileModel.findOneAndUpdate({
             userID: message.author.id,
         },

@@ -1,18 +1,12 @@
+const { MessageEmbed } = require("discord.js");
 const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: "search",
-    aliases: [],
-    permissions: ["SEND_MESSAGES"],
     cooldown: 60000,
-    category: "economy",
-    description: {
-      usage: "a-search",
-      content: "Choose your search location and have a chance at some bits!",
-      examples: ["a-search"],
-    },
-    execute(message, args, alias, client, discord, pfdata) {
-      const LOCATIONS = [
+    description: 'Search an area for some coins',
+    execute(message, args, cmd, client, Discord, profileData) {
+      const locations = [
         "car",
         "sock",
         "milk",
@@ -35,21 +29,21 @@ module.exports = {
         "shirt",
       ];
   
-      let chosenLocations = LOCATIONS.sort(() => Math.random() - Math.random()).slice(0, 3);
+      let chosenLocations = locations.sort(() => Math.random() - Math.random()).slice(0, 3);
   
-      const RANDOM_NUMBER = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
+      const randomNumber = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
   
-      const FILTER = (m) => {
+      const filter = (m) => {
         return chosenLocations.some((answer) => answer.toLowerCase() === m.content.toLowerCase()) && m.author.id === message.author.id;
       };
   
-      const COLLECTOR = message.channel.createMessageCollector(FILTER, { max: 1, time: 15000 });
+      const collector = message.channel.createMessageCollector(filter, { max: 1, time: 15000 });
   
-      COLLECTOR.on("collect", async (m) => {
-        const EMBED = new discord.MessageEmbed()
+      collector.on("collect", async (m) => {
+        const Embed = new Discord.MessageEmbed()
           .setColor("#ffa500")
           .setTitle(`${message.author.username} searched a ${m.content} 🕵️`)
-          .setDescription(`You found ₿${RANDOM_NUMBER.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
+          .setDescription(`You found ₿${randomNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
           .setFooter(`A true detective you are.`);
   
         await profileModel.findOneAndUpdate(
@@ -58,18 +52,18 @@ module.exports = {
           },
           {
             $inc: {
-              bits: RANDOM_NUMBER,
+              coins: randomNumber,
             },
           }
         );
   
-        message.channel.send(EMBED);
+        message.channel.send(Embed);
       });
   
-      COLLECTOR.on("end", (collected) => {
+      collector.on("end", (collected) => {
         if (collected.size == 0) {
           return message.channel.send(
-            `What are you doing <@${message.author.id}>?! There was ₿${RANDOM_NUMBER.toString().replace(
+            `What are you doing <@${message.author.id}>?! There was ₿${randomNumber.toString().replace(
               /\B(?=(\d{3})+(?!\d))/g,
               ","
             )} hidden inside the ${chosenLocations[0]} 😭`

@@ -7,9 +7,13 @@ module.exports = {
     name: 'play',
     aliases: ['skip', 'stop'],
     description: 'Cool beats bro',
-    async execute(message, args, cmd, client, Discord) {
+    async execute(message, args, cmd, client, Discord, profileData) {
         const voiceChannel = message.member.voice.channel;
         if(!voiceChannel) return message.channel.send('You need to be in a voice channel bro');
+        const permissions = voiceChannel.permissionsFor(message.client.user);
+        if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissins');
+        if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissins');
+
         const serverQueue = queue.get(message.guild.id);
 
         if(cmd === 'play') {
@@ -59,7 +63,7 @@ module.exports = {
             }
         } 
         else if(cmd === 'skip') skipSong(message, serverQueue);
-        else if(cmd == 'stop') stopSong(message, serverQueue);
+        else if(cmd === 'stop') stopSong(message, serverQueue);
     }
 }
 

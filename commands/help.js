@@ -12,6 +12,7 @@ module.exports = {
         !play \n
         !stop \n
         !skip \n
+        !leave \n
         !price \n
         !news \n
         !help \n
