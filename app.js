@@ -13,7 +13,7 @@ client.events = new Discord.Collection();
     require(`./handlers/${handler}`)(client, Discord);
 }) 
 
-mongoose.connect(process.env.MONGODB, {
+mongoose.connect(process.env.MONGOKEY, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
