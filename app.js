@@ -1,38 +1,35 @@
 const Discord = require('discord.js');
+const fs = require('fs');
+const mongoose = require('mongoose');
+const profile = require('./models/profileSchema');
 const client = new Discord.Client();
 require('dotenv').config();
 const TOKEN = process.env.TOKEN;
-
 client.login(TOKEN);
-const prefix = '!';
+client.commands = new Discord.Collection();
+client.events = new Discord.Collection();
 
-client.on('ready', () => {
-    console.info(`Logged in as ${client.user.tag}!`);
+['commandHandler', 'eventHandlers'].forEach(handler => {
+    require(`./handlers/${handler}`)(client, Discord);
+}) 
+
+mongoose.connect(process.env.MONGODB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+})
+.then(() => {
+    console.log("Connected to mongoDB database!");
+})
+.catch((err) => {
+    console.log(err);
 });
 
-client.on('message', msg => {
-    if(msg.content === 'ping') {
-        msg.channel.send('pong')
-    }
+client.on('guildMemberAdd', guildMember => {
+    let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'member');
+    guildMember.roles.add(welcomeRole);
 });
 
-client.on('message', msg => {
-    if(msg.content === 'Hi') {
-        msg.reply('Harro')
-    }
-});
-
-client.on('message', msg => {
-    if(msg.content === 'Hello') {
-        msg.reply('Harro')
-    }
-});
-
-client.on('message', msg => {
-    if(msg.content === 'Marco') {
-        msg.channel.send('Pollo bitch')
-    }
-});
 
 const badjokes = 
 [
@@ -46,25 +43,3 @@ const badjokes =
     "What do you call an alligator that wants to be a detective? An investigator. ACK ACK ACK",
     "HAMBURGER PLS",
 ];
-
-client.on('message', (msg) => {
-    if(msg.content === '?joke') {
-        msg.channel.send(badjokes[Math.floor(Math.random() * badjokes.length)]);
-    }
-});
-
-client.on('guildMemberAdd', guildMember => {
-    let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'member');
-    guildMember.roles.add(welcomeRole);
-});
-
-client.on('message', message => {
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
-    if(command === 'play') {
-        client.commands.get('play').execute(message, args);
-    } else if(command === 'leave') {
-        client.commands.get('leave').execute(message, args)
-    }
-});
