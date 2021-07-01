@@ -1,8 +1,10 @@
+const { MessageEmbed } = require("discord.js");
+
 module.exports = {
     name: 'help',
     description: 'List of commands available',
-    async execute(message, args, cmd, client, Discord) {
-        const Embed = new RichEmbed()
+    async execute(message, args, cmd, client, Discord, profileData) {
+        const Embed = new MessageEmbed()
         .setTitle("Commands")
         .setColor("RED")
         .setDescription(`
