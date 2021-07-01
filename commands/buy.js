@@ -37,7 +37,7 @@ module.exports = {
                         coins: -itemPrice,
                     },
                     $addToSet: {
-                        inventory: [itemToBuy]
+                        inventory: itemToBuy
                     }
                 },
                 {
