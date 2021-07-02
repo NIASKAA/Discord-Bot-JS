@@ -30,10 +30,10 @@ module.exports = {
         !work \n
         !shop \n 
         !buy \n
-        !inventory \n
         !fish \n
         !rob \n
-        !hunt \n`);
+        !hunt \n
+        !search \n`);
         
         message.author.send(Embed);
     }

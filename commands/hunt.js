@@ -34,24 +34,28 @@ module.exports = {
             userID: message.author.id,
             serverID:  message.guild.id
         }
-        profileModel.findOne(params, async(err, data) => {
-            if(data) {
-                const getAnimals = Object.keys(data.inventory).includes(randomAnimal);
-                if(!getAnimals) {
-                    data.inventory[randomAnimal] = 1;
-                } else {
-                    data.inventory[randomAnimal]++;
-                }
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id,
-                },
-                {
-                    $inc: {
-                        coins: animalPrice,
+        if(!profileData.inventory === "gun") {
+            return message.reply('How in the hell are you going to hunt without a gun? ')
+        } else if(profileData.inventory === "gun") {
+            profileModel.findOne(params, async(err, data) => {
+                if(data) {
+                    const getAnimals = Object.keys(data.inventory).includes(randomAnimal);
+                    if(!getAnimals) {
+                        data.inventory[randomAnimal] = 1;
+                    } else {
+                        data.inventory[randomAnimal]++;
                     }
-                }, data);
-                message.reply(`You hunt a ${animals[randomAnimal]} and got ${animalPrice}`);
-            }
-        })
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id,
+                    },
+                    {
+                        $inc: {
+                            coins: animalPrice,
+                        }
+                    }, data);
+                    message.reply(`You hunt a ${animals[randomAnimal]} and got ${animalPrice}`);
+                }
+            })
+        }
     }
 }
