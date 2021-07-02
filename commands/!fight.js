@@ -206,6 +206,6 @@ module.exports = {
             }
         })
         randomScript = Math.floor(Math.random() * script.length)
-        message.channel.send(`You ${randomScript} ${user}. ${user} dropped ${amount} and ${randomItem}.`)
+        message.channel.send(`You ${randomScript} ${user}. ${user} dropped ${amount} coins and ${randomItem}.`)
     }
 }
