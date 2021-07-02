@@ -30,9 +30,12 @@ module.exports = {
             userID: message.author.id,
             serverID:  message.guild.id
         }
-        if(!profileData.inventory === "fishing rod") {
+        rod = profileData.inventory === "fishing rod"
+        if(!rod) {
             return message.reply('What the hell? Are you going to fish with your hands? Get a rod....')
-        } else if (profileData.inventory === "fishing rod") {
+        } 
+
+        if (rod) {
             profileModel.findOne(params, async(err, data) => {
                 if(data) {
                     const getFish = Object.keys(data.inventory).includes(randomFish);

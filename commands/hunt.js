@@ -34,9 +34,12 @@ module.exports = {
             userID: message.author.id,
             serverID:  message.guild.id
         }
-        if(!profileData.inventory === "gun") {
+        hunt = profileData.inventory === "gun"
+        if(!hunt) {
             return message.reply('How in the hell are you going to hunt without a gun? ')
-        } else if(profileData.inventory === "gun") {
+        }
+
+        if(hunt) {
             profileModel.findOne(params, async(err, data) => {
                 if(data) {
                     const getAnimals = Object.keys(data.inventory).includes(randomAnimal);
