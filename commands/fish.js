@@ -31,7 +31,7 @@ module.exports = {
             serverID:  message.guild.id
         }
         if(!profileData.inventory === "fishing rod") {
-            return message.channel.send('What the hell? Are you going to fish with your hands? Get a rod....')
+            return message.reply('What the hell? Are you going to fish with your hands? Get a rod....')
         } else if (profileData.inventory === "fishing rod") {
             profileModel.findOne(params, async(err, data) => {
                 if(data) {
