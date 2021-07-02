@@ -8,6 +8,14 @@ module.exports = [
         price: 100
     },
     {
+        item: "pickaxe",
+        price: 150
+    },
+    {
+        item: "gun",
+        price: 200
+    },
+    {
         item: 'off white t shirt',
         price: 400
     },

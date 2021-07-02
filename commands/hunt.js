@@ -5,6 +5,10 @@ module.exports = {
     cooldown: 3000,
     description: 'Hunt in the wild',
     async execute(message, args, cmd, client, Discord, profileData) {
+        if(profileData.inventory.find((x) => x.toLowerCase() === "gun") === undefined ) {
+            return message.channel.send('You really tryna hunt without a gun huh? Go buy a gun')
+        }
+
         const animals = [
             "🐰 `(Rabbit)`",
             "🐸 `(Frog)`",
@@ -34,31 +38,26 @@ module.exports = {
             userID: message.author.id,
             serverID:  message.guild.id
         }
-        hunt = profileData.inventory === "gun"
-        if(!hunt) {
-            return message.reply('How in the hell are you going to hunt without a gun? ')
-        }
-
-        if(hunt) {
-            profileModel.findOne(params, async(err, data) => {
-                if(data) {
-                    const getAnimals = Object.keys(data.inventory).includes(randomAnimal);
-                    if(!getAnimals) {
-                        data.inventory[randomAnimal] = 1;
-                    } else {
-                        data.inventory[randomAnimal]++;
-                    }
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id,
-                    },
-                    {
-                        $inc: {
-                            coins: animalPrice,
-                        }
-                    }, data);
-                    message.reply(`You hunt a ${animals[randomAnimal]} and got ${animalPrice}`);
+        
+        
+        profileModel.findOne(params, async(err, data) => {
+        if(data) {
+            const getAnimals = Object.keys(data.inventory).includes(randomAnimal);
+            if(!getAnimals) {
+                data.inventory[randomAnimal] = 1;
+            } else {
+                data.inventory[randomAnimal]++;
+            }
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id,
+            },
+            {
+                $inc: {
+                    coins: animalPrice,
                 }
-            })
-        }
+            }, data);
+            message.reply(`You hunt a ${animals[randomAnimal]} and got ${animalPrice}`);
+            }
+        })
     }
 }

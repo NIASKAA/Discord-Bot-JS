@@ -5,6 +5,10 @@ module.exports = {
     cooldown: 1000,
     description: 'Fish for your fish',
     async execute(message, args, cmd, client, Discord, profileData) {
+        if(profileData.inventory.find((x) => x.toLowerCase() === "fishing rod") === undefined ) {
+            return message.channel.send('What are you doing bruv? Fishing with your hands? Go buy a fishing rod mate')
+        }
+        
         const fish = [
             "🐠 `(Tropical Fish)`",
             "🐟 `(Fish)`",
@@ -30,31 +34,26 @@ module.exports = {
             userID: message.author.id,
             serverID:  message.guild.id
         }
-        rod = profileData.inventory === "fishing rod"
-        if(!rod) {
-            return message.reply('What the hell? Are you going to fish with your hands? Get a rod....')
-        } 
-
-        if (rod) {
-            profileModel.findOne(params, async(err, data) => {
-                if(data) {
-                    const getFish = Object.keys(data.inventory).includes(randomFish);
-                    if(!getFish) {
-                        data.inventory[randomFish] = 1;
-                    } else {
-                        data.inventory[randomFish]++;
-                    }
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id,
-                    },
-                    {
-                        $inc: {
-                            coins: fishPrice,
-                        }
-                    }, data);
-                    message.reply(`You fished a ${fish[randomFish]} and got ${fishPrice}`);
+        
+        profileModel.findOne(params, async(err, data) => {
+            if(data) {
+                const getFish = Object.keys(data.inventory).includes(randomFish);
+                if(!getFish) {
+                    data.inventory[randomFish] = 1;
+                } else {
+                    data.inventory[randomFish]++;
                 }
-            })
-        }
+                await profileModel.findOneAndUpdate({
+                    userID: message.author.id,
+                },
+                {
+                    $inc: {
+                        coins: fishPrice,
+                    }
+                }, data);
+                message.reply(`You fished a ${fish[randomFish]} and got ${fishPrice}`);
+            }
+        })
+        
     }
 }
