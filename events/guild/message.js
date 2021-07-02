@@ -16,7 +16,9 @@ module.exports = async (Discord, client, message) => {
                 serverID: message.guild.id,
                 coins: 1000,
                 bank: 0,
-                inventory: []
+                inventory: [],
+                xp: 0,
+                level: 1
             });
             profile.save();
         }

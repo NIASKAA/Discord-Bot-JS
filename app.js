@@ -5,6 +5,7 @@ const profile = require('./models/profileSchema');
 const client = new Discord.Client();
 require('dotenv').config();
 const TOKEN = process.env.TOKEN;
+const levels = require('./handlers/levels');
 client.login(TOKEN);
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
@@ -29,3 +30,5 @@ client.on('guildMemberAdd', guildMember => {
     let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'member');
     guildMember.roles.add(welcomeRole);
 });
+
+levels(client);
