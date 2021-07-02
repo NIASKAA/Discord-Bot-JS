@@ -22,7 +22,7 @@ module.exports = {
             serverID: message.guild.id
         }
         profileModel.findOne(params, async(err, data) => {
-            if(data) {
+            
                 const hasItem = Object.keys(data.inventory).includes(itemToBuy);
                 if(!hasItem) {
                     data.inventory[itemToBuy] = 1;
@@ -36,23 +36,14 @@ module.exports = {
                     $inc: {
                         coins: -itemPrice,
                     },
-                    $push: {
+                    $set: {
                         inventory: itemToBuy
                     }
                 },
                 {
                     upsert: true
                 });
-                
-            } else {
-                new profileModel({
-                    userID: message.author.id,
-                    serverID: message.guild.id,
-                    inventory: {
-                        [itemToBuy]: 1
-                    },
-                }).save();
-            }
+            
             message.reply(`You bought ${itemToBuy}`)
         })
     }

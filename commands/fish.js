@@ -30,24 +30,28 @@ module.exports = {
             userID: message.author.id,
             serverID:  message.guild.id
         }
-        profileModel.findOne(params, async(err, data) => {
-            if(data) {
-                const getFish = Object.keys(data.inventory).includes(randomFish);
-                if(!getFish) {
-                    data.inventory[randomFish] = 1;
-                } else {
-                    data.inventory[randomFish]++;
-                }
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id,
-                },
-                {
-                    $inc: {
-                        coins: fishPrice,
+        if(!profileData.inventory === "fishing rod") {
+            return message.channel.send('What the hell? Are you going to fish with your hands? Get a rod....')
+        } else if (profileData.inventory === "fishing rod") {
+            profileModel.findOne(params, async(err, data) => {
+                if(data) {
+                    const getFish = Object.keys(data.inventory).includes(randomFish);
+                    if(!getFish) {
+                        data.inventory[randomFish] = 1;
+                    } else {
+                        data.inventory[randomFish]++;
                     }
-                }, data);
-                message.reply(`You fished a ${fish[randomFish]} and got ${fishPrice}`);
-            }
-        })
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id,
+                    },
+                    {
+                        $inc: {
+                            coins: fishPrice,
+                        }
+                    }, data);
+                    message.reply(`You fished a ${fish[randomFish]} and got ${fishPrice}`);
+                }
+            })
+        }
     }
 }
