@@ -6,7 +6,6 @@ module.exports = {
     description: 'Square Up Bitch',
     async execute(message, args, cmd, client, Discord, profileData) {
         let user = message.mentions.users.first()
-        let amount = args[1]
         if(!user) {
             return message.channel.send('You need to tell me who to pay at least bruh');
         }
