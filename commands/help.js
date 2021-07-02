@@ -33,7 +33,8 @@ module.exports = {
         !fish \n
         !rob \n
         !hunt \n
-        !search \n`);
+        !search \n
+        !pay \n`);
         
         message.author.send(Embed);
     }
