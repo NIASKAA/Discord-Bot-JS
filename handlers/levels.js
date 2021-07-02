@@ -13,7 +13,6 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
     try{
         const result = await profileModel.findOneAndUpdate({
             userID: message.author.id,
-            serverID: member.guild.id
         },
         {
             $inc: {
@@ -33,8 +32,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             message.reply(`You are now level ${level}`)
 
             await profileModel.updateOne({
-                userID: message.author.id,
-                serverID: member.guild.id
+                userID: message.author.id
             },
             {
                 level,
