@@ -8,21 +8,36 @@ module.exports = {
         const itemToSell = arg;
 
         if(itemToSell === "borgor") {
-            itemPrice = 10
-            await profileModel.updateMany({
+            profileModel.findOne({ 
                 userID: message.author.id,
-            },
-            {
-                $inc: {
-                    coins: itemPrice,
-                },
-                $pull: {
-                    inventory: itemToSell
-                }
-            },
-            {
-                upsert: true
-            });
+            })
+
+            twofewercoins = {
+                $subtract:[
+                    "$coins",10
+                ]}
+            onefewerborgor = { 
+                $reduce : { 
+                    input: "$inventory", 
+            initialValue: {
+                stilllooking:true, 
+                i:[] 
+            } , 
+            in :{ $cond  :
+                {  if: 
+                    {$and : 
+                        [{$eq : 
+                            [
+                                "$$this","borgor"
+                        ]},
+                            "$$value.stilllooking"
+                        ]} , 
+                          then: {stilllooking:false, i:"$$value.i"},
+                          else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
+
+
+            changes = [{$set : { coins: twofewercoins , inventory: onefewerborgor }},{$set: {inventory:"$inventory.i"}}]
+            profileModel.updateOne({userID: message.author.id},changes)
         } else if(itemToSell === "fishing rod") {
             itemPrice = 90
             await profileModel.updateMany({
@@ -59,4 +74,5 @@ module.exports = {
     
         message.reply(`You sold ${itemToSell}`)
     }
+    
 };
