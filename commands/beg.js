@@ -14,6 +14,6 @@ module.exports = {
                 coins: randomNumber, 
             }
         });
-        return message.channel.send(`${message.author.id} begged and received ${randomNumber}`);
+        return message.channel.send(`You begged and received ${randomNumber}`);
     },
 };

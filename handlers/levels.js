@@ -21,7 +21,6 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
         },
         {
             upsert: true,
-            new: true
         })
         let {xp, level} = result
         const needed = getXp(level)
