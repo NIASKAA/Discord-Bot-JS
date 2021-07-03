@@ -309,7 +309,7 @@ module.exports = {
             await profileModel.findOneAndUpdate({
                 userID: message.author.id
             }, changes)
-        } else if (itemToSell === "cooper") {
+        } else if (itemToSell === "copper") {
             addMoreCoins = {
                 $add:[
                     "$coins",100
