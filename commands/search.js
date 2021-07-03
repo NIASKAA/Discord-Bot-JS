@@ -3,7 +3,7 @@ const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: "search",
-    cooldown: 5000,
+    cooldown: 900,
     description: 'Search an area for some coins',
     execute(message, args, cmd, client, Discord, profileData) {
       const locations = [
