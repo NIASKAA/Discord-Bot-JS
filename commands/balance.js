@@ -11,7 +11,6 @@ module.exports = {
                 On you: ${profileData.coins} \n
                 Bank: ${profileData.bank} \n
                 Inventory: ${profileData.inventory} \n
-                Level: ${profileData.level}   \n
             `)
             message.channel.send(Embed);
     }

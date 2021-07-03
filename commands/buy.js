@@ -36,10 +36,14 @@ module.exports = {
                     $inc: {
                         coins: -itemPrice,
                     },
-                    $set: {
+                    $push: {
                         inventory: itemToBuy
                     }
-                });
+                },
+                {
+                    upsert: true
+                }
+                );
             
             message.reply(`You bought ${itemToBuy}`)
         })
