@@ -328,7 +328,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","cooper"
+                                "$$this","copper"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
