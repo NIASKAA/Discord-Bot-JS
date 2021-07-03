@@ -56,7 +56,7 @@ module.exports = {
                 $add:[
                     "$coins",100
                 ]}
-            onefewerbfishingrod = { 
+            onefewerItem = { 
                 $reduce : { 
                     input: "$inventory", 
             initialValue: {
@@ -82,7 +82,7 @@ module.exports = {
                 $set : 
                 { 
                     coins: addMoreCoins, 
-                    inventory: onefewerfishingRod
+                    inventory: onefewerItem
                 }
             },
             {
