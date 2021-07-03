@@ -6,10 +6,11 @@ module.exports = {
     description: 'Square Up Bitch',
     async execute(message, args, cmd, client, Discord, profileData) {
         let user = message.mentions.users.first()
+        let author = message.author.id
         if(!user) {
             return message.channel.send('You need to tell me who to pay at least bruh');
         }
-        if(profileData.coins < 0) {
+        if(author.coins < 0) {
             return message.channel.send(`${user} is broke af and don't have anything left`)
         }
         script = [
