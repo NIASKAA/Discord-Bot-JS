@@ -2,7 +2,7 @@ const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: 'mine',
-    cooldown: 60,
+    cooldown: 100,
     description: 'Go mine for some ores',
     async execute(message, args, cmd, client, Discord, profileData) {
         ores = ['iron', 'cooper', 'gold', 'ruby', 'sapphire', 'amethyst', 'diamond', 'emerald']
