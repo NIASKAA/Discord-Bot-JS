@@ -2,7 +2,7 @@ const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: 'fight',
-    cooldown: 2000,
+    cooldown: 600,
     description: 'Square Up Bitch',
     async execute(message, args, cmd, client, Discord, profileData) {
         let user = message.mentions.users.first()

@@ -2,7 +2,7 @@ const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: 'daily',
-    cooldown: 86400,
+    cooldown: 84000,
     description: 'claim your daily money',
     async execute(message, args, cmd, client, Discord, profileData) {
         const DailyCoins = Math.floor(Math.random() * 200) + 1;

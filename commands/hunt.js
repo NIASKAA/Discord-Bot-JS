@@ -2,7 +2,7 @@ const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: 'hunt',
-    cooldown: 3000,
+    cooldown: 900,
     description: 'Hunt in the wild',
     async execute(message, args, cmd, client, Discord, profileData) {
         if(profileData.inventory.find((x) => x.toLowerCase() === "gun") === undefined ) {
