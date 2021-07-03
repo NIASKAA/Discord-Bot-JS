@@ -18,9 +18,6 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             $inc: {
                 xp: xpToAdd
             },
-        },
-        {
-            upsert: true,
         })
         let {xp, level} = result
         const needed = getXp(level)

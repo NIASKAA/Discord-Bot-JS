@@ -39,9 +39,6 @@ module.exports = {
                     $set: {
                         inventory: itemToBuy
                     }
-                },
-                {
-                    upsert: true
                 });
             
             message.reply(`You bought ${itemToBuy}`)
