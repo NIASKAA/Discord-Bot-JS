@@ -22,28 +22,21 @@ module.exports = {
             serverID: message.guild.id
         }
         profileModel.findOne(params, async(err, data) => {
-            
-                const hasItem = Object.keys(data.inventory).includes(itemToBuy);
-                if(!hasItem) {
-                    data.inventory[itemToBuy] = 1;
-                } else {
-                    data.inventory[itemToBuy]++;
-                }
-                await profileModel.updateMany({
-                    userID: message.author.id,
+            await profileModel.updateMany({
+                userID: message.author.id,
+            },
+            {
+                $inc: {
+                    coins: -itemPrice,
                 },
-                {
-                    $inc: {
-                        coins: -itemPrice,
-                    },
-                    $push: {
-                        inventory: itemToBuy
-                    }
-                },
-                {
-                    upsert: true
+                $push: {
+                    inventory: itemToBuy
                 }
-                );
+            },
+            {
+                upsert: true
+            }
+            );
             
             message.reply(`You bought ${itemToBuy}`)
         })
