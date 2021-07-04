@@ -61,7 +61,6 @@ module.exports = async (Discord, client, message) => {
         "MANAGE_EMOJIS",
     ]
     
-    
     const args = message.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
 
