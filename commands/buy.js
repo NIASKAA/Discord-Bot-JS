@@ -19,7 +19,6 @@ module.exports = {
 
         const params = {
             userID: message.author.id,
-            serverID: message.guild.id
         }
         profileModel.findOne(params, async(err, data) => {
             await profileModel.updateMany({
