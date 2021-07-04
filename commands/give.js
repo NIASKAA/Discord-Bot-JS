@@ -7,7 +7,7 @@ module.exports = {
         if(!args.length) return message.channel.send('You need to mention a player to give them coins brah');
         const give = message.author.id
         const permissions = give.permissionsFor(message.client.user);
-        if (!permissions.has('ADMINISTRATOR')) return message.channel.send('You dont have the correct permissins');
+        if (!permissions.has('ADMINISTRATOR')) return message.channel.send('ADMIN POWER BABY');
         const amount = args[1];
         const target = message.mentions.users.first();
         if(!target) return message.channel.send('User does not exist brah');
