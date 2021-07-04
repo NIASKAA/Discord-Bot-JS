@@ -60,20 +60,7 @@ module.exports = async (Discord, client, message) => {
         "MANAGE_WEBHOOKS",
         "MANAGE_EMOJIS",
     ]
-    if(command.permissions.length) {
-        let invalidPerms = []
-        for(const perm of command.permissions) {
-            if(!validPermissions.includes(perm)) {
-                return console.log(`Invalid Permissions ${perm}`)
-            }
-            if(!message.member.hasPermissions(perm)) {
-                invalidPerms.push(perm);
-            }
-        }
-        if(invalidPerms.length) {
-            return message.channel.send(`You are not admin brah`);
-        }
-    }
+    
     
     const args = message.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
