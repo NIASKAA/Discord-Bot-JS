@@ -8,7 +8,7 @@ module.exports = {
         if(profileData.inventory.find((x) => x.toLowerCase() === "pickaxe") === undefined ) {
             return message.channel.send('What are you doing bruv? Mining with your hands? Go buy a pickaxe mate')
         }
-        ores = ['iron', 'cooper', 'gold', 'ruby', 'sapphire', 'amethyst', 'diamond', 'emerald']
+        ores = ['iron', 'copper', 'gold', 'ruby', 'sapphire', 'amethyst', 'diamond', 'emerald']
         const randomOres = Math.floor((Math.random() * ores.length));
       
         params = {
