@@ -26,6 +26,23 @@ module.exports = async (Discord, client, message) => {
     } catch(err) {
         console.log(err);
     }
+
+    const validPermissions = [
+        "CREATE_INSTANT_INVITE",
+        "KICK_MEMBERS",
+        "BAN_MEMBERS",
+        "ADMINISTRATOR",
+        "MANAGE_CHANNELS",
+        "MANAGE_GUILD",
+        "ADD_REACTIONS",
+        "VIEW_AUDIT_LOG",
+        "PRIORITY_SPEAKER",
+        "STREAM",
+        "VIEW_CHANNEL",
+        "SEND_MESSAGES",
+        "SEND_TTS_MESSAGES",
+        ""
+    ]
     const args = message.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
 

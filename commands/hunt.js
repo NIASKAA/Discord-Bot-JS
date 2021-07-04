@@ -36,7 +36,6 @@ module.exports = {
         const animalPrice = Math.floor((Math.random() * 500) + 1);
         params = {
             userID: message.author.id,
-            serverID:  message.guild.id
         }
         
         
