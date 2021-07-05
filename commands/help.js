@@ -48,7 +48,7 @@ module.exports = {
         .setFooter(`Page: ${page} / ${pages.length}`)
         .setDescription(pages[page - 1])
         let msg = await message.channel.send(Embed)
-            
+        await msg.react("⬅️");
         await msg.react("➡️");
 
         if(pages.length === 1) return;
