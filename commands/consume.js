@@ -8,6 +8,7 @@ module.exports = {
         const arg = args.join(" ")
         if(!arg) return message.reply('Tell me what to consume...');
         const itemToUse = arg;
+        
         if(itemToUse === "borgor") {
             addHealth = {
                 $add:[

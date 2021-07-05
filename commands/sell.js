@@ -8,7 +8,12 @@ module.exports = {
         const arg = args.join(" ")
         const itemToSell = arg;
         if(!itemToSell) return message.reply("At least tell me what to sell...")
+        
+
         if(itemToSell === "borgor") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "borgor") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",10
@@ -52,6 +57,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if(itemToSell === "fishing rod") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "fishing rod") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",100
@@ -95,6 +103,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "off white t shirt") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "off white t shirt") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",400
@@ -138,6 +149,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "civic") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "civic") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",15000
@@ -181,6 +195,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "civic type r") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "civic type r") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",40000
@@ -224,6 +241,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "diamond") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "diamond") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins", 1200
@@ -267,6 +287,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "iron") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "iron") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",150
@@ -310,6 +333,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "copper") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "copper") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",100
@@ -353,6 +379,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "gold") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "gold") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",600
@@ -396,6 +425,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "ruby") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "ruby") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",500
@@ -439,6 +471,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "sapphire") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "sapphire") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",500
@@ -482,6 +517,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "amethyst") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "amethyst") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",400
@@ -525,6 +563,9 @@ module.exports = {
                 userID: message.author.id
             }, changes)
         } else if (itemToSell === "emerald") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "emerald") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
             addMoreCoins = {
                 $add:[
                     "$coins",1600
