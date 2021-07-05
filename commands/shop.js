@@ -13,7 +13,7 @@ module.exports = {
         });
 
         const foodList = food.map((value, index) => {
-            return `${index + 1} ${value.item} -> ${value.price} coins`
+            return `${index + 1} ${value.items} -> ${value.price} coins`
         });
 
         const Embed = new MessageEmbed()

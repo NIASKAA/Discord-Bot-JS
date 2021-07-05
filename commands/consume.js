@@ -57,7 +57,7 @@ module.exports = {
             await profileModel.findOneAndUpdate({
                 userID: message.author.id
             }, changes)
-        } else if(itemToSell === "ramen") {
+        } else if(itemToUse === "ramen") {
             addHealth = {
                 $add:[
                     "$healthP", 60,
@@ -105,6 +105,7 @@ module.exports = {
             await profileModel.findOneAndUpdate({
                 userID: message.author.id
             }, changes)
-        
+            
+            message.reply(`You used a ${itemToUse}!`)
     }
 };
