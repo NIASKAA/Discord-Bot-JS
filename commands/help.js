@@ -49,11 +49,11 @@ module.exports = {
         .setFooter(`Page: ${page} / ${pages.length}`)
         .setDescription(pages[page - 1])
         let msg = await message.author.send(Embed)
+        await msg.react("➡️");
+        await msg.react("⬅️");
 
         if(pages.length === 1) return;
 
-        await msg.react("➡️");
-        await msg.react("⬅️");
 
         const rightFilter = (reaction, user) => reaction.emoji.name === "➡️" && user.id === message.author.id;
         const leftFilter = (reaction, user) => reaction.emoji.name === "⬅️" && user.id === message.author.id;
