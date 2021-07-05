@@ -1,4 +1,4 @@
-const profileModel = require('../models/profileSchema');
+/*const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: "give",
@@ -28,4 +28,4 @@ module.exports = {
             console.log(err);
         }
     }
-}
+}*/
