@@ -6,14 +6,12 @@ module.exports = {
     async execute(message, args, cmd, client, Discord, profileData) {
         let list1 =(`
         Basic Commands: \n
-        !ping \n
         !play \n
         !stop \n
         !skip \n
         !leave \n
         !price \n
         !news \n
-        !help \n
         !jokes \n
         !roast \n
         !wey \n
@@ -48,7 +46,7 @@ module.exports = {
         .setColor("RED")
         .setFooter(`Page: ${page} / ${pages.length}`)
         .setDescription(pages[page - 1])
-        let msg = await message.author.send(Embed)
+        let msg = await message.channel.send(Embed)
         await msg.react("➡️");
         await msg.react("⬅️");
 
