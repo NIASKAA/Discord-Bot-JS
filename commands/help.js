@@ -38,6 +38,7 @@ module.exports = {
         list3 =(`
         RPG Commands \n
         Under Development \n
+        !venture \n
         `)
 
         let pages = [list1, list2, list3]

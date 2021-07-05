@@ -2,7 +2,7 @@ const profileModel = require('../models/profileSchema');
 const items = require('../models/consumable');
 
 module.exports = {
-    name: 'consume',
+    name: 'eat',
     description: 'Replenish yourself young one',
     async execute(message, args, cmd, client, Discord, profileData) {
         const arg = args.join(" ")

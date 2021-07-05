@@ -2,6 +2,7 @@ const profileModel = require('../models/profileSchema');
 
 module.exports = {
     name: "give",
+    permissions: ["ADMINISTRATOR"],
     description: "Give a user some money",
     async execute(message, args, cmd, client, Discord, profileData) {
         if(!args.length) return message.channel.send('You need to mention a player to give them coins brah');
