@@ -9,8 +9,8 @@ module.exports = async(client, Discord, member) => {
         inventory: [],
         xp: 0,
         level: 1,
-        health: 100,
-        mana: 100
+        healthP: 100,
+        manaP: 100
     });
     profile.save();
 }
