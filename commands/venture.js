@@ -27,7 +27,7 @@ module.exports = {
             let newLocation = randomLocation.name
             Embed
             .setTitle('Status...')
-            .setDescription(`Moved to ${randomLocation.name} with ${randomLocation.enemies} enemies`)
+            .setDescription(`Moved to ${randomLocation.name}.`)
             .setImage(`${randomLocation.image}`)
             msg.edit(Embed)
             params = {
@@ -46,6 +46,7 @@ module.exports = {
                     upsert: true
                 });
             })
+            //await battleAI.run(message, args, cmd, client, Discord, profileData);
         })
 
         no.on("collect", erase => {

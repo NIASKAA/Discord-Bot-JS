@@ -43,7 +43,7 @@ module.exports = {
         const Embed = new Discord.MessageEmbed()
           .setColor("#ffa500")
           .setTitle(`${message.author.username} searched a ${m.content} 🕵️`)
-          .setDescription(`You found ₿${randomNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
+          .setDescription(`You found ${randomNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
           .setFooter(`A true detective you are.`);
   
         await profileModel.findOneAndUpdate(
