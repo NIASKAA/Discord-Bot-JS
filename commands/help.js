@@ -32,11 +32,12 @@ module.exports = {
         !hunt \n
         !search \n
         !pay \n
+        !fight \n
         `)
 
         list3 =(`
         RPG Commands \n
-        Under Development
+        Under Development \n
         `)
 
         let pages = [list1, list2, list3]
@@ -47,8 +48,8 @@ module.exports = {
         .setFooter(`Page: ${page} / ${pages.length}`)
         .setDescription(pages[page - 1])
         let msg = await message.channel.send(Embed)
+            
         await msg.react("➡️");
-        await msg.react("⬅️");
 
         if(pages.length === 1) return;
 

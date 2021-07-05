@@ -3,7 +3,7 @@ module.exports = (client, Discord) => {
     client.on('message', (message) => {
         const {guild, member} = message
 
-        addXP(member.id, 23, message) 
+        addXP(guild.id, member.id, 23, message) 
     })
 }
 
