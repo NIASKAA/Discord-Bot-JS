@@ -53,7 +53,7 @@ module.exports = {
             Embed
             .setTitle('Status...')
             .setDescription("Going back home")
-            .setImage('https://imgur.com/si7QsRB')
+            .setImage('https://imgur.com/si7QsRB.png')
             msg.edit(Embed)
             params = {
                 userID: message.author.id,
