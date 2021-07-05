@@ -14,6 +14,7 @@ module.exports = {
                 Level: ${profileData.level} \n
                 Health: ${profileData.healthP} \n
                 Mana: ${profileData.manaP} \n
+                Location: ${profileData.location} \n
             `)
             message.channel.send(Embed);
     }

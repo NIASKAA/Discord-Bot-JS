@@ -20,6 +20,6 @@ module.exports = [{
     name: 'castle',
     difficulty: 8,
     type: 'forest',
-    enemies: 11
+    enemies: 4
   }
   ]

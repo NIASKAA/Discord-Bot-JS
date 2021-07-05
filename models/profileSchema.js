@@ -9,7 +9,8 @@ const profileSchema = new mongoose.Schema({
     xp: {type: Number, default: 0},
     level: {type: Number, default: 1},
     healthP: {type: Number, default: 100, minimum: 0, maximum: 100},
-    manaP: {type: Number, default: 100, minimum: 0, maximum: 100}
+    manaP: {type: Number, default: 100, minimum: 0, maximum: 100},
+    location: {type: Array, default: 'home'}
 })
 
 const model = mongoose.model('ProfileModels', profileSchema);
