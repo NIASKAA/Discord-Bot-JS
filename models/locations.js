@@ -1,4 +1,5 @@
-module.exports = [{
+module.exports = [
+  {
     name: 'hut',
     difficulty: 1,
     type: 'grasslands',

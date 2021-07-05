@@ -1,11 +1,13 @@
 const profileModel = require('../models/profileSchema');
 const locations = require('../models/locations');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'venture',
     description: 'Adventure time',
     async execute(message, args, cmd, client, Discord, profileData) {
         const randomLocation = locations[Math.floor(Math.random() * locations.length)]
+        const goHome = 'home'
         const Embed = new MessageEmbed()
         .setColor("YELLOW")
         .setDescription(`Will you venture into ${randomLocation.name}?`)
@@ -14,7 +16,7 @@ module.exports = {
         await msg.react('✅');
         await msg.react('❌');
 
-        const yesReact = (reaction, user) => reaction.emoji.name === "✅'" && user.id === message.author.id;
+        const yesReact = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
         const noReact = (reaction, user) => reaction.emoji.name === "❌" && user.id === message.author.id;
         
         const yes = msg.createReactionCollector(yesReact, {time: 900000, dispose: true});
@@ -22,36 +24,52 @@ module.exports = {
 
         yes.on("collect", erase => {
             erase.users.remove(message.author.id);
-            
+            let newLocation = randomLocation.name
             Embed
+            .setTitle('Status...')
             .setDescription(`Moved to ${randomLocation.name} with ${randomLocation.enemies} enemies`)
-            await profileModel.findOneAndUpdate(
-                {
+            msg.edit(Embed)
+            params = {
+                userID: message.author.id,
+            }
+            profileModel.findOne(params, async(err, data) => {
+                await profileModel.updateMany({
                     userID: message.author.id,
                 },
                 {
                     $set: {
-                        location: randomLocation.name
+                        location: newLocation
                     },
+                },
+                {
+                    upsert: true
                 });
-            msg.edit(Embed)
+            })
         })
 
         no.on("collect", erase => {
             erase.users.remove(message.author.id);
-            let goHome = "home"
             Embed
+            .setTitle('Status...')
             .setDescription("Going back home")
-            await profileModel.findOneAndUpdate(
-                {
+            msg.edit(Embed)
+            params = {
+                userID: message.author.id,
+            }
+            profileModel.findOne(params, async(err, data) => {
+                await profileModel.updateMany({
                     userID: message.author.id,
                 },
                 {
                     $set: {
                         location: goHome
                     },
+                },
+                {
+                    upsert: true
                 });
-            msg.edit(Embed)
+            })
+            
         })
     }
 }
