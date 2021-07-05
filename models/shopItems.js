@@ -1,9 +1,5 @@
 module.exports = [
     {
-        item: "borgor",
-        price: 10
-    },
-    {
         item: "fishing rod",
         price: 100
     },
@@ -34,9 +30,5 @@ module.exports = [
     {
         item: "house",
         price: 100000
-    },
-    {
-        item: "mansion",
-        price: 1000000
     }
 ];

@@ -12,6 +12,8 @@ module.exports = {
                 Bank: ${profileData.bank} \n
                 Inventory: ${profileData.inventory} \n
                 Level: ${profileData.level} \n
+                Health: ${profileData.healthP} \n
+                Mana: ${profileData.manaP} \n
             `)
             message.channel.send(Embed);
     }
