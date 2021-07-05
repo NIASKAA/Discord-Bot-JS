@@ -28,6 +28,7 @@ module.exports = {
             Embed
             .setTitle('Status...')
             .setDescription(`Moved to ${randomLocation.name} with ${randomLocation.enemies} enemies`)
+            .setImage(`${randomLocation.image}`)
             msg.edit(Embed)
             params = {
                 userID: message.author.id,
@@ -52,6 +53,7 @@ module.exports = {
             Embed
             .setTitle('Status...')
             .setDescription("Going back home")
+            .setImage('https://ibb.co/DGX1s37')
             msg.edit(Embed)
             params = {
                 userID: message.author.id,

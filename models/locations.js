@@ -3,24 +3,28 @@ module.exports = [
     name: 'hut',
     difficulty: 1,
     type: 'grasslands',
-    enemies: 2
+    enemies: 2,
+    image: 'https://ibb.co/DGX1s37'
   },
   {
-    name: 'hole',
+    name: 'random town',
     difficulty: 1,
-    type: 'grasslands',
-    enemies: 1
+    type: 'town',
+    enemies: 0,
+    image: "https://ibb.co/g71hBzC"
   },
   {
-    name: 'mud hut',
+    name: 'dungeon',
     difficulty: 1,
     type: 'grasslands',
-    enemies: 3
+    enemies: 3,
+    image: "https://ibb.co/4WHGt70"
   },
   {
     name: 'castle',
     difficulty: 8,
     type: 'forest',
-    enemies: 4
+    enemies: 4,
+    image: 'https://ibb.co/NTpHgP1'
   }
   ]
