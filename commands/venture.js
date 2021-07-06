@@ -1,7 +1,7 @@
 const profileModel = require('../models/profileSchema');
 const locations = require('../models/locations');
 const { MessageEmbed } = require('discord.js');
-
+const battleAI = require('../commands/battleAI');
 module.exports = {
     name: 'venture',
     description: 'Adventure time',
@@ -22,7 +22,7 @@ module.exports = {
         const yes = msg.createReactionCollector(yesReact, {time: 900000, dispose: true});
         const no = msg.createReactionCollector(noReact, {time: 900000, dispose: true});
 
-        yes.on("collect", erase => {
+        yes.on("collect", async (erase) => {
             erase.users.remove(message.author.id);
             let newLocation = randomLocation.name
             Embed
@@ -46,7 +46,7 @@ module.exports = {
                     upsert: true
                 });
             })
-            //await battleAI.run(message, args, cmd, client, Discord, profileData);
+            await battleAI.run(message, args, cmd, client, Discord, profileData);
         })
 
         no.on("collect", erase => {

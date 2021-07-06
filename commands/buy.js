@@ -16,11 +16,6 @@ module.exports = {
 
         const itemPrice = itemList.find((val) => val.item.toLowerCase() === itemToBuy).price;
 
-        const validFood = !!foodItem.find((val) => val.items.toLowerCase() === itemToBuy);
-        if(!validFood) return message.reply('THe item is not valid')
-
-        const foodPrice = foodItem.find((val) => val.items.toLowerCase() === itemToBuy).price;
-
         if(profileData.coins < itemPrice) return message.reply("You don't have enough money!");
 
         const params = {

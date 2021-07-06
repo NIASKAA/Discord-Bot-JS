@@ -1,28 +1,28 @@
 module.exports = [
   {
     name: 'grassland',
-    difficulty: 1,
+    difficulty: 3,
     type: 'grasslands',
-    enemies: 2,
-    image: 'https://imgur.com/a/jKArEfC.png'
+    enemies: 4,
+    image: "https://imgur.com/ZhB1xIK.png"
   },
   {
-    name: 'random town',
-    difficulty: 1,
+    name: 'ghost town',
+    difficulty: 3,
     type: 'town',
-    enemies: 0,
-    image: "https://imgur.com/ECILIei.png"
+    enemies: 4,
+    image: "https://imgur.com/hFsWb3S.png"
   },
   {
     name: 'dungeon',
-    difficulty: 1,
-    type: 'grasslands',
-    enemies: 3,
+    difficulty: 3,
+    type: 'jungle',
+    enemies: 4,
     image: "https://imgur.com/UrnbBBZ.png"
   },
   {
     name: 'castle',
-    difficulty: 8,
+    difficulty: 6,
     type: 'forest',
     enemies: 4,
     image: 'https://imgur.com/1N2o9xJ.png'

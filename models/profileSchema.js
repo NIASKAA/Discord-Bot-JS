@@ -10,7 +10,9 @@ const profileSchema = new mongoose.Schema({
     level: {type: Number, default: 1},
     healthP: {type: Number, default: 100, minimum: 0, maximum: 100},
     manaP: {type: Number, default: 100, minimum: 0, maximum: 100},
-    location: {type: Array, default: 'home'}
+    location: {type: Array, default: 'home'},
+    weapon: {type: Array},
+    damage: {type: Number}
 })
 
 const model = mongoose.model('ProfileModels', profileSchema);
