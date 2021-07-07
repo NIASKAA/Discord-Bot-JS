@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const food = require('../../models/consumable');
 const items = require('../../models/shopItems');
+const weapon = require('../../models/weapon');
 
 module.exports = {
     name: 'shop',
@@ -16,6 +17,10 @@ module.exports = {
             return `${index + 1} ${value.items} -> ${value.price} coins`
         });
 
+        const weaponList = weapon.map((value, index) => {
+            return `${index + 1} ${value.name} -> ${value.price} coins`
+        });
+
         const Embed = new MessageEmbed()
         .setColor("GREEN")
         .setTitle("Shop Items List")
@@ -28,5 +33,11 @@ module.exports = {
         .setTitle("Food Items List")
         .setDescription(foodList)
         message.channel.send(Embed2);
+
+        const Embed3 = new MessageEmbed()
+        .setColor("GREEN")
+        .setTitle("Weapon List")
+        .setDescription(weaponList)
+        message.channel.send(Embed3);
     },
 }
