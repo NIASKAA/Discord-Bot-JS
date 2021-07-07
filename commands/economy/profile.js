@@ -28,8 +28,9 @@ module.exports = {
 
         const Embed = new MessageEmbed()
         .setColor("RED")
-        .setFooter(`Page: ${page} / ${pages.length}`)
+        .setAuthor(`Profile: ${message.author.username}`, message.author.displayAvatarURL())
         .setDescription(pages[page - 1])
+        .setFooter(`Page: ${page} / ${pages.length}`)
         let msg = await message.channel.send(Embed)
         await msg.react("⬅️");
         await msg.react("➡️");

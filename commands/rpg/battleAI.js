@@ -1,10 +1,6 @@
 const profileModel = require('../../models/profileSchema')
 const { MessageEmbed } = require('discord.js');
-const weapons = require('../../models/enemyWeapon')
-const locations = require('../../models/locations')
-const enemyList = require('../../models/enemyList');
 const Enemy = require('../../classes/enemy');
-const weapon = require('../../models/weapon');
 const utils = require('../../events/utils');
 
 module.exports.run = async(message, args, cmd, client, Discord, profileData) => {
@@ -189,7 +185,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 new: true
             })
             battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-
         })
 
         blizzard.on("collect", async (erase) => {
