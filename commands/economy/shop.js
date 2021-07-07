@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const food = require('../models/consumable');
-const items = require('../models/shopItems');
+const food = require('../../models/consumable');
+const items = require('../../models/shopItems');
 
 module.exports = {
     name: 'shop',

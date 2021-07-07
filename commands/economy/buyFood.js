@@ -1,5 +1,5 @@
-const profileModel = require('../models/profileSchema');
-const foodItem = require('../models/consumable');
+const profileModel = require("../../models/profileSchema");
+const foodItem = require("../../models/consumable");
 
 module.exports = {
     name: 'buyFood',

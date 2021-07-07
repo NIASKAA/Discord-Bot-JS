@@ -27,6 +27,8 @@ module.exports = {
         !work \n
         !shop \n 
         !buy \n
+        !bf (buy food) \n
+        !armory \n
         !fish \n
         !rob \n
         !hunt \n
@@ -37,8 +39,9 @@ module.exports = {
 
         list3 =(`
         RPG Commands \n
-        Under Development \n
         !venture \n
+        !goHome \n
+        !eat \n
         `)
 
         let pages = [list1, list2, list3]

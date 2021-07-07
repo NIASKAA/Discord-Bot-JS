@@ -1,5 +1,5 @@
-const profileModel = require('../models/profileSchema');
-const items = require('../models/shopItems');
+const profileModel = require('../../models/profileSchema');
+const items = require('../../models/shopItems');
 
 module.exports = {
     name: 'sell',

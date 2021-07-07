@@ -1,11 +1,11 @@
-const profileModel = require('../models/profileSchema')
+const profileModel = require('../../models/profileSchema')
 const { MessageEmbed } = require('discord.js');
-const weapons = require('../models/enemyWeapon')
-const locations = require('../models/locations')
-const enemyList = require('../models/enemyList');
-const Enemy = require('../classes/enemy');
-const weapon = require('../models/weapon');
-const utils = require('../events/utils');
+const weapons = require('../../models/enemyWeapon')
+const locations = require('../../models/locations')
+const enemyList = require('../../models/enemyList');
+const Enemy = require('../../classes/enemy');
+const weapon = require('../../models/weapon');
+const utils = require('../../events/utils');
 
 module.exports.run = async(message, args, cmd, client, Discord, profileData) => {
     let weaponDamage = profileData.damage

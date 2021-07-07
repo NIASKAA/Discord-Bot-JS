@@ -1,11 +1,17 @@
-const profileModel = require('../models/profileSchema');
-const locations = require('../models/locations');
+const profileModel = require('../../models/profileSchema');
+const locations = require('../../models/locations');
 const { MessageEmbed } = require('discord.js');
-const battleAI = require('../commands/battleAI');
+const battleAI = require('../rpg/battleAI');
 module.exports = {
     name: 'venture',
     description: 'Adventure time',
     async execute(message, args, cmd, client, Discord, profileData) {
+        if(profileData.healthP < 0) {
+            return message.channel.send('Bro your health is like almost 0. Go heal up.')
+        }
+        if(profileData.weapon.length === 0) {
+            return message.channel.send("Bruh, get a weapon")
+        }
         const randomLocation = locations[Math.floor(Math.random() * locations.length)]
         const goHome = 'home'
         const Embed = new MessageEmbed()
