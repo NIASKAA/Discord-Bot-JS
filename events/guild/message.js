@@ -23,7 +23,9 @@ module.exports = async (Discord, client, message) => {
                 manaP: 100,
                 location: ['home'],
                 weapon: [],
-                damage: 0
+                damage: 0,
+                spells: [],
+                mDamage: 0
             });
             profile.save();
         }

@@ -41,6 +41,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
     } catch(err) {
         console.log(err);
     }
+    // await appSpell.run()
 }
 
 module.exports.addXP = addXP

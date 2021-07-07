@@ -9,8 +9,13 @@ const utils = require('../../events/utils');
 
 module.exports.run = async(message, args, cmd, client, Discord, profileData) => {
     let weaponDamage = profileData.damage
+    let magicDamage = profileData.mDamage
     const goHome = 'home'
     let enemy = new Enemy();
+    let userLuck = Math.floor(Math.random() *3)
+    let enemyLuck = Math.floor(Math.random() *2)
+    let userCrit = Math.random()
+    let critChance= Math.random()
 
     const question = `You find yourself in front of a ${enemy.name} with ${enemy.health} health and a ${enemy.weaponName}! Will you confront it?`
     const Embed = new MessageEmbed()
@@ -68,13 +73,27 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
         let battleMsg = await message.channel.send(Embed2)
 
         await battleMsg.react('🗡️')
-        //await battleMsg.react('💧');
         //await battleMsg.react('🧪');
+        await battleMsg.react('🔥');
+        await battleMsg.react('❄️');
+        await battleMsg.react('⚡');
+        await battleMsg.react('☠️');
         await battleMsg.react('👟')
 
         const attackReact = (reaction, user) => reaction.emoji.name === '🗡️' && user.id === message.author.id;
+        //const healReact = (reaction, user) => reaction.emoji.name === '🧪' && user.id === message.author.id;
+        const firaReact = (reaction, user) => reaction.emoji.name === '🔥' && user.id === message.author.id;
+        const blizzardReact = (reaction, user) => reaction.emoji.name === '❄️' && user.id === message.author.id;
+        const thundagaReact = (reaction, user) => reaction.emoji.name === '⚡' && user.id === message.author.id;
+        const deathReact = (reaction, user) => reaction.emoji.name === '☠️' && user.id === message.author.id;
         const fleeReact = (reaction, user) => reaction.emoji.name === '👟' && user.id === message.author.id;
+
         const attack = battleMsg.createReactionCollector(attackReact)
+        //const heal = battleMsg.createReactionCollector(healReact)
+        const fira = battleMsg.createReactionCollector(firaReact)
+        const blizzard = battleMsg.createReactionCollector(blizzardReact)
+        const thundaga= battleMsg.createReactionCollector(thundagaReact)
+        const death= battleMsg.createReactionCollector(deathReact)
         const flee = battleMsg.createReactionCollector(fleeReact)
 
         flee.on("collect", async (erase) => {
@@ -87,17 +106,356 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             message.channel.send(EmbedFlee);
             await utils.fightAgain(message, args, cmd, client, Discord, profileData)
         })
-        
+
+        fira.on("collect", async (erase) => {
+            erase.users.remove(message.author.id)
+            let currentHealth = await profileModel.findOne({userID: message.author.id})
+            let mana = 20
+            if(profileData.spells.find((x) => x.toLowerCase() === "fira") === undefined ) {
+                return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            if(currentHealth.manaP < 0) {
+                return battleMsg.edit(Embed2.setDescription("No mana"))
+            }
+            if(userLuck >= enemyLuck) {
+                if(userCrit <= critChance){
+                successAttack = `You attacked ${enemy.name} with fira for ${magicDamage}!`
+                enemy.health -= (magicDamage)
+                battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                } else {
+                    successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
+                    enemy.health -= (magicDamage* 2)
+                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                }
+            } else {
+                return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+
+            if(enemy.health <= 0) {
+                enemy.health = 0
+            }
+
+            if(enemy.health <= 0) {
+                attack.stop()
+                flee.stop()
+                enemy.health = 0
+                battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+                profileModel.updateOne({
+                    userID: message.author.id
+                },
+                {
+                    $inc: {
+                        xp: 100
+                    }
+                },
+                {
+                    new: true
+                })
+            }
+
+            if(profileData.healthP <= 0) {
+                attack.stop()
+                flee.stop()
+                battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+            }
+
+            let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
+            
+            if(Math.random < enemy.weaponAccuracy) {
+                if(Math.random() < enemy.weaponCritical) {
+                    enemyDamage *=2
+                    enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+
+                } else {
+                    enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                
+                }
+            } else {
+                enemyAction = `The ${enemy.name} misses!`
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            await profileModel.updateOne({
+                userID: message.author.id
+            },
+            {
+                $inc: {
+                    healthP: -enemyDamage,
+                    manaP: -mana
+                }
+            },
+            {
+                new: true
+            })
+            battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+
+        })
+
+        blizzard.on("collect", async (erase) => {
+            erase.users.remove(message.author.id)
+            let currentHealth = await profileModel.findOne({userID: message.author.id})
+            let mana = 30
+            if(profileData.spells.find((x) => x.toLowerCase() === "blizzard") === undefined ) {
+                return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            if(currentHealth.manaP < 0) {
+                return battleMsg.edit(Embed2.setDescription("No mana"))
+            }
+            if(userLuck >= enemyLuck) {
+                if(userCrit <= critChance){
+                successAttack = `You attacked ${enemy.name} with blizzard for ${magicDamage}!`
+                enemy.health -= (magicDamage)
+                battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                } else {
+                    successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
+                    enemy.health -= (magicDamage* 2)
+                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                }
+            } else {
+                return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+
+            if(enemy.health <= 0) {
+                enemy.health = 0
+            }
+
+            if(enemy.health <= 0) {
+                attack.stop()
+                flee.stop()
+                enemy.health = 0
+                battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+                profileModel.updateOne({
+                    userID: message.author.id
+                },
+                {
+                    $inc: {
+                        xp: 100
+                    }
+                },
+                {
+                    new: true
+                })
+            }
+
+            if(profileData.healthP <= 0) {
+                attack.stop()
+                flee.stop()
+                battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+            }
+
+            let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
+            
+            if(Math.random < enemy.weaponAccuracy) {
+                if(Math.random() < enemy.weaponCritical) {
+                    enemyDamage *=2
+                    enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+
+                } else {
+                    enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                
+                }
+            } else {
+                enemyAction = `The ${enemy.name} misses!`
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            await profileModel.updateOne({
+                userID: message.author.id
+            },
+            {
+                $inc: {
+                    healthP: -enemyDamage,
+                    manaP: -mana
+                }
+            },
+            {
+                new: true
+            })
+            battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+        })
+
+        thundaga.on("collect", async (erase) => {
+            erase.users.remove(message.author.id)
+            let currentHealth = await profileModel.findOne({userID: message.author.id})
+            let mana = 25
+            if(profileData.spells.find((x) => x.toLowerCase() === "thundaga") === undefined ) {
+                return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            if(currentHealth.manaP < 0) {
+                return battleMsg.edit(Embed2.setDescription("No mana"))
+            }
+            if(userLuck >= enemyLuck) {
+                let userCrit = Math.random()
+                let critChance= Math.random()
+                    if(userCrit <= critChance){
+                    successAttack = `You attacked ${enemy.name} with thundaga for ${magicDamage }!`
+                    enemy.health -= (magicDamage)
+                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                } else {
+                    successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
+                    enemy.health -= (magicDamage* 2)
+                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                }
+            } else {
+                return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+
+            if(enemy.health <= 0) {
+                enemy.health = 0
+            }
+
+            if(enemy.health <= 0) {
+                attack.stop()
+                flee.stop()
+                enemy.health = 0
+                battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+                profileModel.updateOne({
+                    userID: message.author.id
+                },
+                {
+                    $inc: {
+                        xp: 100
+                    }
+                },
+                {
+                    new: true
+                })
+            }
+
+            if(profileData.healthP <= 0) {
+                attack.stop()
+                flee.stop()
+                battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+            }
+
+            let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
+            
+            if(Math.random < enemy.weaponAccuracy) {
+                if(Math.random() < enemy.weaponCritical) {
+                    enemyDamage *=2
+                    enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+
+                } else {
+                    enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                   
+                }
+            } else {
+                enemyAction = `The ${enemy.name} misses!`
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            await profileModel.updateOne({
+                userID: message.author.id
+            },
+            {
+                $inc: {
+                    healthP: -enemyDamage,
+                    manaP: -mana
+                }
+            },
+            {
+                new: true
+            })
+            battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+        })
+
+        death.on("collect", async (erase) => {
+            erase.users.remove(message.author.id)
+
+            let currentHealth = await profileModel.findOne({userID: message.author.id})
+            let mana = 35
+
+            if(profileData.spells.find((x) => x.toLowerCase() === "death") === undefined ) {
+                return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            if(currentHealth.manaP < 0) {
+                return battleMsg.edit(Embed2.setDescription("No mana"))
+            }
+            if(userLuck >= enemyLuck) {
+                let userCrit = Math.random()
+                let critChance= Math.random()
+                    if(userCrit <= critChance){
+                    successAttack = `You attacked ${enemy.name} with death for ${magicDamage}!`
+                    enemy.health -= (magicDamage)
+                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                } else {
+                    successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
+                    enemy.health -= (weaponDamage * 2)
+                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                }
+            } else {
+                return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+
+            if(enemy.health <= 0) {
+                enemy.health = 0
+            }
+
+            if(enemy.health <= 0) {
+                attack.stop()
+                flee.stop()
+                enemy.health = 0
+                battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+                profileModel.updateOne({
+                    userID: message.author.id
+                },
+                {
+                    $inc: {
+                        xp: 100
+                    }
+                },
+                {
+                    new: true
+                })
+            }
+
+            if(profileData.healthP <= 0) {
+                attack.stop()
+                flee.stop()
+                battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+            }
+
+            let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
+            
+            if(Math.random < enemy.weaponAccuracy) {
+                if(Math.random() < enemy.weaponCritical) {
+                    enemyDamage *=2
+                    enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+
+                } else {
+                    enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                   
+                }
+            } else {
+                enemyAction = `The ${enemy.name} misses!`
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }
+            await profileModel.updateOne({
+                userID: message.author.id
+            },
+            {
+                $inc: {
+                    healthP: -enemyDamage,
+                    manaP: -mana
+                }
+            },
+            {
+                new: true
+            })
+            battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+        })
+
         attack.on("collect", async (erase) => {
             erase.users.remove(message.author.id);
-            let userLuck = Math.floor(Math.random() *3)
-            let enemyLuck = Math.floor(Math.random() *2)
             let currentHealth = await profileModel.findOne({userID: message.author.id})
 
             // Attack
             if(userLuck >= enemyLuck) {
-                let userCrit = Math.random()
-                let critChance= Math.random()
                     if(userCrit <= critChance){
                     successAttack = `You attacked ${enemy.name} for ${weaponDamage }!`
                     enemy.health -= (weaponDamage)
@@ -139,17 +497,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 flee.stop()
                 battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
                 await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                profileModel.updateOne({
-                    userID: message.author.id
-                },
-                {
-                    $inc: {
-                        healthP: -100
-                    }
-                },
-                {
-                    new: true
-                })
             }
 
             let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)

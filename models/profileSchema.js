@@ -12,7 +12,9 @@ const profileSchema = new mongoose.Schema({
     manaP: {type: Number, default: 100, minimum: 0, maximum: 100},
     location: {type: Array, default: 'home'},
     weapon: {type: Array},
-    damage: {type: Number}
+    damage: {type: Number},
+    spells: {type: Array},
+    mDamage: {type: Number},
 })
 
 const model = mongoose.model('ProfileModels', profileSchema);

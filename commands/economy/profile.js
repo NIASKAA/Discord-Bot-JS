@@ -17,9 +17,10 @@ module.exports = {
         Stats: \n
         Health: ${profileData.healthP} \n
         Mana: ${profileData.manaP} \n
-        Power ${profileData.damage} \n
+        Physical Damage: ${profileData.damage} \n
+        Magic Damage: ${profileData.mDamage} \n
         Weapon: ${profileData.weapon} \n
-
+        Spells: ${profileData.spells} \n
         `)
 
         let pages = [list1, list2]

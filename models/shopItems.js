@@ -29,6 +29,6 @@ module.exports = [
     },
     {
         item: "house",
-        price: 100000
+        price: 50000
     }
 ];
