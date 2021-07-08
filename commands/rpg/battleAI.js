@@ -99,9 +99,9 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             battleMsg.edit(Embed2.setDescription("What spell do you want to use?").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
             const collector = message.channel.createMessageCollector(filter)
 
-            collector.on('collect', async (m, erase) => {
-                m.delete()
+            collector.on('collect', async (m) => {
                 if(m.content === "fira"){
+                    message.delete({timeout: 1000})
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 20
                     if(profileData.spells.find((x) => x.toLowerCase() === "fira") === undefined ) {
@@ -433,6 +433,39 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         new: true
                     })
                     battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                }
+            })
+            collector.stop('end', async (collected) => {
+                if(enemy.health <= 0) {
+                    enemy.health = 0
+                }
+    
+                if(enemy.health <= 0) {
+                    attack.stop()
+                    spells.stop()
+                    flee.stop()
+                    enemy.health = 0
+                    battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                    await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+                    profileModel.updateOne({
+                        userID: message.author.id
+                    },
+                    {
+                        $inc: {
+                            xp: 100
+                        }
+                    },
+                    {
+                        new: true
+                    })
+                }
+    
+                if(profileData.healthP <= 0) {
+                    attack.stop()
+                    spells.stop()
+                    flee.stop()
+                    battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
+                    await utils.fightAgain(message, args, cmd, client, Discord, profileData)
                 }
             })
         })
