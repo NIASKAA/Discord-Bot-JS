@@ -25,8 +25,33 @@ module.exports = [
        price: 300
     },
     {
+        name: "pistol",
+        damage: 6,
+        price: 900
+    },
+    {
         name: "katana",
         damage: 6,
         price: 1000
+    },
+    {
+        name: "buster sword",
+        damage: 8,
+        price: 1600
+    },
+    {
+        name: "M4 Rifle",
+        damage: 8,
+        price: 1500
+    },
+    {
+        name: "Masamune",
+        damage: 12,
+        price: 3000
+    },
+    {
+        name: "beam rifle",
+        damage: 14,
+        price: 6000
     }
 ];

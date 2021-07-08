@@ -3,7 +3,7 @@ const locations = require('../../models/locations');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'goHome',
+    name: 'gohome',
     description: 'Go back home',
     async execute(message, args, cmd, client, Discord, profileData) {
         const goHome = 'home'
@@ -11,7 +11,7 @@ module.exports = {
         .setTitle('Status...')
         .setDescription("Going back home")
         .setImage('https://imgur.com/si7QsRB.png')
-        msg.edit(Embed)
+        let msg = await message.channel.send(Embed)
         params = {
             userID: message.author.id,
         }
