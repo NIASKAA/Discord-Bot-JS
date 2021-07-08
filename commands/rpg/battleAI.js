@@ -435,7 +435,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                 }
             })
-            collector.stop('end', async (collected) => {
+            collector.on('end', async (collected) => {
                 if(enemy.health <= 0) {
                     enemy.health = 0
                 }
