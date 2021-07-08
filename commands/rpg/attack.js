@@ -4,7 +4,7 @@ const Enemy = require('../../classes/enemy');
 const utils = require('../../events/utils');
 const Embed2 = require('../rpg/battleAI');
 
-module.exports.run = (async (message, args, cmd, client, Discord, profileData) => {
+module.exports.run = async (message, args, cmd, client, Discord, profileData) => {
     let currentHealth = await profileModel.findOne({userID: message.author.id})
     if(userLuck >= enemyLuck) {
         if(userCrit <= critChance){
@@ -78,4 +78,4 @@ await profileModel.updateOne({
     new: true
 })
 battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-})
+}
