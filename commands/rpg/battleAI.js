@@ -107,28 +107,20 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
             }
             if(currentHealth.manaP < 0) {
-                collector.on('end', async (collected) => {
-                    return battleMsg.edit(Embed2.setDescription("No mana"))
-                })
+                return battleMsg.edit(Embed2.setDescription("No mana"))
             }
             if(userLuck >= enemyLuck) {
                 if(userCrit <= critChance){
                 successAttack = `You attacked ${enemy.name} with fira for ${magicDamage}!`
                 enemy.health -= (magicDamage)
-                collector.on('end', async (collected) => {
                     battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                })
                 } else {
                     successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
                     enemy.health -= (magicDamage* 2)
-                    collector.on('end', async (collected) => {
-                        battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    })
+                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))   
                 }
             } else {
-                collector.on('end', async (collected) => {
-                    return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                })
+                return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
             }
 
             if(enemy.health <= 0) {
@@ -139,20 +131,18 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 attack.stop()
                 flee.stop()
                 enemy.health = 0
-                collector.on('end', async (collected) => {
-                    battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
-                    await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                    profileModel.updateOne({
-                        userID: message.author.id
-                    },
-                    {
-                        $inc: {
-                            xp: 100
-                        }
-                    },
-                    {
-                        new: true
-                    })
+                battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                await utils.fightAgain(message, args, cmd, client, Discord, profileData)
+                profileModel.updateOne({
+                    userID: message.author.id
+                },
+                {
+                    $inc: {
+                        xp: 100
+                    }
+                },
+                {
+                    new: true
                 })
             }
 
