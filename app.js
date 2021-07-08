@@ -32,3 +32,4 @@ client.on('guildMemberAdd', guildMember => {
 });
 
 levels(client);
+

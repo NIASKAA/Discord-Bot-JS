@@ -10,8 +10,6 @@ module.exports = (client, Discord) => {
 const getXp = (level) => level * level * 100
 
 const addXP = async (serverID, userID, xpToAdd, message) => {
-    let currentLevel = profileModel.findOne({userID: message.author.id})
-    try{
         const result = await profileModel.findOneAndUpdate({
             userID: message.author.id,
         },
@@ -22,15 +20,15 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
         },
         {
             upsert: true
-        })
+        }) 
         let {xp, level} = result
         const needed = getXp(level)
         if( xp >= needed) {
             ++level
             xp -= needed
-
+    
             message.reply(`You are now level ${level}`)
-
+    
             await profileModel.updateOne({
                 userID: message.author.id
             },
@@ -38,94 +36,76 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                 level,
                 xp
             })
-            if(currentLevel.level >= 5) {
-                profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $push: {
-                        spells: "fira"
-                    },
-                    $set: {
-                        mDamage: 6
-                    }
-                },
-                {
-                    upsert: true
-                })
-                message.channel.send(`${message.author.username} learned fira!`)
-            }
-        
-            if(currentLevel.level >= 10) {
-                addPD = 2
-                profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $push: {
-                        spells: "thundaga"
-                    },
-                    $set: {
-                        mDamage: 9
-                    },
-                    $inc: {
-                        damage: addPD
-                    }
-        
-                },
-                {
-                    upsert: true
-                })
-                message.channel.send(`${message.author.username} learned thundaga!`)
-            }
-        
-            if(currentLevel.level >= 13) {
-                addPD = 3
-                profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $push: {
-                        spells: "blizzard"
-                    },
-                    $set: {
-                        mDamage: 13
-                    },
-                    $inc: {
-                        damage: addPD
-                    }
-                },
-                {
-                    upsert: true
-                })
-                message.channel.send(`${message.author.username} learned blizzard!`)
-            }
-        
-            if(currentLevel.level >= 16) {
-                appPD = 5
-                profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $push: {
-                        spells: "death"
-                    },
-                    $set: {
-                        mDamage: 12
-                    },
-                    $inc: {
-                        damage: addPD
-                    }
-                },
-                {
-                    upsert: true
-                })
-                message.channel.send(`${message.author.username} learned death!`)
-            }
         }
-    } catch(err) {
-        console.log(err);
+    params = {
+        userID: message.author.id,
     }
+    profileModel.findOne(params, async(err, data) => {
+        if(data.level === 5) {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            },
+            {
+                $push: {
+                    spells: "fira"
+                },
+                $set: {
+                    mDamage: 6
+                }
+            },
+            {
+                upsert: true
+            })
+            message.channel.send(`${message.author.username} learned fira!`)
+        } else if(data.level === 10) {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            },
+            {
+                $push: {
+                    spells: "blizzard"
+                },
+                $set: {
+                    mDamage: 8
+                }
+            },
+            {
+                upsert: true
+            })
+            message.channel.send(`${message.author.username} learned blizzard!`)
+        } else if(data.level === 13) {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            },
+            {
+                $push: {
+                    spells: "thundaga"
+                },
+                $set: {
+                    mDamage: 10
+                }
+            },
+            {
+                upsert: true
+            })
+            message.channel.send(`${message.author.username} learned thundaga!`)
+        } else if(data.level === 16) {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            },
+            {
+                $push: {
+                    spells: "death"
+                },
+                $set: {
+                    mDamage: 12
+                }
+            },
+            {
+                upsert: true
+            })
+            message.channel.send(`${message.author.username} learned death!`)
+        }
+    })
 }
-
 module.exports.addXP = addXP
