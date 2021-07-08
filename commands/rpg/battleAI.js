@@ -4,6 +4,7 @@ const Enemy = require('../../classes/enemy');
 const utils = require('../../events/utils');
 
 module.exports.run = async(message, args, cmd, client, Discord, profileData) => {
+    let currentHealth = await profileModel.findOne({userID: message.author.id})
     let weaponDamage = profileData.damage
     let magicDamage = profileData.mDamage
     const goHome = 'home'
@@ -75,12 +76,10 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
 
         const attackReact = (reaction, user) => reaction.emoji.name === '🗡️' && user.id === message.author.id;
         const spellsReact = (reaction, user) => reaction.emoji.name === '🌀' && user.id === message.author.id;
-        //const healsReact = (reaction, user) => reaction.emoji.name === '🧪' && user.id === message.author.id;
         const fleeReact = (reaction, user) => reaction.emoji.name === '👟' && user.id === message.author.id;
 
         const attack = battleMsg.createReactionCollector(attackReact)
         const spells = battleMsg.createReactionCollector(spellsReact)
-        //const heals = battleMsg.createReactionCollector(healsReact)
         const flee = battleMsg.createReactionCollector(fleeReact)
 
         flee.on("collect", async (erase) => {
@@ -94,311 +93,14 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             await utils.fightAgain(message, args, cmd, client, Discord, profileData)
         })
 
-        /*heals.on("collect", async (erase) => {
-            erase.users.remove(message.author.id)
-            const filter = (user) => user.id = message.author.id
-            message.channel.send('What items do you want to use?')
-            const healCollector = message.channel.createMessageCollector(filter)
-
-            healCollector.on('collect', async(m) => {
-                let currentHealth = await profileModel.findOne({userID: message.author.id})
-                if(m.content === "health potion") {
-                    if(currentHealth.inventory.find((x) => x.toLowerCase() === "health potion") === undefined ) {
-                        return battleMsg.edit(Embed2.setDescription("You don't have that item!").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }
-                    addHealth = {
-                        $add:[
-                            "$healthP", 50,
-                        ]}
-                    onefewerItem = { 
-                        $reduce : { 
-                            input: "$inventory", 
-                    initialValue: {
-                        stilllooking:true, 
-                        i:[] 
-                    } , 
-                    in :{ 
-                        $cond  :
-                        { if: 
-                            {$and : 
-                                [{
-                                    $eq : 
-                                    [
-                                        "$$this","health potion"
-                                ]},
-                                    "$$value.stilllooking"
-                                ]} , 
-                                  then: {stilllooking:false, i:"$$value.i"},
-                                  else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-        
-                    changes = [{
-                        $set : 
-                        { 
-                            healthP: addHealth,
-                            inventory: onefewerItem
-                        }
-                    },
-                    {
-                        $set: 
-                        {
-                            inventory:"$inventory.i"
-                        }
-                    }]
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    }, changes)
-                    healCollector.stop()
-                return battleMsg.edit(Embed2.setDescription(`You used the item!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                } else if (m.content === "borgor") {
-                    if(profileData.inventory.find((x) => x.toLowerCase() === "borgor") === undefined ) {
-                        return battleMsg.edit(Embed2.setDescription("You don't have that item!").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }
-                    addHealth = {
-                        $add:[
-                            "$healthP", 30,
-                        ]}
-                    addMana = {
-                        $add:[
-                            "$manaP", 20
-                        ]
-                    }
-                    onefewerItem = { 
-                        $reduce : { 
-                            input: "$inventory", 
-                    initialValue: {
-                        stilllooking:true, 
-                        i:[] 
-                    } , 
-                    in :{ 
-                        $cond  :
-                        { if: 
-                            {$and : 
-                                [{
-                                    $eq : 
-                                    [
-                                        "$$this","borgor"
-                                ]},
-                                    "$$value.stilllooking"
-                                ]} , 
-                                  then: {stilllooking:false, i:"$$value.i"},
-                                  else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-        
-                    changes = [{
-                        $set : 
-                        { 
-                            healthP: addHealth,
-                            manaP: addMana,
-                            inventory: onefewerItem
-                        }
-                    },
-                    {
-                        $set: 
-                        {
-                            inventory:"$inventory.i"
-                        }
-                    }]
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    }, changes)
-                } else if(m.content === "ramen") {
-                    if(profileData.inventory.find((x) => x.toLowerCase() === "ramen") === undefined ) {
-                        return battleMsg.edit(Embed2.setDescription("You don't have that item!").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }
-                    addHealth = {
-                        $add:[
-                            "$healthP", 60,
-                        ]}
-                    addMana = {
-                        $add:[
-                            "$manaP", 50
-                        ]
-                    }
-                    onefewerItem = { 
-                        $reduce : { 
-                            input: "$inventory", 
-                    initialValue: {
-                        stilllooking:true, 
-                        i:[] 
-                    } , 
-                    in :{ 
-                        $cond  :
-                        { if: 
-                            {$and : 
-                                [{
-                                    $eq : 
-                                    [
-                                        "$$this","ramen"
-                                ]},
-                                    "$$value.stilllooking"
-                                ]} , 
-                                  then: {stilllooking:false, i:"$$value.i"},
-                                  else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-        
-                    changes = [{
-                        $set : 
-                        { 
-                            healthP: addHealth,
-                            manaP: addMana,
-                            inventory: onefewerItem
-                        }
-                    },
-                    {
-                        $set: 
-                        {
-                            inventory:"$inventory.i"
-                        }
-                    }]
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    }, changes)
-                } else if (m.content === "mana potion") {
-                    if(profileData.inventory.find((x) => x.toLowerCase() === "mana potion") === undefined ) {
-                        return battleMsg.edit(Embed2.setDescription("You don't have that item!").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }
-                    addMana = {
-                        $add:[
-                            "$manaP", 50,
-                        ]}
-                    onefewerItem = { 
-                        $reduce : { 
-                            input: "$inventory", 
-                    initialValue: {
-                        stilllooking:true, 
-                        i:[] 
-                    } , 
-                    in :{ 
-                        $cond  :
-                        { if: 
-                            {$and : 
-                                [{
-                                    $eq : 
-                                    [
-                                        "$$this","mana potion"
-                                ]},
-                                    "$$value.stilllooking"
-                                ]} , 
-                                  then: {stilllooking:false, i:"$$value.i"},
-                                  else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-        
-                    changes = [{
-                        $set : 
-                        { 
-                            manaP: addMana,
-                            inventory: onefewerItem
-                        }
-                    },
-                    {
-                        $set: 
-                        {
-                            inventory:"$inventory.i"
-                        }
-                    }]
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    }, changes)
-                } else if (m.content === "medium health potion") {
-                    if(profileData.inventory.find((x) => x.toLowerCase() === "medium health potion") === undefined ) {
-                        return battleMsg.edit(Embed2.setDescription("You don't have that item!").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }
-                    addHealth = {
-                        $add:[
-                            "$healthP", 80,
-                        ]}
-                    onefewerItem = { 
-                        $reduce : { 
-                            input: "$inventory", 
-                    initialValue: {
-                        stilllooking:true, 
-                        i:[] 
-                    } , 
-                    in :{ 
-                        $cond  :
-                        { if: 
-                            {$and : 
-                                [{
-                                    $eq : 
-                                    [
-                                        "$$this","medium health potion"
-                                ]},
-                                    "$$value.stilllooking"
-                                ]} , 
-                                  then: {stilllooking:false, i:"$$value.i"},
-                                  else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-        
-                    changes = [{
-                        $set : 
-                        { 
-                            healthP: addHealth,
-                            inventory: onefewerItem
-                        }
-                    },
-                    {
-                        $set: 
-                        {
-                            inventory:"$inventory.i"
-                        }
-                    }]
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    }, changes)
-                } else if (m.content === "medium mana potion") {
-                    if(profileData.inventory.find((x) => x.toLowerCase() === "health potion") === undefined ) {
-                        return battleMsg.edit(Embed2.setDescription("You don't have that item!").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }
-                    addHealth = {
-                        $add:[
-                            "$manaP", 80,
-                        ]}
-                    onefewerItem = { 
-                        $reduce : { 
-                            input: "$inventory", 
-                    initialValue: {
-                        stilllooking:true, 
-                        i:[] 
-                    } , 
-                    in :{ 
-                        $cond  :
-                        { if: 
-                            {$and : 
-                                [{
-                                    $eq : 
-                                    [
-                                        "$$this","medium mana potion"
-                                ]},
-                                    "$$value.stilllooking"
-                                ]} , 
-                                  then: {stilllooking:false, i:"$$value.i"},
-                                  else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-        
-                    changes = [{
-                        $set : 
-                        { 
-                            manaP: addMana,
-                            inventory: onefewerItem
-                        }
-                    },
-                    {
-                        $set: 
-                        {
-                            inventory:"$inventory.i"
-                        }
-                    }]
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    }, changes)
-                    healCollector.stop()
-                return battleMsg.edit(Embed2.setDescription(`You used the item!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                }
-                
-            })
-        })*/
         spells.on("collect", async (erase) => {
             erase.users.remove(message.author.id)
             const filter = (user) => user.id = message.author.id
-            message.channel.send('What spells do you want to use?')
+            battleMsg.edit(Embed2.setDescription("What spell do you want to use?").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
             const collector = message.channel.createMessageCollector(filter)
 
-            collector.on('collect', async (m) => {
+            collector.on('collect', async (m, erase) => {
+                m.delete()
                 if(m.content === "fira"){
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 20
@@ -421,7 +123,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     } else {
                         return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
-                    
                     if(enemy.health <= 0) {
                         enemy.health = 0
                     }
@@ -453,7 +154,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         collector.stop()
                         await utils.fightAgain(message, args, cmd, client, Discord, profileData)
                     }
-
                     let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
                     
                     if(Math.random < enemy.weaponAccuracy) {
@@ -463,7 +163,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
         
                         } else {
                             enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
-                        
                         }
                     } else {
                         enemyAction = `The ${enemy.name} misses!`
