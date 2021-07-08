@@ -37,75 +37,93 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                 xp
             })
         }
-    /*params = {
+    params = {
         userID: message.author.id,
     }
     profileModel.findOne(params, async(err, data) => {
-        if(data.level ===   5) {
-            await profileModel.findOneAndUpdate({
-                userID: message.author.id
-            },
-            {
-                $push: {
-                    spells: "fira"
+        if(data.level ===  5) {
+            if(data.spells.includes("fira")) {
+                return console.log('fira')
+            } else {
+                await profileModel.findOneAndUpdate({
+                    userID: message.author.id
                 },
-                $set: {
-                    mDamage: 6
-                }
-            },
-            {
-                upsert: true
-            })
-            message.channel.send(`${message.author.username} learned fira!`)
+                {
+                    $push: {
+                        spells: "fira"
+                    },
+                    $set: {
+                        mDamage: 6
+                    }
+                },
+                {
+                    upsert: true
+                })
+                message.channel.send(`${message.author.username} learned fira!`)
+            }
+            
         } else if(data.level === 10) {
-            await profileModel.findOneAndUpdate({
-                userID: message.author.id
-            },
-            {
-                $push: {
-                    spells: "blizzard"
+            if(data.spells.includes("blizzard")) {
+                return console.log("blizzard")
+            } else {
+                await profileModel.findOneAndUpdate({
+                    userID: message.author.id
                 },
-                $set: {
-                    mDamage: 8
-                }
-            },
-            {
-                upsert: true
-            })
-            message.channel.send(`${message.author.username} learned blizzard!`)
+                {
+                    $push: {
+                        spells: "blizzard"
+                    },
+                    $set: {
+                        mDamage: 18
+                    }
+                },
+                {
+                    upsert: true
+                })
+                message.channel.send(`${message.author.username} learned blizzard!`)
+            }
+            
         } else if(data.level === 13) {
-            await profileModel.findOneAndUpdate({
-                userID: message.author.id
-            },
-            {
-                $push: {
-                    spells: "thundaga"
+            if(data.spells.includes("thundaga")) {
+                return console.log("thundaga")
+            } else {
+                await profileModel.findOneAndUpdate({
+                    userID: message.author.id
                 },
-                $set: {
-                    mDamage: 10
-                }
-            },
-            {
-                upsert: true
-            })
-            message.channel.send(`${message.author.username} learned thundaga!`)
+                {
+                    $push: {
+                        spells: "thundaga"
+                    },
+                    $set: {
+                        mDamage: 18
+                    }
+                },
+                {
+                    upsert: true
+                })
+                message.channel.send(`${message.author.username} learned thundaga!`)
+            }
         } else if(data.level === 16) {
-            await profileModel.findOneAndUpdate({
-                userID: message.author.id
-            },
-            {
-                $push: {
-                    spells: "death"
+            if(data.spells.includes("death")) {
+                return console.log("death")
+            } else {
+                await profileModel.findOneAndUpdate({
+                    userID: message.author.id
                 },
-                $set: {
-                    mDamage: 12
-                }
-            },
-            {
-                upsert: true
-            })
-            message.channel.send(`${message.author.username} learned death!`)
+                {
+                    $push: {
+                        spells: "death"
+                    },
+                    $set: {
+                        mDamage: 18
+                    }
+                },
+                {
+                    upsert: true
+                })
+                message.channel.send(`${message.author.username} learned death!`)
+            }
         }
-    })*/
+    })
 }
 module.exports.addXP = addXP
