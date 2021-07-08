@@ -129,6 +129,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
         
                     if(enemy.health <= 0) {
                         attack.stop()
+                        spells.stop()
                         flee.stop()
                         enemy.health = 0
                         battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
@@ -149,6 +150,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
         
                     if(profileData.healthP <= 0) {
                         attack.stop()
+                        spells.stop()
                         flee.stop()
                         battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
                         collector.stop()
@@ -459,6 +461,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
 
             if(enemy.health <= 0) {
                 attack.stop()
+                spells.stop()
                 flee.stop()
                 enemy.health = 0
                 battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
@@ -478,6 +481,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
 
             if(profileData.healthP <= 0) {
                 attack.stop()
+                spells.stop()
                 flee.stop()
                 battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
                 await utils.fightAgain(message, args, cmd, client, Discord, profileData)
