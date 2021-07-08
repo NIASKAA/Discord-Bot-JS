@@ -112,23 +112,16 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 if(userCrit <= critChance){
                 successAttack = `You attacked ${enemy.name} with fira for ${magicDamage}!`
                 enemy.health -= (magicDamage)
-                    setTimeout(() => {
-                        battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }, 1000);
                 } else {
                     successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
                     enemy.health -= (magicDamage* 2)
-                    setTimeout(() => {
-                        battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }, 1000);
                 }
             } else {
-                setTimeout(() => {
-                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                }, 1000);
-                
+                successAttack = `You missed ${enemy.name}!`
             }
-
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 1000);
             if(enemy.health <= 0) {
                 enemy.health = 0
             }
@@ -171,7 +164,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 }
             } else {
                 enemyAction = `The ${enemy.name} misses!`
-                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
             }
             await profileModel.updateOne({
                 userID: message.author.id
@@ -185,7 +177,9 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             {
                 new: true
             })
-            battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 3000);
 
         })  
         blizzard.on("collect", async (erase) => {
@@ -202,21 +196,16 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 if(userCrit <= critChance){
                 successAttack = `You attacked ${enemy.name} with blizzard for ${magicDamage}!`
                 enemy.health -= (magicDamage)
-                setTimeout(() => {
-                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                }, 1000);
                 } else {
                     successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
                     enemy.health -= (magicDamage* 2)
-                    setTimeout(() => {
-                        battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }, 1000);
                 }
             } else {
-                setTimeout(() => {
-                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                }, 1000);
+                successAttack = `You missed ${enemy.name}!`
             }
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 2000);
 
             if(enemy.health <= 0) {
                 enemy.health = 0
@@ -254,13 +243,11 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 if(Math.random() < enemy.weaponCritical) {
                     enemyDamage *=2
                     enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
-
                 } else {
                     enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
                 }
             } else {
                 enemyAction = `The ${enemy.name} misses!`
-                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
             }
             await profileModel.updateOne({
                 userID: message.author.id
@@ -274,7 +261,9 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             {
                 new: true
             })
-            battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 2000);
         })
 
         thundaga.on("collect", async (erase) => {
@@ -291,17 +280,16 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 if(userCrit <= critChance){
                 successAttack = `You attacked ${enemy.name} with thundaga for ${magicDamage}!`
                 enemy.health -= (magicDamage)
-                battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                 } else {
                     successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
                     enemy.health -= (magicDamage* 2)
-                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                 }
             } else {
-                return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-             
+                successAttack = `You missed ${enemy.name}!`
             }
-
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 1000);
             if(enemy.health <= 0) {
                 enemy.health = 0
             }
@@ -338,13 +326,11 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 if(Math.random() < enemy.weaponCritical) {
                     enemyDamage *=2
                     enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
-
                 } else {
                     enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
                 }
             } else {
                 enemyAction = `The ${enemy.name} misses!`
-                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
             }
             await profileModel.updateOne({
                 userID: message.author.id
@@ -358,7 +344,9 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             {
                 new: true
             })
-            battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 3000);
         })
 
         attack.on("collect", async (erase) => {
@@ -369,21 +357,17 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     if(userCrit <= critChance){
                     successAttack = `You attacked ${enemy.name} for ${weaponDamage }!`
                     enemy.health -= (weaponDamage)
-                    setTimeout(() => {
-                        battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }, 2000);
                 } else {
                     successAttack = `You landed a critical hit on ${enemy.name} for ${weaponDamage * 2}!`
                     enemy.health -= (weaponDamage * 2)
-                    setTimeout(() => {
-                        battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }, 2000);
                 }
             } else {
-                setTimeout(() => {
-                    battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                }, 2000);
+                successAttack = `You missed ${enemy.name}!`
             }
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 1000);
+
             if(enemy.health <= 0) {
                 enemy.health = 0
             }
@@ -420,21 +404,11 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 if(Math.random() < enemy.weaponCritical) {
                     enemyDamage *=2
                     enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
-                    setTimeout(() => {
-                        battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }, 2000);
-
                 } else {
                     enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
-                    setTimeout(() => {
-                        battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                    }, 2000);
                 }
             } else {
                 enemyAction = `The ${enemy.name} misses!`
-                setTimeout(() => {
-                    battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
-                }, 2000);
             }
             await profileModel.updateOne({
                 userID: message.author.id
@@ -447,6 +421,9 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             {
                 new: true
             })
+            setTimeout(() => {
+                battleMsg.edit(Embed2.setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+            }, 3000);
         })
     })
 }   
