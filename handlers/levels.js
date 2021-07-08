@@ -37,11 +37,11 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                 xp
             })
         }
-    params = {
+    /*params = {
         userID: message.author.id,
     }
     profileModel.findOne(params, async(err, data) => {
-        if(data.level === 5) {
+        if(data.level ===   5) {
             await profileModel.findOneAndUpdate({
                 userID: message.author.id
             },
@@ -106,6 +106,6 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             })
             message.channel.send(`${message.author.username} learned death!`)
         }
-    })
+    })*/
 }
 module.exports.addXP = addXP
