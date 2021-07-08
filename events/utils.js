@@ -6,7 +6,7 @@ module.exports = {
     fightAgain,
 }
 
-function fightAgain(message, args, cmd, client, Discord, profileData) {
+async function fightAgain(message, args, cmd, client, Discord, profileData) {
     const goHome = 'home'
     EmbedFight = new MessageEmbed()
     .setColor("YELLOW")
