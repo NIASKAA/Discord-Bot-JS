@@ -30,7 +30,7 @@ module.exports = {
                     coins: -weaponPrice,
                     damage: weaponDamage
                 },
-                $push: {
+                $set: {
                     weapon: itemToBuy
                 }
             },
