@@ -82,8 +82,8 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
         const fleeReact = (reaction, user) => reaction.emoji.name === '👟' && user.id === message.author.id;
 
         const attack = battleMsg.createReactionCollector(attackReact)
-        const fira = battleMsg.createReactionCollector(waterReact)
-        const blizzard = battleMsg.createReactionCollector(fireReact)
+        const fira = battleMsg.createReactionCollector(fireReact)
+        const blizzard = battleMsg.createReactionCollector(waterReact)
         const thundaga = battleMsg.createReactionCollector(thunderReact)
         const flee = battleMsg.createReactionCollector(fleeReact)
 
