@@ -1,5 +1,4 @@
 const profileModel = require('../models/profileSchema');
-const appSpell = require('../commands/rpg/addSpell');
 module.exports = (client, Discord) => {
     client.on('message', (message) => {
         const {guild, member} = message
