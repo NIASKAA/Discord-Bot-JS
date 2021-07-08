@@ -123,39 +123,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     } else {
                         return battleMsg.edit(Embed2.setDescription(`You missed ${enemy.name}!`).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
-                    if(enemy.health <= 0) {
-                        enemy.health = 0
-                    }
-        
-                    if(enemy.health <= 0) {
-                        attack.stop()
-                        spells.stop()
-                        flee.stop()
-                        enemy.health = 0
-                        battleMsg.edit(Embed2.setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
-                        collector.stop()
-                        await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                        profileModel.updateOne({
-                            userID: message.author.id
-                        },
-                        {
-                            $inc: {
-                                xp: 100
-                            }
-                        },
-                        {
-                            new: true
-                        })
-                    }
-        
-                    if(profileData.healthP <= 0) {
-                        attack.stop()
-                        spells.stop()
-                        flee.stop()
-                        battleMsg.edit(Embed2.setColor("RED").setTitle('DEFEAT').setDescription(`${message.author.username} was defeated...!`))
-                        collector.stop()
-                        await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                    }
+                    
                     let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
                     
                     if(Math.random < enemy.weaponAccuracy) {
