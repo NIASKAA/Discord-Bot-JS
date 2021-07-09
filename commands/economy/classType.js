@@ -9,7 +9,7 @@ module.exports = {
         const Embed = new MessageEmbed()
         .setColor("BLUE")
         .setTitle("Pick your class")
-        .setDescription('(Warrior, Magician)')
+        .setDescription('(Warrior, Mage)')
         let classMsg = await message.channel.send(Embed)
         const filter = (user) => user.id = message.author.id
         const collector = message.channel.createMessageCollector(filter, {max: 1})
@@ -62,13 +62,13 @@ module.exports = {
                     {
                         upsert: true
                     })
-                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail())
+                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail("https://imgur.com/lxwyj8m.png"))
                 }
-            } else if(m.content === "magician" || "Magician") {
+            } else if(m.content === "mage" || "Mage") {
                 if(profileData.level < 5) {
                     return message.channel.send('You are not high enough level!')
                 }
-                if(profileData.class.includes('Magician')){
+                if(profileData.class.includes('Warrior')){
                     revert = {
                         $divide: [
                             "$damage", 1.6
@@ -89,7 +89,7 @@ module.exports = {
                             damage: revert,
                             mDamage: multi,
                             healthP: health,
-                            class: "Magician"
+                            class: "Mage"
                         }
                     }]
                     await profileModel.findOneAndUpdate({
@@ -105,14 +105,14 @@ module.exports = {
                             healthP: 1.4
                         },
                         $set: {
-                            class: "Magician"
+                            class: "Mage"
                         }
                     },
                     {
                         upsert: true
                     })
                 }
-                classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a magician!`).setDescription('').setThumbnail())
+                classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a mage!`).setDescription('').setThumbnail("https://imgur.com/NRfCpWl.png"))
             }
         })
 
