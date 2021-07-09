@@ -22,12 +22,12 @@ module.exports = {
         });
 
         let pages = [shopList, foodList, weaponList]
+        let page = 1
         const Embed = new MessageEmbed()
         .setColor("GREEN")
-        .setTitle("Shop Items List")
+        .setTitle("Items/Food/Weapon")
         .setDescription(pages[page - 1])
         .setFooter(`Page: ${page} / ${pages.length}`)
-        message.channel.send(Embed);
 
         let msg = await message.channel.send(Embed)
         await msg.react("⬅️");
