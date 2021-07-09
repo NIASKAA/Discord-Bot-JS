@@ -1,5 +1,5 @@
 const profileModel = require('../../models/profileSchema');
-
+const {MessageEmbed} = require('discord.js');
 module.exports = {
     name: 'fight',
     cooldown: 600,
@@ -27,13 +27,19 @@ module.exports = {
             " summoned Alan with his car and ran over ",
             " ever heard of one punched man? Well he showed up and punch the living shit out of "
         ]
-        let itemList = ["borgor", "fishing rod", "gun", "off white t shirt"]
+        let itemList = ["pickaxe", "fishing rod", "gun"]
 
+        Embed = new MessageEmbed()
+        .setColor("RED")
+        .setTitle("VS")
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setDescription(`You ${script[randomScript]} ${user}. ${user} dropped ${amount} and ${itemList[randomItem]}.`)
+        .setThumbnail(user.displayAvatarURL())
 
         const amount = Math.floor(Math.random() * 200) + 1;
         const randomItem = Math.floor(Math.random() * itemList.length)
 
-        if(randomItem === "borgor") {
+        if(randomItem === "pickaxe") {
             addXP = {
                 $add:[
                     "$xp",30
@@ -52,7 +58,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","borgor"
+                                "$$this","pickaxe"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -156,57 +162,8 @@ module.exports = {
                 }
             }]
             await profileModel.findOneAndUpdate({userID: user.id}, changes)
-        } else if (randomItem === "off white t shirt") {
-            addXP = {
-                $add:[
-                    "$xp",30
-                ]}
-            droppedItem = { 
-                $reduce : { 
-                    input: "$inventory", 
-            initialValue: {
-                stilllooking:true, 
-                i:[] 
-            } , 
-            in :{ 
-                $cond  :
-                { if: 
-                    {$and : 
-                        [{
-                            $eq : 
-                            [
-                                "$$this","off white t shirt"
-                        ]},
-                            "$$value.stilllooking"
-                        ]} , 
-                          then: {stilllooking:false, i:"$$value.i"},
-                          else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-
-
-            changes = [{
-                $set : 
-                { 
-                    xp: addXP,
-                    inventory: droppedItem
-                }
-            },
-            {
-                $set: 
-                {
-                    inventory:"$inventory.i"
-                }
-            }]
-            await profileModel.findOneAndUpdate({userID: user.id}, changes)
-        }
-        await profileModel.updateOne({
-            userID: user.id
-        },
-        {
-            $inc: {
-                coins: -amount
-            }
-        })
+        } 
         randomScript = Math.floor(Math.random() * script.length)
-        message.channel.send(`You ${script[randomScript]} ${user}. ${user} dropped ${amount} and ${itemList[randomItem]}.`)
+        message.channel.send(Embed)
     }
 }

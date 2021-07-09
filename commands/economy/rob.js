@@ -1,5 +1,5 @@
 const profileModel = require('../../models/profileSchema');
-
+const {MessageEmbed} = require('discord.js')
 module.exports = {
     name: 'rob',
     cooldown: 1800,
@@ -9,6 +9,13 @@ module.exports = {
         let targetUser = user.id.coins
         let random = Math.floor(Math.random() * 200) + 1;
 
+        Embed = new MessageEmbed()
+        .setColor("RED")
+        .setTitle("ROBBED")
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setDescription(`You robbed ${user} and took ${random}`)
+        .setThumbnail(user.displayAvatarURL())
+        
         if(!user) {
             return message.channel.send('You need to tell me who to rob at least bruh');
         }
@@ -35,6 +42,6 @@ module.exports = {
         } catch(err) {
             console.log(err);
         }
-        message.channel.send(`You robbed ${user} and took ${random}`);
+        message.channel.send(Embed);
     }
 }
