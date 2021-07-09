@@ -25,7 +25,7 @@ module.exports = {
         .setColor("PURPLE")
         .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
         .setTitle(`Obtained ${itemToBuy}!`)
-        .setImage(`${weaponImage}`)
+        .setThumbnail(`${weaponImage}`)
 
         const params = {
             userID: message.author.id,

@@ -35,6 +35,7 @@ module.exports = {
         !search \n
         !pay \n
         !fight \n
+        !lb (leaderboard) \n
         `)
 
         list3 =(`
