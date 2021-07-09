@@ -43,7 +43,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
     profileModel.findOne(params, async(err, data) => {
         if(data.level ===  5) {
             if(data.spells.includes("fira")) {
-                return console.log('fira')
+                return 
             } else {
                 await profileModel.findOneAndUpdate({
                     userID: message.author.id
@@ -64,7 +64,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             
         } else if(data.level === 10) {
             if(data.spells.includes("blizzard")) {
-                return console.log("blizzard")
+                return 
             } else {
                 await profileModel.findOneAndUpdate({
                     userID: message.author.id
@@ -85,7 +85,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             
         } else if(data.level === 13) {
             if(data.spells.includes("thundaga")) {
-                return console.log("thundaga")
+                return 
             } else {
                 await profileModel.findOneAndUpdate({
                     userID: message.author.id
@@ -105,7 +105,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             }
         } else if(data.level === 16) {
             if(data.spells.includes("death")) {
-                return console.log("death")
+                return 
             } else {
                 await profileModel.findOneAndUpdate({
                     userID: message.author.id

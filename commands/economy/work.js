@@ -29,6 +29,6 @@ module.exports = {
                 coins: dailyPay,
             }
         });
-        return message.channel.send(`You worked as a ${jobs[jobList]} today and earned ${dailyPay}!`);
+        return message.channel.send(`You worked as a ${jobs[jobList]} and earned ${dailyPay}!`);
     }
 }

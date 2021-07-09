@@ -1,5 +1,6 @@
 const profileModel = require('../../models/profileSchema');
 const weaponItem = require('../../models/weapon');
+const {MessageEmbed} = require('discord.js')
 
 module.exports = {
     name: 'armory',
@@ -14,8 +15,17 @@ module.exports = {
         if(!validWeapon) return message.reply('THe item is not valid')
 
         const weaponPrice = weaponItem.find((val) => val.name.toLowerCase() === itemToBuy).price;
+        const weaponLevel = weaponItem.find((val) => val.name.toLowerCase() === itemToBuy).level;
         const weaponDamage = weaponItem.find((val => val.name === itemToBuy)).damage;
+        const weaponImage = weaponItem.find((val) => val.name === itemToBuy).image
         if(profileData.coins < weaponPrice) return message.reply("You don't have enough money!");
+        if(profileData.level < weaponLevel) return message.reply("You are not high enough level!")
+        
+        Embed = new MessageEmbed()
+        .setColor("PURPLE")
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setTitle(`Obtained ${itemToBuy}!`)
+        .setImage(`${weaponImage}`)
 
         const params = {
             userID: message.author.id,
@@ -37,7 +47,7 @@ module.exports = {
             {
                 upsert: true
             });
-            message.reply(`You bought ${itemToBuy}`)
+            message.channel.send(Embed)
         })
     }
 };

@@ -377,7 +377,9 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 attack.stop()
                 flee.stop()
                 enemy.health = 0
-                battleMsg.edit(Embed2.setImage('https://imgur.com/5WbehuW.png').setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                setTimeout(() => {
+                    battleMsg.edit(Embed2.setImage('https://imgur.com/5WbehuW.png').setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
+                }, 3000)
                 await utils.fightAgain(message, args, cmd, client, Discord, profileData)
                 profileModel.updateOne({
                     userID: message.author.id

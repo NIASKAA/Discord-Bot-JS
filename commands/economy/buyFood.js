@@ -1,5 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 const foodItem = require("../../models/consumable");
+const {MessageEmbed} = require('discord.js')
 
 module.exports = {
     name: 'buyFood',
@@ -17,6 +18,12 @@ module.exports = {
         const foodPrice = foodItem.find((val) => val.items.toLowerCase() === itemToBuy).price;
 
         if(profileData.coins < foodPrice) return message.reply("You don't have enough money!");
+
+        Embed = new MessageEmbed()
+        .setColor("PURPLE")
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setTitle(`Obtained ${itemToBuy}!`)
+        //.setImage()
 
         const params = {
             userID: message.author.id,
@@ -37,7 +44,7 @@ module.exports = {
             {
                 upsert: true
             });
-            message.reply(`You bought ${itemToBuy}`)
+            message.channel.send(Embed)
         })
     }
 };
