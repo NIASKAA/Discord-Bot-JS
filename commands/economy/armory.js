@@ -18,8 +18,10 @@ module.exports = {
         const weaponLevel = weaponItem.find((val) => val.name.toLowerCase() === itemToBuy).level;
         const weaponDamage = weaponItem.find((val => val.name === itemToBuy)).damage;
         const weaponImage = weaponItem.find((val) => val.name === itemToBuy).image
+        let scaleDamage = weaponDamage * 1.8
         if(profileData.coins < weaponPrice) return message.reply("You don't have enough money!");
         if(profileData.level < weaponLevel) return message.reply("You are not high enough level!")
+       
         
         Embed = new MessageEmbed()
         .setColor("PURPLE")
@@ -30,24 +32,44 @@ module.exports = {
         const params = {
             userID: message.author.id,
         }
-        
-        profileModel.findOne(params, async(err, data) => {
-            await profileModel.updateMany({
-                userID: message.author.id,
-            },
-            {
-                $inc: {
-                    coins: -weaponPrice,
-                    damage: weaponDamage
+        if(profileData.class.includes("Warrior")) {
+            profileModel.findOne(params, async(err, data) => {
+                await profileModel.updateMany({
+                    userID: message.author.id,
                 },
-                $set: {
-                    weapon: itemToBuy
-                }
-            },
-            {
-                upsert: true
-            });
-            message.channel.send(Embed)
-        })
+                {
+                    $inc: {
+                        coins: -weaponPrice,
+                        damage: scaleDamage
+                    },
+                    $set: {
+                        weapon: itemToBuy
+                    }
+                },
+                {
+                    upsert: true
+                });
+                message.channel.send(Embed)
+            })
+        } else {
+            profileModel.findOne(params, async(err, data) => {
+                await profileModel.updateMany({
+                    userID: message.author.id,
+                },
+                {
+                    $inc: {
+                        coins: -weaponPrice,
+                        damage: weaponDamage
+                    },
+                    $set: {
+                        weapon: itemToBuy
+                    }
+                },
+                {
+                    upsert: true
+                });
+                message.channel.send(Embed)
+            })
+        }
     }
 };
