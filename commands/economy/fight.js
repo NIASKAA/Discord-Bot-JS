@@ -28,13 +28,7 @@ module.exports = {
             " ever heard of one punched man? Well he showed up and punch the living shit out of "
         ]
         let itemList = ["pickaxe", "fishing rod", "gun"]
-
-        Embed = new MessageEmbed()
-        .setColor("RED")
-        .setTitle("VS")
-        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
-        .setDescription(`You ${script[randomScript]} ${user}. ${user} dropped ${amount} and ${itemList[randomItem]}.`)
-        .setThumbnail(user.displayAvatarURL())
+        randomScript = Math.floor(Math.random() * script.length)
 
         const amount = Math.floor(Math.random() * 200) + 1;
         const randomItem = Math.floor(Math.random() * itemList.length)
@@ -163,7 +157,13 @@ module.exports = {
             }]
             await profileModel.findOneAndUpdate({userID: user.id}, changes)
         } 
-        randomScript = Math.floor(Math.random() * script.length)
+        Embed = new MessageEmbed()
+        .setColor("RED")
+        .setTitle("VS")
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setDescription(`You ${script[randomScript]} ${user}. ${user} dropped ${amount} and ${itemList[randomItem]}.`)
+        .setThumbnail(user.displayAvatarURL())
+        
         message.channel.send(Embed)
     }
 }
