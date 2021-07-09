@@ -13,7 +13,7 @@ module.exports = {
             return message.channel.send("Bruh, get a weapon")
         }
         const randomLocation = locations[Math.floor(Math.random() * locations.length)]
-        const goHome = 'home'
+        const goTown = 'town'
         const Embed = new MessageEmbed()
         .setColor("YELLOW")
         .setDescription(`Will you venture into ${randomLocation.name}?`)
@@ -59,8 +59,8 @@ module.exports = {
             erase.users.remove(message.author.id);
             Embed
             .setTitle('Status...')
-            .setDescription("Going back home")
-            .setImage('https://imgur.com/si7QsRB.png')
+            .setDescription("Going back to town")
+            .setImage('https://imgur.com/KOYoNfA.png')
             msg.edit(Embed)
             params = {
                 userID: message.author.id,
@@ -71,7 +71,7 @@ module.exports = {
                 },
                 {
                     $set: {
-                        location: goHome
+                        location: goTown
                     },
                 },
                 {

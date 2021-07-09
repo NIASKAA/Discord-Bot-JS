@@ -21,23 +21,43 @@ module.exports = {
             return `${index + 1} ${value.name} -> ${value.price} coins`
         });
 
+        let pages = [shopList, foodList, weaponList]
         const Embed = new MessageEmbed()
         .setColor("GREEN")
         .setTitle("Shop Items List")
-        .setDescription(shopList)
-        .setFooter(`If you want specific items, tell Alan to add it`)
+        .setDescription(pages[page - 1])
+        .setFooter(`Page: ${page} / ${pages.length}`)
         message.channel.send(Embed);
 
-        const Embed2 = new MessageEmbed()
-        .setColor("GREEN")
-        .setTitle("Food Items List")
-        .setDescription(foodList)
-        message.channel.send(Embed2);
+        let msg = await message.channel.send(Embed)
+        await msg.react("⬅️");
+        await msg.react("➡️");
 
-        const Embed3 = new MessageEmbed()
-        .setColor("GREEN")
-        .setTitle("Weapon List")
-        .setDescription(weaponList)
-        message.channel.send(Embed3);
+        if(pages.length === 1) return;
+
+
+        const rightFilter = (reaction, user) => reaction.emoji.name === "➡️" && user.id === message.author.id;
+        const leftFilter = (reaction, user) => reaction.emoji.name === "⬅️" && user.id === message.author.id;
+        
+        const right = msg.createReactionCollector(rightFilter, { dispose: true});
+        const left = msg.createReactionCollector(leftFilter, {dispose: true});
+
+        left.on("collect", erase => {
+            erase.users.remove(message.author.id);
+            if(page === 1) return;
+            page--;
+            Embed
+            .setDescription(pages[page-1])
+            .setFooter(`Page: ${page} / ${pages.length}`);
+            msg.edit(Embed)
+        })
+
+        right.on("collect", erase => {
+            erase.users.remove(message.author.id);
+            if(page === pages.length) return;
+            page++;
+            Embed.setDescription(pages[page-1]).setFooter(`Page: ${page} / ${pages.length}`);
+            msg.edit(Embed)
+        })
     },
 }

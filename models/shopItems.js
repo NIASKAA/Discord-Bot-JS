@@ -20,6 +20,10 @@ module.exports = [
         price: 1000
     },
     {
+        item: 'small cabin',
+        price: 10000,
+    },
+    {
         item: "civic",
         price: 20000
     },
@@ -28,7 +32,11 @@ module.exports = [
         price: 36000
     },
     {
+        item: "apartment",
+        price: 40000
+    },
+    {
         item: "house",
-        price: 50000
+        price: 65000
     }
 ];

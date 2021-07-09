@@ -16,6 +16,7 @@ module.exports = {
         if(!validFood) return message.reply('THe item is not valid')
 
         const foodPrice = foodItem.find((val) => val.items.toLowerCase() === itemToBuy).price;
+        const foodImage = foodItem.find((val) => val.items.toLowerCase() === itemToBuy).image;
 
         if(profileData.coins < foodPrice) return message.reply("You don't have enough money!");
 
@@ -23,7 +24,7 @@ module.exports = {
         .setColor("PURPLE")
         .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
         .setTitle(`Obtained ${itemToBuy}!`)
-        //.setImage()
+        .setImage(`${foodImage}`)
 
         const params = {
             userID: message.author.id,

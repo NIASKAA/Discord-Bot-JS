@@ -7,7 +7,7 @@ module.exports = {
 }
 
 async function fightAgain(message, args, cmd, client, Discord, profileData) {
-    const goHome = 'home'
+    const goTown = 'town'
     EmbedFight = new MessageEmbed()
     .setColor("YELLOW")
     .setTitle('Fight again?')
@@ -33,8 +33,8 @@ async function fightAgain(message, args, cmd, client, Discord, profileData) {
             Embed = new MessageEmbed()
             .setTitle('Status...')
             .setColor("YELLOW")
-            .setDescription("Going back home")
-            .setImage('https://imgur.com/si7QsRB.png')
+            .setDescription("Going back to town")
+            .setImage('https://imgur.com/KOYoNfA.png')
             await message.channel.send(Embed)
             params = {
                 userID: message.author.id,
@@ -45,7 +45,7 @@ async function fightAgain(message, args, cmd, client, Discord, profileData) {
                 },
                 {
                     $set: {
-                        location: goHome
+                        location: goTown
                     },
                 },
                 {

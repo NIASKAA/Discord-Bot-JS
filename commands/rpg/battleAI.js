@@ -37,8 +37,8 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
 
         EmbedRun = new MessageEmbed()
         .setTitle('Status...')
-        .setDescription("Going back home")
-        .setImage('https://imgur.com/si7QsRB.png')
+        .setDescription("Going back to town")
+        .setImage('https://imgur.com/KOYoNfA.png')
         await message.channel.send(EmbedRun)
         params = {
             userID: message.author.id,
