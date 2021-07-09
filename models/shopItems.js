@@ -20,6 +20,10 @@ module.exports = [
         price: 1000
     },
     {
+        item: 'shed',
+        price: 6000
+    },
+    {
         item: 'small cabin',
         price: 10000,
     },

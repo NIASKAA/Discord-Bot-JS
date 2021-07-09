@@ -15,7 +15,8 @@ module.exports = async(client, Discord, member) => {
         weapon: [],
         damage: 0,
         spells: [],
-        mDamage: 0
+        mDamage: 0,
+        class: []
     });
     profile.save();
 }

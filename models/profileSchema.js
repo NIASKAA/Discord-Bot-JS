@@ -15,6 +15,7 @@ const profileSchema = new mongoose.Schema({
     damage: {type: Number},
     spells: {type: Array},
     mDamage: {type: Number},
+    class: {type: String}
 })
 
 const model = mongoose.model('ProfileModels', profileSchema);

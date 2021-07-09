@@ -140,7 +140,8 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         },
                         {
                             $inc: {
-                                xp: 100
+                                xp: 100,
+                                coins: 150
                             }
                         },
                         {
@@ -222,7 +223,8 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         },
                         {
                             $inc: {
-                                xp: 100
+                                xp: 100,
+                                coins: 150
                             }
                         },
                         {
@@ -303,7 +305,8 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         },
                         {
                             $inc: {
-                                xp: 100
+                                xp: 100,
+                                coins: 150
                             }
                         },
                         {
@@ -386,7 +389,8 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                 },
                 {
                     $inc: {
-                        xp: 100
+                        xp: 100,
+                        coins: 150
                     }
                 },
                 {

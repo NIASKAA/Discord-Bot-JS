@@ -11,6 +11,7 @@ module.exports = {
         Bank: ${profileData.bank} \n
         Inventory: ${profileData.inventory} \n
         Location: ${profileData.location} \n
+        Class: ${profileData.class} \n
         `)
 
         let list2 =(`

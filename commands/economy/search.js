@@ -42,6 +42,7 @@ module.exports = {
       collector.on("collect", async (m) => {
         const Embed = new Discord.MessageEmbed()
           .setColor("#ffa500")
+          .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
           .setTitle(`${message.author.username} searched a ${m.content} 🕵️`)
           .setDescription(`You found ${randomNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`)
           .setFooter(`A true detective you are.`);
