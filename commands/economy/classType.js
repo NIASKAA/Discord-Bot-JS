@@ -19,41 +19,99 @@ module.exports = {
                 if(profileData.level < 5) {
                     return message.channel.send('You are not high enough level!')
                 }
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $mul: {
-                        damage: 1.6,
-                        healthP: 1.8
-                    },
-                    $set: {
-                        class: "Warrior"
+                if(profileData.class.includes('Magician')) {
+                    revert = {
+                        $divide: [
+                            "$mDamage", 2
+                        ]
                     }
-                },
-                {
-                    upsert: true
-                })
-                classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail())
+                    multi = {
+                        $multiply: [
+                            "$damage", 1.6,
+                        ]
+                    }
+                    health = {
+                        $multiply: [
+                            "$healthP", 1.8
+                        ]
+                    }
+                    changes = [{
+                        $set: {
+                            mDamage: revert,
+                            damage: multi,
+                            healthP: health,
+                            class: "Warrior"
+                        }
+                    }]
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    }, changes)
+                }else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $mul: {
+                            damage: 1.6,
+                            healthP: 1.8
+                        },
+                        $set: {
+                            class: "Warrior"
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail())
+                }
             } else if(m.content === "magician" || "Magician") {
                 if(profileData.level < 5) {
                     return message.channel.send('You are not high enough level!')
                 }
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $mul: {
-                        mDamage: 2,
-                        healthP: 1.4
-                    },
-                    $set: {
-                        class: "Magician"
+                if(profileData.class.includes('Magician')){
+                    revert = {
+                        $divide: [
+                            "$damage", 1.6
+                        ]
                     }
-                },
-                {
-                    upsert: true
-                })
+                    multi = {
+                        $multiply: [
+                            "$mDamage", 2,
+                        ]
+                    }
+                    health = {
+                        $multiply: [
+                            "$healthP", 0.2
+                        ]
+                    }
+                    changes = [{
+                        $set: {
+                            damage: revert,
+                            mDamage: multi,
+                            healthP: health,
+                            class: "Magician"
+                        }
+                    }]
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    }, changes)
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $mul: {
+                            mDamage: 2,
+                            healthP: 1.4
+                        },
+                        $set: {
+                            class: "Magician"
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                }
                 classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a magician!`).setDescription('').setThumbnail())
             }
         })
