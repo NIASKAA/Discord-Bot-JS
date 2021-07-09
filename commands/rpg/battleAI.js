@@ -102,7 +102,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             const collector = message.channel.createMessageCollector(filter, {max: 1})
 
             collector.on('collect', async (m) => {
-                if(m.content === "fira"){
+                if(m.content === "fira" || "Fira"){
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 20
                     if(profileData.spells.find((x) => x.toLowerCase() === "fira") === undefined ) {
@@ -183,7 +183,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     {
                         new: true
                     })
-                } else if (m.content === "blizzard") {
+                } else if (m.content === "blizzard" || "Blizzard") {
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 25
                     if(profileData.spells.find((x) => x.toLowerCase() === "blizzard") === undefined ) {
@@ -265,7 +265,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     {
                         new: true
                     })
-                } else if(m.content === "thundaga") {
+                } else if(m.content === "thundaga" || "Thundaga") {
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 25
                     if(profileData.spells.find((x) => x.toLowerCase() === "thundaga") === undefined ) {
