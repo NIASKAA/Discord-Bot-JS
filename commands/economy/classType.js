@@ -41,33 +41,34 @@ module.exports = {
                 })
                 classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail("https://imgur.com/ynUJVus.png"))
                 
-            } else if(m.content === "mage" || "Mage") {
+            }
+            if(m.content === "mage" || "Mage") {
                 if(profileData.level < 5) {
                     return message.channel.send('You are not high enough level!')
                 }
                 if(profileData.class.includes('Thief')){
                     return message.send("You already have a class! Wait till level 12 to change!")
-                } 
-                if(profileData.class.includes('Warrior')){
+                } else if(profileData.class.includes('Warrior')){
                     return message.send("You already have a class! Wait till level 12 to change!")
-                }
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $mul: {
-                        mDamage: 2,
+                }{
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
                     },
-                    $set: {
-                        class: "Mage"
-                    }
-                },
-                {
-                    upsert: true
-                })
-                classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a mage!`).setDescription('').setThumbnail("https://imgur.com/tE447hA.png"))
-                
-            } else if(m.content === "thief" || "Thief") {
+                    {
+                        $mul: {
+                            mDamage: 2,
+                        },
+                        $set: {
+                            class: "Mage"
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a mage!`).setDescription('').setThumbnail("https://imgur.com/tE447hA.png"))
+                }
+            } 
+            if(m.content === "thief" || "Thief") {
                 if(profileData.level < 5) {
                     return message.channel.send('You are not high enough level!')
                 }
@@ -82,7 +83,7 @@ module.exports = {
                 },
                 {
                     $mul: {
-                        mDamage: 1.5,
+                        damage: 1.5,
                     },
                     $set: {
                         class: "Thief",
