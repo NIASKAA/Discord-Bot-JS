@@ -37,6 +37,14 @@ module.exports = [
     },
     {
         name: 'platinum',
-        images: 'https://imgur.com/3S5gSfL.png'
+        images: 'https://imgur.com/4y02H7r.png'
+    },
+    {
+        name: 'power jewel',
+        images: 'https://imgur.com/fIkDeRm.png'
+    },
+    {
+        name: 'magic jewel',
+        images: 'https://imgur.com/Fuz9cCi.png'
     }
 ]

@@ -8,13 +8,14 @@ const profileSchema = new mongoose.Schema({
     inventory: {type: Array},
     xp: {type: Number, default: 0},
     level: {type: Number, default: 1},
-    healthP: {type: Number, default: 100, minimum: 0, maximum: 100},
-    manaP: {type: Number, default: 100, minimum: 0, maximum: 100},
+    spells: {type: Array},
     location: {type: Array, default: 'home'},
     weapon: {type: Array},
+    healthP: {type: Number, default: 100, minimum: 0, maximum: 100},
+    manaP: {type: Number, default: 100, minimum: 0, maximum: 100},
     damage: {type: Number},
-    spells: {type: Array},
     mDamage: {type: Number},
+    crit: {type: Number},
     class: {type: String}
 })
 
