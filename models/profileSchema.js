@@ -16,7 +16,7 @@ const profileSchema = new mongoose.Schema({
     damage: {type: Number},
     mDamage: {type: Number},
     crit: {type: Number},
-    class: {type: String}
+    class: {type: Array}
 })
 
 const model = mongoose.model('ProfileModels', profileSchema);
