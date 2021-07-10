@@ -12,7 +12,7 @@ module.exports = {
         }
         
         const ores = mines[Math.floor(Math.random() * mines.length)].name
-        const images = mines[Math.floor(Math.random() * mines.length)].image
+        
         params = {
             userID: message.author.id,
         }
