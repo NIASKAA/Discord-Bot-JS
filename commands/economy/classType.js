@@ -160,12 +160,13 @@ module.exports = {
                         $set: {
                             damage: revert,
                             mDamage: multi,
-                            class: "Mage"
+                            class: "Thief"
                         }
                     }]
                     await profileModel.findOneAndUpdate({
                         userID: message.author.id
                     }, changes)
+                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a thief!`).setDescription('').setThumbnail("https://imgur.com/npjQW0h.png"))
                 } else {
                     await profileModel.findOneAndUpdate({
                         userID: message.author.id
