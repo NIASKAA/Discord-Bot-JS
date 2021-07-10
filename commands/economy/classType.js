@@ -25,23 +25,25 @@ module.exports = {
                 if(profileData.class.includes('Thief')){
                     return message.send("You already have a class! Wait till level 12 to change!")
                 } 
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $mul: {
-                        damage: 1.6,
+                if(profileData.class.find((x) => x.toLowerCase() === "warrior") === undefined ) {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
                     },
-                    $set: {
-                        class: "Warrior"
-                    }
-                },
-                {
-                    upsert: true
-                })
-                classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail("https://imgur.com/ynUJVus.png"))
+                    {
+                        $mul: {
+                            damage: 1.6,
+                        },
+                        $set: {
+                            class: "Warrior"
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail("https://imgur.com/ynUJVus.png"))
+                }
                 
-            }
+            } else
 
             if(m.content === "mage" || "Mage") {
                 if(profileData.level < 5) {
@@ -52,22 +54,24 @@ module.exports = {
                 } else if(profileData.class.includes('Warrior')){
                     return message.send("You already have a class! Wait till level 12 to change!")
                 }
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $mul: {
-                        mDamage: 2,
+                if(profileData.class.find((x) => x.toLowerCase() === "mage") === undefined ) {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
                     },
-                    $set: {
-                        class: "Mage"
-                    }
-                },
-                {
-                    upsert: true
-                })
-                classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a mage!`).setDescription('').setThumbnail("https://imgur.com/tE447hA.png"))
-            } 
+                    {
+                        $mul: {
+                            mDamage: 2,
+                        },
+                        $set: {
+                            class: "Mage"
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a mage!`).setDescription('').setThumbnail("https://imgur.com/tE447hA.png"))
+                }
+            } else
 
             if(m.content === "thief" || "Thief") {
                 if(profileData.level < 5) {
@@ -79,22 +83,24 @@ module.exports = {
                 if(profileData.class.includes('Mage')){
                     return message.send("You already have a class! Wait till level 12 to change!")
                 }
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $mul: {
-                        damage: 1.5,
+                if(profileData.class.find((x) => x.toLowerCase() === "thief") === undefined ) {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
                     },
-                    $set: {
-                        class: "Thief",
-                        crit: 2
-                    }
-                },
-                {
-                    upsert: true
-                })
-                classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a thief!`).setDescription('').setThumbnail("https://imgur.com/npjQW0h.png"))
+                    {
+                        $mul: {
+                            damage: 1.5,
+                        },
+                        $set: {
+                            class: "Thief",
+                            crit: 2
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a thief!`).setDescription('').setThumbnail("https://imgur.com/npjQW0h.png"))
+                }
             }
         })
 
