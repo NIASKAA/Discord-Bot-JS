@@ -11,98 +11,101 @@ module.exports = {
         .setTitle("Pick your class")
         .setDescription('(Warrior, Mage, Thief)')
         let classMsg = await message.channel.send(Embed)
-        const filter = (user) => user.id = message.author.id
-        const collector = message.channel.createMessageCollector(filter, {max: 1})
+        await classMsg.react('⚔️');
+        await classMsg.react('🧙‍♂️');
+        await classMsg.react('💰');
 
-        collector.on('collect', async(m) => {
-            if(m.content === "warrior" || "Warrior") {
-                if(profileData.level < 5) {
-                    return message.channel.send('You are not high enough level!')
-                }
-                if(profileData.class.includes('Mage')) {
-                    return message.send("You already have a class! Wait till level 12 to change!")
-                }
-                if(profileData.class.includes('Thief')){
-                    return message.send("You already have a class! Wait till level 12 to change!")
-                } 
-                if(profileData.class.find((x) => x.toLowerCase() === "warrior") === undefined ) {
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    },
-                    {
-                        $mul: {
-                            damage: 1.6,
-                        },
-                        $set: {
-                            class: "Warrior"
-                        }
-                    },
-                    {
-                        upsert: true
-                    })
-                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a warrior!`).setDescription('').setThumbnail("https://imgur.com/ynUJVus.png"))
-                }
-                
-            } else
+        const warriorReact = (reaction, user) => reaction.emoji.name === "⚔️" && user.id === message.author.id
+        const mageReact = (reaction, user) => reaction.emoji.name === "🧙‍♂️" && user.id === message.author.id
+        const thiefReact = (reaction, user) => reaction.emoji.name === "💰" && user.id === message.author.id
 
-            if(m.content === "mage" || "Mage") {
-                if(profileData.level < 5) {
-                    return message.channel.send('You are not high enough level!')
-                }
-                if(profileData.class.includes('Thief')){
-                    return message.send("You already have a class! Wait till level 12 to change!")
-                } else if(profileData.class.includes('Warrior')){
-                    return message.send("You already have a class! Wait till level 12 to change!")
-                }
-                if(profileData.class.find((x) => x.toLowerCase() === "mage") === undefined ) {
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    },
-                    {
-                        $mul: {
-                            mDamage: 2,
-                        },
-                        $set: {
-                            class: "Mage"
-                        }
-                    },
-                    {
-                        upsert: true
-                    })
-                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a mage!`).setDescription('').setThumbnail("https://imgur.com/tE447hA.png"))
-                }
-            } else
+        const warrior = msg.createReactionCollector(warriorReact, {dispose: true})
+        const mage = msg.createReactionCollector(mageReact, {dispose: true})
+        const thief = msg.createReactionCollector(thiefReact, {dispose: true})
 
-            if(m.content === "thief" || "Thief") {
-                if(profileData.level < 5) {
-                    return message.channel.send('You are not high enough level!')
-                }
-                if(profileData.class.includes('Warrior')){
-                    return message.send("You already have a class! Wait till level 12 to change!")
-                }
-                if(profileData.class.includes('Mage')){
-                    return message.send("You already have a class! Wait till level 12 to change!")
-                }
-                if(profileData.class.find((x) => x.toLowerCase() === "thief") === undefined ) {
-                    await profileModel.findOneAndUpdate({
-                        userID: message.author.id
-                    },
-                    {
-                        $mul: {
-                            damage: 1.5,
-                        },
-                        $set: {
-                            class: "Thief",
-                            crit: 2
-                        }
-                    },
-                    {
-                        upsert: true
-                    })
-                    classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.username} is now a thief!`).setDescription('').setThumbnail("https://imgur.com/npjQW0h.png"))
-                }
+        warrior.on("collect", async(erase) => {
+            erase.users.remove(message.author.id)
+            if(profileData.level < 5) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You need to be lvl 5 to choose a class!').setDescription(''))
             }
+            if(profileData.class.includes("Mage")) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
+            }
+            if(profileData.class.includes("Thief")) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
+            }
+            await profileModel.findOneAndUpdate({
+                user: message.author.id
+            },
+            {
+                $mul: {
+                    damage: 1.8
+                },
+                $set: {
+                    crit: 2
+                }
+            },
+            {
+                upsert: true
+            })
+            await classMsg.edit(Embed.setAuthor(`${message.author.id}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.id} is now a warrior!`).setThumbnail("https://imgur.com/6E34Np8.png"))
         })
 
+        mage.on("collect", async(erase) => {
+            erase.users.remove(message.author.id)
+            if(profileData.level < 5) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You need to be lvl 5 to choose a class!').setDescription(''))
+            }
+            if(profileData.class.includes("Warrior")) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
+            }
+            if(profileData.class.includes("Thief")) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
+            }
+            await profileModel.findOneAndUpdate({
+                user: message.author.id
+            },
+            {
+                $mul: {
+                    mDamage: 1.8
+                },
+                $set: {
+                    class: 'Mage'
+                }
+            },
+            {
+                upsert: true
+            })
+            await classMsg.edit(Embed.setAuthor(`${message.author.id}`, message.author.displayAvatarURL()).setColor("GREEN").setDescription(`${message.author.id} is now a mage!`).setThumbnail("https://imgur.com/RiZXARx.png"))
+        })
+
+        thief.on("collect", async(erase) => {
+            erase.users.remove(message.author.id)
+            if(profileData.level < 5) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You need to be lvl 5 to choose a class!').setDescription(''))
+            }
+            if(profileData.class.includes("Warrior")) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
+            }
+            if(profileData.class.includes("Mage")) {
+                return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
+            }
+            await profileModel.findOneAndUpdate({
+                user: message.author.id
+            },
+            {
+                $mul: {
+                    damage: 1.4
+                },
+                $set: {
+                    crit: 2,
+                    class: "Thief"
+                }
+            },
+            {
+                upsert: true
+            })
+            await classMsg.edit(Embed.setAuthor(`${message.author.id}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.id} is now a thief!`).setThumbnail("https://imgur.com/NZdrAkb.png"))
+        })
     }
 }
