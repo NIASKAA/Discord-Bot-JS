@@ -1,39 +1,42 @@
 module.exports = [
     {
-        name: "iron"
+        name: "iron",
+        image: 'https://imgur.com/OzXBET3.png'
     },
     {
-        name: "copper"
+        name: "copper",
+        image: 'https://imgur.com/ojOSf0D.png'
     },
     {
-        name: "gold"
+        name: "amethyst",
+        image: "https://imgur.com/joQFoY9.png"
     },
     {
-        name: "topaz"
+        name:  "ruby",
+        image: 'https://imgur.com/mUCoBre.png'
     },
     {
-        name:  "ruby"
+        name: "topaz",
+        image: "https://imgur.com/E95r7Dw.png"
     },
     {
         name: "sapphire",
+        image: "https://imgur.com/7o0M4uR.png"
     },
     {
-        name: 'gold'
+        name: 'gold',
+        image:'https://imgur.com/JCBqvxV.png'
     },
     {
-        name: 'diamond'
+        name: 'diamond',
+        image: 'https://imgur.com/caSfoUh.png'
     },
     {
-        name: 'emerald'
+        name: 'emerald',
+        image: 'https://imgur.com/CuCEPc9.png'
     },
     {
-        name: 'power jewel'
-    },
-    {
-        name: 'magic jewel'
-    },
-    {
-        name: 'platinum'
+        name: 'platinum',
+        images: 'https://imgur.com/3S5gSfL.png'
     }
-    
 ]

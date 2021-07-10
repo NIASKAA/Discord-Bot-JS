@@ -1,4 +1,6 @@
 const profileModel = require('../../models/profileSchema');
+const mines = require('../../models/ores');
+const {MessageEmbed} = require('discord.js')
 
 module.exports = {
     name: 'mine',
@@ -8,31 +10,31 @@ module.exports = {
         if(profileData.inventory.find((x) => x.toLowerCase() === "pickaxe") === undefined ) {
             return message.channel.send('What are you doing bruv? Mining with your hands? Go buy a pickaxe mate')
         }
-        ores = ['iron', 'copper', 'gold', 'ruby', 'sapphire', 'amethyst', 'diamond', 'emerald']
-        const randomOres = Math.floor((Math.random() * ores.length));
-      
+        
+        const ores = mines[Math.floor(Math.random() * mines.length)].name
+        const images = mines[Math.floor(Math.random() * mines.length)].image
         params = {
             userID: message.author.id,
         }
-        
+
+        Embed = new MessageEmbed()
+        .setColor("GREEN")
+        .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
+        .setTitle(`You mined and found ${ores}`)
+        .setThumbnail(`${images}`)
+
         profileModel.findOne(params, async(err, data) => {
         if(data) {
-            const getOres = Object.keys(data.inventory).includes(randomOres);
-            if(!getOres) {
-                data.inventory[randomOres] = 1;
-            } else {
-                data.inventory[randomOres]++;
-            }
             await profileModel.findOneAndUpdate({
                 userID: message.author.id,
             },
             {
                 $push: {
-                    inventory: ores[randomOres]
+                    inventory: ores
                 }
             }, data);
             }
-            message.reply(`You mined and found a ${ores[randomOres]}`);
+            message.channel.send(Embed);
         })
     }
 };

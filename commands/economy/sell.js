@@ -608,6 +608,98 @@ module.exports = {
             await profileModel.findOneAndUpdate({
                 userID: message.author.id
             }, changes)
+        } else if(itemToSell === "topaz") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "topaz") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
+            addMoreCoins = {
+                $add:[
+                    "$coins",450
+                ]}
+            onefewerItem = { 
+                $reduce : { 
+                    input: "$inventory", 
+            initialValue: {
+                stilllooking:true, 
+                i:[] 
+            } , 
+            in :{ 
+                $cond  :
+                { if: 
+                    {$and : 
+                        [{
+                            $eq : 
+                            [
+                                "$$this","topaz"
+                        ]},
+                            "$$value.stilllooking"
+                        ]} , 
+                          then: {stilllooking:false, i:"$$value.i"},
+                          else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
+
+
+            changes = [{
+                $set : 
+                { 
+                    coins: addMoreCoins, 
+                    inventory: onefewerItem 
+                }
+            },
+            {
+                $set: 
+                {
+                    inventory:"$inventory.i"
+                }
+            }]
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, changes)
+        } else if(itemToSell === "platinum") {
+            if(profileData.inventory.find((x) => x.toLowerCase() === "platinum") === undefined ) {
+                return message.channel.send("You dont have this item mate")
+            }
+            addMoreCoins = {
+                $add:[
+                    "$coins",3000
+                ]}
+            onefewerItem = { 
+                $reduce : { 
+                    input: "$inventory", 
+            initialValue: {
+                stilllooking:true, 
+                i:[] 
+            } , 
+            in :{ 
+                $cond  :
+                { if: 
+                    {$and : 
+                        [{
+                            $eq : 
+                            [
+                                "$$this","platinum"
+                        ]},
+                            "$$value.stilllooking"
+                        ]} , 
+                          then: {stilllooking:false, i:"$$value.i"},
+                          else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
+
+
+            changes = [{
+                $set : 
+                { 
+                    coins: addMoreCoins, 
+                    inventory: onefewerItem 
+                }
+            },
+            {
+                $set: 
+                {
+                    inventory:"$inventory.i"
+                }
+            }]
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, changes)
         }
 
         message.reply(`You sold ${itemToSell}`)

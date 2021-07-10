@@ -21,7 +21,7 @@ module.exports = {
         let scaleDamage = weaponDamage * 1.8
         if(profileData.coins < weaponPrice) return message.reply("You don't have enough money!");
         if(profileData.level < weaponLevel) return message.reply("You are not high enough level!")
-       
+        if(profileData.weapon.includes(itemToBuy)) return message.reply("You already own this weapon!")
         
         Embed = new MessageEmbed()
         .setColor("PURPLE")
