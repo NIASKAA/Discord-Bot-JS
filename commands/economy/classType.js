@@ -19,9 +19,9 @@ module.exports = {
         const mageReact = (reaction, user) => reaction.emoji.name === "🧙‍♂️" && user.id === message.author.id
         const thiefReact = (reaction, user) => reaction.emoji.name === "💰" && user.id === message.author.id
 
-        const warrior = msg.createReactionCollector(warriorReact, {dispose: true})
-        const mage = msg.createReactionCollector(mageReact, {dispose: true})
-        const thief = msg.createReactionCollector(thiefReact, {dispose: true})
+        const warrior = classMsg.createReactionCollector(warriorReact, {dispose: true})
+        const mage = classMsg.createReactionCollector(mageReact, {dispose: true})
+        const thief = classMsg.createReactionCollector(thiefReact, {dispose: true})
 
         warrior.on("collect", async(erase) => {
             erase.users.remove(message.author.id)
@@ -35,7 +35,7 @@ module.exports = {
                 return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
             }
             await profileModel.findOneAndUpdate({
-                user: message.author.id
+                userID: message.author.id
             },
             {
                 $mul: {
@@ -48,7 +48,7 @@ module.exports = {
             {
                 upsert: true
             })
-            await classMsg.edit(Embed.setAuthor(`${message.author.id}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.id} is now a warrior!`).setThumbnail("https://imgur.com/6E34Np8.png"))
+            await classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.id} is now a warrior!`).setThumbnail("https://imgur.com/6E34Np8.png"))
         })
 
         mage.on("collect", async(erase) => {
@@ -63,7 +63,7 @@ module.exports = {
                 return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
             }
             await profileModel.findOneAndUpdate({
-                user: message.author.id
+                userID: message.author.id
             },
             {
                 $mul: {
@@ -76,7 +76,7 @@ module.exports = {
             {
                 upsert: true
             })
-            await classMsg.edit(Embed.setAuthor(`${message.author.id}`, message.author.displayAvatarURL()).setColor("GREEN").setDescription(`${message.author.id} is now a mage!`).setThumbnail("https://imgur.com/RiZXARx.png"))
+            await classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setDescription(`${message.author.id} is now a mage!`).setThumbnail("https://imgur.com/RiZXARx.png"))
         })
 
         thief.on("collect", async(erase) => {
@@ -91,7 +91,7 @@ module.exports = {
                 return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
             }
             await profileModel.findOneAndUpdate({
-                user: message.author.id
+                userID: message.author.id
             },
             {
                 $mul: {
@@ -105,7 +105,7 @@ module.exports = {
             {
                 upsert: true
             })
-            await classMsg.edit(Embed.setAuthor(`${message.author.id}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.id} is now a thief!`).setThumbnail("https://imgur.com/NZdrAkb.png"))
+            await classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setTitle(`${message.author.id} is now a thief!`).setThumbnail("https://imgur.com/NZdrAkb.png"))
         })
     }
 }
