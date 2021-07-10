@@ -12,7 +12,7 @@ module.exports = {
         }
         
         const ores = mines[Math.floor(Math.random() * mines.length)].name
-        const images = mines.find((val) => val.name.toLowerCase).image
+        const images = mines.find((val) => val.name === ores).image
         params = {
             userID: message.author.id,
         }
@@ -22,7 +22,7 @@ module.exports = {
         .setAuthor(`${message.author.username}`, message.author.displayAvatarURL())
         .setTitle(`You mined and found ${ores}`)
         .setThumbnail(`${images}`)
-
+    
         profileModel.findOne(params, async(err, data) => {
         if(data) {
             await profileModel.findOneAndUpdate({
