@@ -66,7 +66,7 @@ module.exports = [{
     type: 'dungeon',
     level: 4,
     encounters: [{
-        name: 'shadow',
+        name: 'phantom',
         health: 130,
         damage: 35,
         accuracy: 0.8,

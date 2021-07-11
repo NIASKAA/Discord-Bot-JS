@@ -67,7 +67,7 @@ module.exports = {
             },
             {
                 $mul: {
-                    mDamage: 1.8
+                    mDamage: 2
                 },
                 $set: {
                     class: 'Mage'

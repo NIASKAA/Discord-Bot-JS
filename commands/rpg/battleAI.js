@@ -71,17 +71,14 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
 
         await battleMsg.react('🗡️')
         await battleMsg.react('🌀');
-        //await battleMsg.react('🧪')
         await battleMsg.react('👟')
 
         const attackReact = (reaction, user) => reaction.emoji.name === '🗡️' && user.id === message.author.id;
         const spellsReact =(reaction, user) => reaction.emoji.name === "🌀" && user.id === message.author.id;
-        //const healReact = (reaction, user) => reaction.emoji.name === '🧪' && user.id === message.author.id;
         const fleeReact = (reaction, user) => reaction.emoji.name === '👟' && user.id === message.author.id;
 
         const attack = battleMsg.createReactionCollector(attackReact)
         const spells = battleMsg.createReactionCollector(spellsReact)
-        //const heals = battleMsg.createReactionCollector(healsReact)
         const flee = battleMsg.createReactionCollector(fleeReact)
 
         flee.on("collect", async (erase) => {
@@ -358,7 +355,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             let currentHealth = await profileModel.findOne({userID: message.author.id})
             
             if(userLuck >= enemyLuck) {
-                    if(userCrit <= critChance){
+                    if(currentHealth.crit <= critChance){
                     successAttack = `You attacked ${enemy.name} for ${weaponDamage }!`
                     enemy.health -= (weaponDamage)
                 } else {

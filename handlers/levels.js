@@ -74,7 +74,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                         spells: "blizzard"
                     },
                     $set: {
-                        mDamage: 18
+                        mDamage: 20
                     }
                 },
                 {
@@ -95,7 +95,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                         spells: "thundaga"
                     },
                     $set: {
-                        mDamage: 18
+                        mDamage: 28
                     }
                 },
                 {
@@ -115,7 +115,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                         spells: "death"
                     },
                     $set: {
-                        mDamage: 18
+                        mDamage: 32
                     }
                 },
                 {

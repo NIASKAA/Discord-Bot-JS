@@ -1,6 +1,6 @@
 module.exports = [{
     name: 'brave',
-    modifier: 0.2
+    modifier: 1.0
   },
   {
     name: 'wack',

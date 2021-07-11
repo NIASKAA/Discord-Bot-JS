@@ -52,21 +52,21 @@ module.exports = {
     weapons: [{
       id: 1,
       name: 'pebble',
-      damage: 1.2,
+      damage: 2.2,
       critical: 0.2,
       accuracy: 2,
     },
     {
       id: 2,
       name: 'stick',
-      damage: 1.4,
+      damage: 2.4,
       critical: 0.2,
       accuracy: 3,
     },
     {
       id: 3,
       name: 'sword',
-      damage: 1.7,
+      damage: 3.7,
       critical: 0.9,
       accuracy: 4,
       value: 15
@@ -74,7 +74,7 @@ module.exports = {
     {
       id: 4,
       name: 'long sword',
-      damage: 2.3,
+      damage: 4.3,
       critical: 0.4,
       accuracy: 4,
     },

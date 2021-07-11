@@ -43,6 +43,7 @@ module.exports = {
         !venture \n
         !goHome \n
         !eat \n
+        !class \n
         `)
 
         let pages = [list1, list2, list3]
