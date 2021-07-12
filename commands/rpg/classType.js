@@ -62,6 +62,23 @@ module.exports = {
             if(profileData.class.includes("Thief")) {
                 return classMsg.edit(Embed.setColor('RED').setTitle('You already have a class!').setDescription(''))
             }
+            if(profileData.level === 13) {
+                await profileModel.findOneAndUpdate({
+                    userID: message.author.id
+                },
+                {
+                    $mul: {
+                        mDamage: 2
+                    },
+                    $set: {
+                        class: 'Mage'
+                    }
+                },
+                {
+                    upsert: true
+                })
+                await classMsg.edit(Embed.setAuthor(`${message.author.username}`, message.author.displayAvatarURL()).setColor("GREEN").setDescription(`${message.author.id} is now a mage!`).setThumbnail("https://imgur.com/RiZXARx.png"))
+            }
             await profileModel.findOneAndUpdate({
                 userID: message.author.id
             },

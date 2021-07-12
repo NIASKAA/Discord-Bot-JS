@@ -132,7 +132,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         enemy.health = 0
                         battleMsg.edit(Embed2.setImage("https://imgur.com/5WbehuW.png").setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
                         await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                        profileModel.updateOne({
+                        await profileModel.updateOne({
                             userID: message.author.id
                         },
                         {
@@ -215,7 +215,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         enemy.health = 0
                         battleMsg.edit(Embed2.setImage('https://imgur.com/5WbehuW.png').setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
                         await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                        profileModel.updateOne({
+                        await profileModel.updateOne({
                             userID: message.author.id
                         },
                         {
@@ -297,7 +297,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         enemy.health = 0
                         battleMsg.edit(Embed2.setColor("GREEN").setImage('https://imgur.com/5WbehuW.png').setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
                         await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                        profileModel.updateOne({
+                        await profileModel.updateOne({
                             userID: message.author.id
                         },
                         {
@@ -381,7 +381,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     battleMsg.edit(Embed2.setImage('https://imgur.com/5WbehuW.png').setColor("GREEN").setTitle('VICTORY!').setDescription(`${message.author.username} won the battle!`).setFooter(`Current Health: ${currentHealth.healthP}`))
                 }, 3000)
                 await utils.fightAgain(message, args, cmd, client, Discord, profileData)
-                profileModel.updateOne({
+                await profileModel.updateOne({
                     userID: message.author.id
                 },
                 {

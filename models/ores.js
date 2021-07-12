@@ -39,12 +39,12 @@ module.exports = [
         name: 'platinum',
         image: 'https://imgur.com/4y02H7r.png'
     },
-    /* {
+    {
         name: 'power jewel',
         image: 'https://imgur.com/fIkDeRm.png'
     },
     {
         name: 'magic jewel',
         image: 'https://imgur.com/Fuz9cCi.png'
-    }*/
+    }
 ]

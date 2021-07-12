@@ -16,7 +16,10 @@ const profileSchema = new mongoose.Schema({
     damage: {type: Number},
     mDamage: {type: Number},
     crit: {type: Number},
-    class: {type: Array}
+    class: {type: Array},
+    equip: [{
+        helmet: String, armor: String, leg: String, aces: String
+    }]
 })
 
 const model = mongoose.model('ProfileModels', profileSchema);

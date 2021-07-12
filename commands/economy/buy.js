@@ -38,23 +38,5 @@ module.exports = {
             });
             message.reply(`You bought ${itemToBuy}`)
         })
-        
-        profileModel.findOne(params, async(err, data) => {
-            await profileModel.updateMany({
-                userID: message.author.id,
-            },
-            {
-                $inc: {
-                    coins: -foodPrice
-                },
-                $push: {
-                    inventory: itemToBuy
-                }
-            },
-            {
-                upsert: true
-            });
-            message.reply(`You bought ${foodToBuy}`)
-        })
     }
 };
