@@ -59,11 +59,11 @@ module.exports = {
                     upsert: true
                 });
             })
-            if(profileData.class === "Warrior") {
+            if(profileData.class == "Warrior") {
                 await warriorAI.run(message, args, cmd, client, Discord, profileData)
-            } else  if(profileData.class === "Mage") {
+            } else  if(profileData.class == "Mage") {
                 await mageAI.run(message, args, cmd, client, Discord, profileData)
-            } else if(profileData.class === "Thief") {
+            } else if(profileData.class == "Thief") {
                 await thiefAI.run(message, args, cmd, client, Discord, profileData)
             }
            
