@@ -17,7 +17,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
     const Embed = new MessageEmbed()
     .setColor("RED")
     .setDescription(question)
-    .setDescription(enemy.image)
+    .setThumbnail(`${enemy.image}`)
     let msg = await message.channel.send(Embed)
 
     await msg.react('⚔️');
