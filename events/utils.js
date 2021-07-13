@@ -1,7 +1,9 @@
 const profileModel = require('../models/profileSchema')
 const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
-const battleAI = require('../commands/rpg/battleAI');
+const warriorAI = require('./warriorAI');
+const mageAI = require('./mageAI');
+const thiefAI = require('./thiefAI');
 module.exports = {
     fightAgain,
 }
@@ -25,7 +27,13 @@ async function fightAgain(message, args, cmd, client, Discord, profileData) {
         yes.on("collect", async (erase) => {
             erase.users.remove(message.author.id);
             askMsg.edit(EmbedFight.setTitle('Status...').setDescription(`Searching for enemy...`))
-            await battleAI.run(message, args, cmd, client, Discord, profileData)
+            if(profileData.class == "Warrior") {
+                await warriorAI.run(message, args, cmd, client, Discord, profileData)
+            } else  if(profileData.class == "Mage") {
+                await mageAI.run(message, args, cmd, client, Discord, profileData)
+            } else if(profileData.class == "Thief") {
+                await thiefAI.run(message, args, cmd, client, Discord, profileData)
+            }
         })
 
         no.on("collect", async (erase) => {

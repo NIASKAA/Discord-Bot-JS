@@ -10,15 +10,15 @@ module.exports = {
         if(items.length === 0) return message.reply('There are no items for sale!');
 
         const shopList = items.map((value, index) => {
-            return `${index + 1} ${value.item} -> ${value.price} coins!`
+            return `${value.item} -> ${value.price} coins!`
         });
 
         const foodList = food.map((value, index) => {
-            return `${index + 1} ${value.items} -> ${value.price} coins`
+            return `${value.items} -> ${value.price} coins, HP: ${value.healthP}, MP: ${value.manaP}`
         });
 
         const weaponList = weapon.map((value, index) => {
-            return `${index + 1} ${value.name} -> ${value.price} coins`
+            return `${value.name} -> ${value.price} coins, Damage: ${value.damage}, Magic Damage: ${value.mDamage}`
         });
 
         let pages = [shopList, foodList, weaponList]
