@@ -1,9 +1,9 @@
 const profileModel = require('../models/profileSchema')
 const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
-const warriorAI = require('./warriorAI');
-const mageAI = require('./mageAI');
-const thiefAI = require('./thiefAI');
+const warriorAI = require('../commands/rpg/warriorAI');
+const mageAI = require("../commands/rpg/mageAI");
+const thiefAI = require('../commands/rpg/thiefAI');
 module.exports = {
     fightAgain,
 }
