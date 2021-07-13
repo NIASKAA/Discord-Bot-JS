@@ -13,12 +13,14 @@ module.exports = [{
         health: 40,
         damage: 5,
         accuracy: 0.4,
+        image: 'https://imgur.com/66b6vHk.png'
     },
     {
         name: 'blue mushroom',
         health: 45,
         damage: 4,
         accuracy: 0.4,
+        image: 'https://imgur.com/YINubIz.png'
     },
     {
         name: 'skeleton',
