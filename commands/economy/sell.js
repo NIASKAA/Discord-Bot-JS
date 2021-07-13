@@ -1,8 +1,4 @@
 const profileModel = require('../../models/profileSchema');
-const items = require('../../models/shopItems');
-const ores = require('../../models/ores');
-const sellItem = require('./sellItems')
-const sellOres = require('../sellOres')
 
 module.exports = {
     name: 'sell',

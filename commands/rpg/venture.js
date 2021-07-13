@@ -73,6 +73,7 @@ module.exports = {
             erase.users.remove(message.author.id);
             Embed
             .setTitle('Status...')
+            .setColor("YELLOW")
             .setDescription("Going back to town")
             .setImage('https://imgur.com/KOYoNfA.png')
             msg.edit(Embed)
