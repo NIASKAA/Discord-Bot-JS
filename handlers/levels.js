@@ -42,7 +42,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
     }
     profileModel.findOne(params, async(err, data) => {
         if(data.level ===  5) {
-            if(data.class === "Mage") {
+            if(data.class == "Mage") {
                 if(data.spells.includes("fira")) {
                     return 
                 } else {
@@ -63,8 +63,8 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                     message.channel.send(`${message.author.username} learned fira!`)
                 }
             }
-            if(data.class === "Warrior") {
-                if(data.spells.includes("slash")) {
+            if(data.class == "Warrior") {
+                if(data.spells.includes("brandish")) {
                     return 
                 } else {
                     await profileModel.findOneAndUpdate({
@@ -72,7 +72,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                     },
                     {
                         $push: {
-                            spells: "slash"
+                            spells: "brandish"
                         },
                         $set: {
                             damage: 6
@@ -81,7 +81,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                     {
                         upsert: true
                     })
-                    message.channel.send(`${message.author.username} learned slash!`)
+                    message.channel.send(`${message.author.username} learned brandish!`)
                 }
             }
             if(data.class === "Thief") {
@@ -107,7 +107,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             }
             
         } else if(data.level === 10) {
-            if(data.class === "Mage") {
+            if(data.class == "Mage") {
                 if(data.spells.includes("blizzard")) {
                     return 
                 } else {
@@ -129,8 +129,8 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                 }
             }
 
-            if(data.class === "Warrior") {
-                if(data.spells.includes("ground smash")) {
+            if(data.class == "Warrior") {
+                if(data.spells.includes("puncture")) {
                     return 
                 } else {
                     await profileModel.findOneAndUpdate({
@@ -138,7 +138,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                     },
                     {
                         $push: {
-                            spells: "ground smash"
+                            spells: "puncture"
                         },
                         $set: {
                             damage: 12
@@ -147,11 +147,11 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                     {
                         upsert: true
                     })
-                    message.channel.send(`${message.author.username} learned ground smash!`)
+                    message.channel.send(`${message.author.username} learned puncture!`)
                 }
             }
 
-            if(data.class === "Thief") {
+            if(data.class == "Thief") {
                 if(data.spells.includes("shuriken burst")) {
                     return 
                 } else {
@@ -174,7 +174,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
             }
             
         } else if(data.level === 15) {
-            if(data.class === "Mage") {
+            if(data.class == "Mage") {
                 if(data.spells.includes("thundaga")) {
                     return 
                 } else {
@@ -196,8 +196,8 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                 }
             }
 
-            if(data.class === "Warrior") {
-                if(data.spells.includes("brandish")) {
+            if(data.class == "Warrior") {
+                if(data.spells.includes("rising rage")) {
                     return 
                 } else {
                     await profileModel.findOneAndUpdate({
@@ -205,7 +205,7 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                     },
                     {
                         $push: {
-                            spells: "brandish"
+                            spells: "rising rage"
                         },
                         $set: {
                             damage: 18
@@ -214,11 +214,11 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
                     {
                         upsert: true
                     })
-                    message.channel.send(`${message.author.username} learned brandish!`)
+                    message.channel.send(`${message.author.username} learned rising rage!`)
                 }
             }
 
-            if(data.class === "Thief") {
+            if(data.class == "Thief") {
                 if(data.spells.includes("dark harmony")) {
                     return 
                 } else {

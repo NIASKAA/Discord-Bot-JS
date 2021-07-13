@@ -98,10 +98,10 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             const collector = message.channel.createMessageCollector(filter, {max: 1})
 
             collector.on('collect', async (m) => {
-                if(m.content === "slash" || "Slash"){
+                if(m.content === "brandish" || "Brandish"){
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 20
-                    if(profileData.spells.find((x) => x.toLowerCase() === "Slash") === undefined ) {
+                    if(profileData.spells.find((x) => x.toLowerCase() === "brandish") === undefined ) {
                         return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
                     if(currentHealth.manaP < 0) {
@@ -109,7 +109,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     if(userLuck >= enemyLuck) {
                         if(userCrit <= critChance){
-                        successAttack = `You attacked ${enemy.name} with slash for ${weaponDamage* 1.5}!`
+                        successAttack = `You attacked ${enemy.name} with brandish for ${weaponDamage* 1.5}!`
                         enemy.health -= (weaponDamage * 1.5)
                         } else {
                             successAttack = `You landed a critical hit on ${enemy.name} for ${weaponDamage * 2}!`
@@ -119,7 +119,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/VW2SDxY.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/pCABUtT.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 1000);
                     if(enemy.health <= 0) {
                         enemy.health = 0
@@ -180,10 +180,10 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     {
                         new: true
                     })
-                } else if (m.content === "ground smash" || "Ground Smash") {
+                } else if (m.content === "puncture" || "Puncture") {
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 25
-                    if(profileData.spells.find((x) => x.toLowerCase() === "ground smash") === undefined ) {
+                    if(profileData.spells.find((x) => x.toLowerCase() === "puncture") === undefined ) {
                         return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
                     if(currentHealth.manaP < 0) {
@@ -191,7 +191,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     if(userLuck >= enemyLuck) {
                         if(userCrit <= critChance){
-                        successAttack = `You attacked ${enemy.name} with ground smash for ${weaponDamage * 1.8}!`
+                        successAttack = `You attacked ${enemy.name} with puncture for ${weaponDamage * 1.8}!`
                         enemy.health -= (weaponDamage  * 1.8)
                         } else {
                             successAttack = `You landed a critical hit on ${enemy.name} for ${weaponDamage * 3}!`
@@ -201,7 +201,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/tdc1xRv.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/XHT5N6T.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 2000);
 
                     if(enemy.health <= 0) {
@@ -263,10 +263,10 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     {
                         new: true
                     })
-                } else if(m.content === "brandish" || "Brandish") {
+                } else if(m.content === "rising rage" || "Rising Rage") {
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
                     let mana = 35
-                    if(profileData.spells.find((x) => x.toLowerCase() === "brandish") === undefined ) {
+                    if(profileData.spells.find((x) => x.toLowerCase() === "rising rage") === undefined ) {
                         return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
                     if(currentHealth.manaP < 0) {
@@ -274,7 +274,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     if(userLuck >= enemyLuck) {
                         if(userCrit <= critChance){
-                        successAttack = `You attacked ${enemy.name} with brandish for ${weaponDamage * 2}!`
+                        successAttack = `You attacked ${enemy.name} with rising rage for ${weaponDamage * 2}!`
                         enemy.health -= (weaponDamage * 2)
                         } else {
                             successAttack = `You landed a critical hit on ${enemy.name} for ${weaponDamage * 4}!`
@@ -284,7 +284,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/rLSziLg.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/XY1YVZr.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 1000);
                     if(enemy.health <= 0) {
                         enemy.health = 0

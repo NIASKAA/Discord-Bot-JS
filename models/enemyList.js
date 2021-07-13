@@ -6,6 +6,7 @@ module.exports = [{
         health: 30,
         damage: 1,
         accuracy: 0.2,
+        image: 'https://imgur.com/E5SQB3f.png'
     },
     {
         name: 'small goblin',
@@ -24,14 +25,8 @@ module.exports = [{
         health: 50,
         damage: 5,
         accuracy: 1.0,
-    },
-    {
-        name: 'lizard',
-        health: 60,
-        damage: 3,
-        accuracy: 0.3,
-    }
-    ]
+        image: 'https://imgur.com/yvICH71.png'
+    }]
   },
   {
     type: 'ghost town',
@@ -41,24 +36,28 @@ module.exports = [{
         health: 60,
         damage: 6,
         accuracy: 0.9,
-    },
-    {
-        name: 'ghost',
-        health: 100,
-        damage: 6,
-        accuracy: 0.9,
+        image: 'https://imgur.com/CxL1Jci.png'
     },
     {
         name: 'giant bat',
         health: 120,
         damage: 8,
         accuracy: 0.7,
+        image: "https://imgur.com/HQU6ENz.png"
     },
     {
         name: 'spirit',
         health: 100,
         damage: 15,
         accuracy: 0.6,
+        image: 'https://imgur.com/THcagTu.png'
+    },
+    {
+        name: 'Bahamut',
+        health: 200,
+        damage: 50,
+        accuracy: 0.6,
+        image: 'https://imgur.com/LPPW59g.png'
     }
     ]
   },
@@ -70,13 +69,22 @@ module.exports = [{
         health: 130,
         damage: 35,
         accuracy: 0.8,
+        image: 'https://imgur.com/iL8med4.png'
     },
     {
         name: 'demon',
         health: 150,
         damage: 35,
         accuracy: 0.8,
+        image: 'https://imgur.com/QcloWrw.png'
         
+    },
+    {
+        name: 'The butcher',
+        health: 200,
+        damage: 40,
+        accuracy: 0.8,
+        image: 'https://imgur.com/4WzRS2R.png'
     }]
   },
   {
@@ -86,7 +94,22 @@ module.exports = [{
       name: 'dragon',
       health: 200,
       damage: 40,
-      accuracy: 0.9
+      accuracy: 0.9,
+      image: 'https://imgur.com/6JlsxYV.png'
+    },
+    {
+        name: 'Forgotten Knight',
+        health: 250,
+        damage: 45,
+        accuracy: 0.9,
+        image: 'https://imgur.com/1MZjJdd.png'
+    },
+    {
+        name: 'Mystery One',
+        health: 250,
+        damage: 44,
+        accuracy: 0.9,
+        image: 'https://imgur.com/HcDkgdv.png'
     }]
   }
   ]

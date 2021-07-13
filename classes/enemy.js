@@ -10,6 +10,7 @@ class Enemy {
       this.enemy = enemyList[0].encounters[Math.floor(Math.random() * enemyList[0].encounters.length)];
       this.name = this.modifier.name + ' ' + this.enemy.name
       this.health = this.enemy.health
+      this.image = this.enemy.image
 
       // Enemy Weapon
       const randomType = random(weaponList.types)

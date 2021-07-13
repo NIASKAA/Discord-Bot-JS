@@ -17,6 +17,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
     const Embed = new MessageEmbed()
     .setColor("RED")
     .setDescription(question)
+    .setDescription(enemy.image)
     let msg = await message.channel.send(Embed)
 
     await msg.react('⚔️');
@@ -119,7 +120,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/VW2SDxY.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/kkmpWqe.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 1000);
                     if(enemy.health <= 0) {
                         enemy.health = 0
@@ -201,7 +202,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/tdc1xRv.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/B2358uS.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 2000);
 
                     if(enemy.health <= 0) {
@@ -284,7 +285,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/rLSziLg.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/A2Gjo7a.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 1000);
                     if(enemy.health <= 0) {
                         enemy.health = 0
