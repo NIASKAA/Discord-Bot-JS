@@ -42,68 +42,205 @@ const addXP = async (serverID, userID, xpToAdd, message) => {
     }
     profileModel.findOne(params, async(err, data) => {
         if(data.level ===  5) {
-            if(data.spells.includes("fira")) {
-                return 
-            } else {
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $push: {
-                        spells: "fira"
+            if(data.class === "Mage") {
+                if(data.spells.includes("fira")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
                     },
-                    $set: {
-                        mDamage: 6
-                    }
-                },
-                {
-                    upsert: true
-                })
-                message.channel.send(`${message.author.username} learned fira!`)
+                    {
+                        $push: {
+                            spells: "fira"
+                        },
+                        $set: {
+                            mDamage: 6
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned fira!`)
+                }
+            }
+            if(data.class === "Warrior") {
+                if(data.spells.includes("slash")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $push: {
+                            spells: "slash"
+                        },
+                        $set: {
+                            damage: 6
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned slash!`)
+                }
+            }
+            if(data.class === "Thief") {
+                if(data.spells.includes("double stab")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $push: {
+                            spells: "double stab"
+                        },
+                        $set: {
+                            damage: 5
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} double stab!`)
+                }
             }
             
         } else if(data.level === 10) {
-            if(data.spells.includes("blizzard")) {
-                return 
-            } else {
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $push: {
-                        spells: "blizzard"
+            if(data.class === "Mage") {
+                if(data.spells.includes("blizzard")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
                     },
-                    $set: {
-                        mDamage: 20
-                    }
-                },
-                {
-                    upsert: true
-                })
-                message.channel.send(`${message.author.username} learned blizzard!`)
+                    {
+                        $push: {
+                            spells: "blizzard"
+                        },
+                        $set: {
+                            mDamage: 20
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned blizzard!`)
+                }
+            }
+
+            if(data.class === "Warrior") {
+                if(data.spells.includes("ground smash")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $push: {
+                            spells: "ground smash"
+                        },
+                        $set: {
+                            damage: 12
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned ground smash!`)
+                }
+            }
+
+            if(data.class === "Thief") {
+                if(data.spells.includes("shuriken burst")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $push: {
+                            spells: "shuriken burst"
+                        },
+                        $set: {
+                            damage: 13
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned shuriken burst!`)
+                }
             }
             
-        } else if(data.level === 13) {
-            if(data.spells.includes("thundaga")) {
-                return 
-            } else {
-                await profileModel.findOneAndUpdate({
-                    userID: message.author.id
-                },
-                {
-                    $push: {
-                        spells: "thundaga"
+        } else if(data.level === 15) {
+            if(data.class === "Mage") {
+                if(data.spells.includes("thundaga")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
                     },
-                    $set: {
-                        mDamage: 28
-                    }
-                },
-                {
-                    upsert: true
-                })
-                message.channel.send(`${message.author.username} learned thundaga!`)
+                    {
+                        $push: {
+                            spells: "thundaga"
+                        },
+                        $set: {
+                            mDamage: 28
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned thundaga!`)
+                }
             }
-        } else if(data.level === 16) {
+
+            if(data.class === "Warrior") {
+                if(data.spells.includes("brandish")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $push: {
+                            spells: "brandish"
+                        },
+                        $set: {
+                            damage: 18
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned brandish!`)
+                }
+            }
+
+            if(data.class === "Thief") {
+                if(data.spells.includes("dark harmony")) {
+                    return 
+                } else {
+                    await profileModel.findOneAndUpdate({
+                        userID: message.author.id
+                    },
+                    {
+                        $push: {
+                            spells: "dark harmony"
+                        },
+                        $set: {
+                            damage: 18,
+                            crit: 4
+                        }
+                    },
+                    {
+                        upsert: true
+                    })
+                    message.channel.send(`${message.author.username} learned dark harmony!`)
+                }
+            }
+        } else if(data.level === 20) {
             if(data.spells.includes("death")) {
                 return 
             } else {

@@ -18,7 +18,7 @@ module.exports = async(client, Discord, member) => {
         mDamage: 0,
         class: [],
         crit: 0,
-        equip: [{helmet: '', armor: '', leg: '', aces: ''}]
+        equip: [{helmet: [], armor: [], leg: [], aces: []}]
     });
     profile.save();
 }

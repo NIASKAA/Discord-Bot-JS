@@ -5,7 +5,7 @@ module.exports = {
     cooldown: 84000,
     description: 'claim your daily money',
     async execute(message, args, cmd, client, Discord, profileData) {
-        const DailyCoins = Math.floor(Math.random() * 200) + 1;
+        const DailyCoins = Math.floor(Math.random() * 1000) + 1;
         const response = await profileModel.findOneAndUpdate({
             userID: message.author.id,
         },

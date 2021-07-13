@@ -17,8 +17,11 @@ module.exports = {
         const weaponPrice = weaponItem.find((val) => val.name.toLowerCase() === itemToBuy).price;
         const weaponLevel = weaponItem.find((val) => val.name.toLowerCase() === itemToBuy).level;
         const weaponDamage = weaponItem.find((val => val.name === itemToBuy)).damage;
+        const weaponMagic = weaponItem.find((val) => val.name === itemToBuy).mDamage;
         const weaponImage = weaponItem.find((val) => val.name === itemToBuy).image
-        let scaleDamage = weaponDamage * 1.8
+        let scalePDamage = weaponDamage * 1.8
+        let scaleTDamage = weaponDamage * 1.4
+        let scaleMDamage = weaponDamage * 2
         if(profileData.coins < weaponPrice) return message.reply("You don't have enough money!");
         if(profileData.level < weaponLevel) return message.reply("You are not high enough level!")
         if(profileData.weapon.includes(itemToBuy)) return message.reply("You already own this weapon!")
@@ -40,7 +43,7 @@ module.exports = {
                 {
                     $inc: {
                         coins: -weaponPrice,
-                        damage: scaleDamage
+                        damage: scalePDamage
                     },
                     $set: {
                         weapon: itemToBuy
@@ -51,7 +54,8 @@ module.exports = {
                 });
                 message.channel.send(Embed)
             })
-        } else {
+        } 
+        if(profileData.class.includes("Mage")){
             profileModel.findOne(params, async(err, data) => {
                 await profileModel.updateMany({
                     userID: message.author.id,
@@ -59,7 +63,27 @@ module.exports = {
                 {
                     $inc: {
                         coins: -weaponPrice,
-                        damage: weaponDamage
+                        damage: scaleMDamage
+                    },
+                    $set: {
+                        weapon: itemToBuy
+                    }
+                },
+                {
+                    upsert: true
+                });
+                message.channel.send(Embed)
+            })
+        }
+        if(profileData.class.includes("Thief")){
+            profileModel.findOne(params, async(err, data) => {
+                await profileModel.updateMany({
+                    userID: message.author.id,
+                },
+                {
+                    $inc: {
+                        coins: -weaponPrice,
+                        damage: scaleTDamage
                     },
                     $set: {
                         weapon: itemToBuy

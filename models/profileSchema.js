@@ -18,7 +18,7 @@ const profileSchema = new mongoose.Schema({
     crit: {type: Number},
     class: {type: Array},
     equip: [{
-        helmet: String, armor: String, leg: String, aces: String
+        helmet: Array, armor: Array, leg: Array, aces: Array
     }]
 })
 

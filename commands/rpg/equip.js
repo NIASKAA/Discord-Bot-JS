@@ -51,7 +51,7 @@ module.exports = {
                 userID: message.author.id
             },
             {
-                "$push": {
+                "$set": {
                     "equip.0.aces": itemToEquip
                 },
                 $inc: {
@@ -99,7 +99,7 @@ module.exports = {
                 userID: message.author.id
             },
             {
-                "$push": {
+                "$set": {
                     "equip.0.aces": itemToEquip
                 },
                 $inc: {
