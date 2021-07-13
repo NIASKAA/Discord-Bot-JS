@@ -1,9 +1,9 @@
 const profileModel = require('../../models/profileSchema');
 const locations = require('../../models/locations');
 const { MessageEmbed } = require('discord.js');
-const warriorAI = require('../rpg/warriorAPI');
-const mageAI = require('../rpg/mageAI');
-const thiefAI = require('../rpg/thiefAI');
+const warriorAI = require('./warriorAI');
+const mageAI = require('./mageAI');
+const thiefAI = require('./thiefAI');
 module.exports = {
     name: 'venture',
     description: 'Adventure time',
@@ -14,7 +14,11 @@ module.exports = {
         if(profileData.weapon.length === 0) {
             return message.channel.send("Bruh, get a weapon")
         }
-        if(!profileData.class.includes("Warrior" || 'Mage' || "Thief")) return message.channel.send('You need to pick a class first!')
+        let conditions = ["Warrior", "Mage", "Thief"]
+        let checkClass= conditions.some(el => profileData.class.includes(el));
+        if(!checkClass) {
+            return message.reply(`${message.author.username} didn't set a class!`)
+        }
         const randomLocation = locations[Math.floor(Math.random() * locations.length)]
         const goTown = 'town'
         const Embed = new MessageEmbed()
@@ -57,11 +61,9 @@ module.exports = {
             })
             if(profileData.class === "Warrior") {
                 await warriorAI.run(message, args, cmd, client, Discord, profileData)
-            }
-            if(profileData.class === "Mage") {
+            } else  if(profileData.class === "Mage") {
                 await mageAI.run(message, args, cmd, client, Discord, profileData)
-            }
-            if(profileData.class === "Thief") {
+            } else if(profileData.class === "Thief") {
                 await thiefAI.run(message, args, cmd, client, Discord, profileData)
             }
            
