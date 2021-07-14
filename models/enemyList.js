@@ -31,7 +31,7 @@ module.exports = [{
     }]
   },
   {
-    type: 'ghost town',
+    type: 'town',
     level: 2,
     encounters: [{
         name: 'warrior skeleton',
@@ -64,7 +64,7 @@ module.exports = [{
     ]
   },
   {
-    type: 'dungeon',
+    type: 'jungle',
     level: 4,
     encounters: [{
         name: 'phantom',

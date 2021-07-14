@@ -30,19 +30,19 @@ module.exports = [
   {
     name: 'mountains',
     difficulty: 5,
-    type: 'grasslands',
+    type: 'mountain',
     enemies: 6,
     image: 'https://imgur.com/xquGPAS.png'
   },
   {
     name: 'abandon city',
     difficulty: 6,
-    type: 'town',
+    type: 'jungle',
     enemies: 10,
     image: 'https://imgur.com/8WcqPoK.png'
   },
   {
-    name: 'desert',
+    name: 'desert land',
     difficulty: 7,
     type: 'desert',
     enemies: 13,
