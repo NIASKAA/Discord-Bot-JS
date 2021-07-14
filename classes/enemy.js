@@ -7,7 +7,7 @@ class Enemy {
     constructor () {
       // Enemy
       this.modifier = enemyStats[Math.floor(Math.random() * enemyStats.length)]
-      this.enemy = enemyList[0].encounters[Math.floor(Math.random() * enemyList[0].encounters.length)];
+      this.enemy = enemyList[Math.floor(Math.random() * 4) + 0].encounters[Math.floor(Math.random() * enemyList[Math.floor(Math.random() * 4) + 0].encounters.length)];
       this.name = this.modifier.name + ' ' + this.enemy.name
       this.health = this.enemy.health
       this.image = this.enemy.image

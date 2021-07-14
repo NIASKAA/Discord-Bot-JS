@@ -55,7 +55,7 @@ module.exports = [{
         image: 'https://imgur.com/THcagTu.png'
     },
     {
-        name: 'Bahamut',
+        name: 'bahamut',
         health: 200,
         damage: 50,
         accuracy: 0.6,
@@ -65,7 +65,7 @@ module.exports = [{
   },
   {
     type: 'jungle',
-    level: 4,
+    level: 3,
     encounters: [{
         name: 'phantom',
         health: 130,
@@ -82,7 +82,7 @@ module.exports = [{
         
     },
     {
-        name: 'The butcher',
+        name: 'the butcher',
         health: 200,
         damage: 40,
         accuracy: 0.8,
@@ -91,7 +91,7 @@ module.exports = [{
   },
   {
     type: 'forest',
-    level: 5,
+    level: 4,
     encounters: [{
       name: 'dragon',
       health: 200,
