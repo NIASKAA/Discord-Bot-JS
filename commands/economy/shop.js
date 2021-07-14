@@ -18,7 +18,7 @@ module.exports = {
         });
 
         const weaponList = weapon.map((value, index) => {
-            return `${value.name} -> ${value.price} coins, Damage: ${value.damage}, Magic Damage: ${value.mDamage}`
+            return `${value.name} -> ${value.price} coins, Damage: ${value.damage}, Magic Damage: ${value.mDamage}, Defense: ${value.defense}`
         });
 
         let pages = [shopList, foodList, weaponList]
