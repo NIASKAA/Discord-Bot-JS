@@ -106,8 +106,8 @@ module.exports = {
                     mDamage: 3
                 }
             })
-        } else if(itemToEquip === "Black Neos Helmet") {
-            if(!profileData.inventory.includes("Black Neos Helmet")) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "black neos helmet") {
+            if(!profileData.inventory.includes("black neos helmet")) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -122,7 +122,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Black Neos Helmet"
+                                "$$this","black neos helmet"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -155,8 +155,8 @@ module.exports = {
                     defense: 1.4
                 }
             })
-        } else if(itemToEquip === "Black Neos Armor") {
-            if(!profileData.inventory.includes('Black Neos Armor')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "black neos armor") {
+            if(!profileData.inventory.includes('black neos armor')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -171,7 +171,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Black Neos Armor"
+                                "$$this","black neos armor"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -204,8 +204,8 @@ module.exports = {
                     defense: 1.4
                 }
             })
-        } else if(itemToEquip === "Black Neos Legs") {
-            if(!profileData.inventory.includes('Black Neos Legs')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "black neos legs") {
+            if(!profileData.inventory.includes('black neos legs')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -220,7 +220,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Black Neos Legs"
+                                "$$this","black neos legs"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -253,8 +253,8 @@ module.exports = {
                     defense: 1.4
                 }
             })
-        } else if(itemToEquip === "Chaos Hat") {
-            if(!profileData.inventory.includes('Chaos Hat')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "chaos hat") {
+            if(!profileData.inventory.includes('chaos hat')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -269,7 +269,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Chaos Hat"
+                                "$$this","chaos hat"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -302,8 +302,8 @@ module.exports = {
                     defense: 1.1
                 }
             })
-        } else if(itemToEquip === "Black Chaos Robe") {
-            if(!profileData.inventory.includes('Black Chaos Robe')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "black chaos robe") {
+            if(!profileData.inventory.includes('black chaos robe')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -318,7 +318,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Black Chaos Robe"
+                                "$$this","black chaos robe"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -351,8 +351,8 @@ module.exports = {
                     defense: 1.1
                 }
             }) 
-        } else if(itemToEquip === "Black Chaos Leggings") {
-            if(!profileData.inventory.includes('Black Chaos Leggings')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "black chaos leggings") {
+            if(!profileData.inventory.includes('black chaos leggings')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -367,7 +367,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Black Chaos Leggings"
+                                "$$this","black chaos leggings"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -400,8 +400,8 @@ module.exports = {
                     defense: 1.1
                 }
             })
-        } else if(itemToEquip === "Dark Identity") {
-            if(!profileData.inventory.includes('Dark Identity')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "dark Identity") {
+            if(!profileData.inventory.includes('dark identity')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -416,7 +416,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Dark Identity"
+                                "$$this","dark identity"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -449,8 +449,8 @@ module.exports = {
                     defense: 1.2
                 }
             })
-        } else if(itemToEquip === "Dark Katinas") {
-            if(!profileData.inventory.includes('Dark Katinas')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "dark katinas") {
+            if(!profileData.inventory.includes('dark katinas')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -465,7 +465,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Black Katinas"
+                                "$$this","black katinas"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
@@ -498,8 +498,8 @@ module.exports = {
                     defense: 1.2
                 }
             })
-        } else if(itemToEquip === "Dark Studded Pants") {
-            if(!profileData.inventory.includes('Dark Studded Pants')) return message.channel.send("You don't have that item!")
+        } else if(itemToEquip === "dark studded pants") {
+            if(!profileData.inventory.includes('dark studded pants')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
                     input: "$inventory", 
@@ -514,7 +514,7 @@ module.exports = {
                         [{
                             $eq : 
                             [
-                                "$$this","Black Neos Helmet"
+                                "$$this","dark studded pants"
                         ]},
                             "$$value.stilllooking"
                         ]} , 
