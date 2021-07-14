@@ -20,7 +20,7 @@ module.exports = {
         Mana: ${profileData.manaP} \n
         Physical Damage: ${profileData.damage} \n
         Magic Damage: ${profileData.mDamage} \n
-        Spells: ${profileData.spells} \n
+        Defense: 
         `)
 
         let pages = [list1, list2]
@@ -32,10 +32,11 @@ module.exports = {
         .setDescription(pages[page - 1])
         .addFields(
             {name: 'Weapon', value: `${profileData.weapon}`},
-            {name: 'Helmet', value: `${profileData.equip[0].helmet}`},
-            {name: 'Armor', value: `${profileData.equip[0].armor}`},
-            {name: 'Leg', value: `${profileData.equip[0].leg}`},
-            {name: 'Accessories', value: `${profileData.equip[0].aces}`}
+            {name: 'Helmet', value: `${profileData.equip[0].helmet}`, inline: true},
+            {name: 'Armor', value: `${profileData.equip[0].armor}`, inline: true},
+            {name: 'Leg', value: `${profileData.equip[0].leg}`, inline: true},
+            {name: 'Accessories', value: `${profileData.equip[0].aces}`, inline: true},
+            {name: 'Spells', value: `${profileData.spells}`}
         )
         .setFooter(`Page: ${page} / ${pages.length}`)
         let msg = await message.channel.send(Embed)
@@ -48,8 +49,8 @@ module.exports = {
         const rightFilter = (reaction, user) => reaction.emoji.name === "➡️" && user.id === message.author.id;
         const leftFilter = (reaction, user) => reaction.emoji.name === "⬅️" && user.id === message.author.id;
         
-        const right = msg.createReactionCollector(rightFilter, {time: 900000, dispose: true});
-        const left = msg.createReactionCollector(leftFilter, {time: 900000, dispose: true});
+        const right = msg.createReactionCollector(rightFilter, { dispose: true});
+        const left = msg.createReactionCollector(leftFilter, {dispose: true});
 
         left.on("collect", erase => {
             erase.users.remove(message.author.id);

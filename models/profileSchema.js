@@ -15,6 +15,7 @@ const profileSchema = new mongoose.Schema({
     manaP: {type: Number, default: 100, minimum: 0, maximum: 100},
     damage: {type: Number},
     mDamage: {type: Number},
+    defense : {type: Number},
     crit: {type: Number},
     class: {type: Array},
     equip: [{

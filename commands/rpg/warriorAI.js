@@ -6,6 +6,7 @@ const utils = require('../../events/utils');
 module.exports.run = async(message, args, cmd, client, Discord, profileData) => {
     let currentHealth = await profileModel.findOne({userID: message.author.id})
     let weaponDamage = profileData.damage
+    let defense = profileData.defense
     const goHome = 'home'
     let enemy = new Enemy();
     let userLuck = Math.floor(Math.random() *3)
@@ -154,14 +155,13 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     
                     let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
-                    
+                    let newDamage = enemyDamage - defense
                     if(enemyLuck >= userLuck) {
                         if(Math.random() <= enemy.weaponCritical) {
-                            console.log(enemy.wea)
-                            enemyDamage *=2
-                            enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+                            newDamage *=2
+                            enemyAction = `The ${enemy.name} lands a critical hit on you for ${newDamage} damage!`
                         } else {
-                            enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                            enemyAction = `The ${enemy.name} attacked back for ${newDamage} damage!`
                         }
                     } else {
                         enemyAction = `The ${enemy.name} misses!`
@@ -174,7 +174,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     },
                     {
                         $inc: {
-                            healthP: -enemyDamage,
+                            healthP: -newDamage,
                             manaP: -mana
                         }
                     },
@@ -237,14 +237,13 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     
                     let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
-                    
+                    let newDamage = enemyDamage - defense
                     if(enemyLuck >= userLuck) {
                         if(Math.random() <= enemy.weaponCritical) {
-                            console.log(enemy.wea)
-                            enemyDamage *=2
-                            enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+                            newDamage *=2
+                            enemyAction = `The ${enemy.name} lands a critical hit on you for ${newDamage} damage!`
                         } else {
-                            enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                            enemyAction = `The ${enemy.name} attacked back for ${newDamage} damage!`
                         }
                     } else {
                         enemyAction = `The ${enemy.name} misses!`
@@ -257,7 +256,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     },
                     {
                         $inc: {
-                            healthP: -enemyDamage,
+                            healthP: -newDamage,
                             manaP: -mana
                         }
                     },
@@ -319,14 +318,13 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     
                     let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
-                    
+                    let newDamage = enemyDamage - defense
                     if(enemyLuck >= userLuck) {
                         if(Math.random() <= enemy.weaponCritical) {
-                            console.log(enemy.wea)
-                            enemyDamage *=2
-                            enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+                            newDamage*=2
+                            enemyAction = `The ${enemy.name} lands a critical hit on you for ${newDamage} damage!`
                         } else {
-                            enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                            enemyAction = `The ${enemy.name} attacked back for ${newDamage} damage!`
                         }
                     } else {
                         enemyAction = `The ${enemy.name} misses!`
@@ -339,7 +337,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     },
                     {
                         $inc: {
-                            healthP: -enemyDamage,
+                            healthP: -newDamage,
                             manaP: -mana
                         }
                     },
@@ -398,14 +396,13 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             }
 
             let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
-            
+            let newDamage = enemyDamage - defense
             if(enemyLuck >= userLuck) {
                 if(Math.random() <= enemy.weaponCritical) {
-                    console.log(enemy.weaponCritical)
-                    enemyDamage *=2
-                    enemyAction = `The ${enemy.name} lands a critical hit on you for ${enemyDamage} damage!`
+                    newDamage *=2
+                    enemyAction = `The ${enemy.name} lands a critical hit on you for ${newDamage} damage!`
                 } else {
-                    enemyAction = `The ${enemy.name} attacked back for ${enemyDamage} damage!`
+                    enemyAction = `The ${enemy.name} attacked back for ${newDamage} damage!`
                 }
             } else {
                 enemyAction = `The ${enemy.name} misses!`
@@ -418,7 +415,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             },
             {
                 $inc: {
-                    healthP: -enemyDamage
+                    healthP: -newDamage
                 }
             },
             {

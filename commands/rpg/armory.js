@@ -21,7 +21,7 @@ module.exports = {
         const weaponImage = weaponItem.find((val) => val.name === itemToBuy).image
         let scalePDamage = weaponDamage * 1.8
         let scaleTDamage = weaponDamage * 1.4
-        let scaleMDamage = weaponDamage * 2
+        let scaleMDamage = weaponMagic * 2
         if(profileData.coins < weaponPrice) return message.reply("You don't have enough money!");
         if(profileData.level < weaponLevel) return message.reply("You are not high enough level!")
         if(profileData.weapon.includes(itemToBuy)) return message.reply("You already own this weapon!")

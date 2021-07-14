@@ -24,8 +24,9 @@ module.exports = async (Discord, client, message) => {
                 location: ['home'],
                 weapon: [],
                 damage: 0,
-                spells: [],
                 mDamage: 0,
+                defense: 0,
+                spells: [],
                 class: [],
                 crit: 0,
                 equip: [{helmet: [], armor: [], leg: [], aces: []}]
