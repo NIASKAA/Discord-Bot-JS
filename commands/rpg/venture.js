@@ -1,9 +1,9 @@
 const profileModel = require('../../models/profileSchema');
 const locations = require('../../models/locations');
 const { MessageEmbed } = require('discord.js');
-const warriorAI = require('./warriorAI');
-const mageAI = require('./mageAI');
-const thiefAI = require('./thiefAI');
+const warriorBattle = require("../rpg/warriorAI");
+const mageBattle = require("../rpg/mageAI");
+const thiefBattle = require("../rpg/thiefAI");
 module.exports = {
     name: 'venture',
     description: 'Adventure time',
@@ -60,11 +60,11 @@ module.exports = {
                 });
             })
             if(profileData.class == "Warrior") {
-                await warriorAI.run(message, args, cmd, client, Discord, profileData)
+                await warriorBattle.run(message, args, cmd, client, Discord, profileData)
             } else  if(profileData.class == "Mage") {
-                await mageAI.run(message, args, cmd, client, Discord, profileData)
+                await mageBattle.run(message, args, cmd, client, Discord, profileData)
             } else if(profileData.class == "Thief") {
-                await thiefAI.run(message, args, cmd, client, Discord, profileData)
+                await thiefBattle.run(message, args, cmd, client, Discord, profileData)
             }
            
         })

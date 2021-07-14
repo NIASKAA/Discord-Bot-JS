@@ -1,15 +1,16 @@
 const profileModel = require('../models/profileSchema')
 const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
-const warriorAI = require('../commands/rpg/warriorAI');
-const mageAI = require("../commands/rpg/mageAI");
-const thiefAI = require('../commands/rpg/thiefAI');
+const warrior = require('../commands/rpg/warriorAI');
+const mage = require('../commands/rpg/mageAI')
+const battleAI = require('../commands/rpg/battleAI')
+
 module.exports = {
     fightAgain,
 }
 
 async function fightAgain(message, args, cmd, client, Discord, profileData) {
-    const goTown = 'town'
+    const goHome = 'home'
     EmbedFight = new MessageEmbed()
     .setColor("YELLOW")
     .setTitle('Fight again?')
@@ -28,11 +29,11 @@ async function fightAgain(message, args, cmd, client, Discord, profileData) {
             erase.users.remove(message.author.id);
             askMsg.edit(EmbedFight.setTitle('Status...').setDescription(`Searching for enemy...`))
             if(profileData.class == "Warrior") {
-                await warriorAI.run(message, args, cmd, client, Discord, profileData)
-            } else  if(profileData.class == "Mage") {
-                await mageAI.run(message, args, cmd, client, Discord, profileData)
+                await warrior.run(message, args, cmd, client, Discord, profileData)
+            } else if(profileData.class == "Mage") {
+                await mage.run(message, args, cmd, client, Discord, profileData)
             } else if(profileData.class == "Thief") {
-                await thiefAI.run(message, args, cmd, client, Discord, profileData)
+                await battleAI.run(message, args, cmd, client, Discord, profileData)
             }
         })
 
@@ -41,8 +42,8 @@ async function fightAgain(message, args, cmd, client, Discord, profileData) {
             Embed = new MessageEmbed()
             .setTitle('Status...')
             .setColor("YELLOW")
-            .setDescription("Going back to town")
-            .setImage('https://imgur.com/KOYoNfA.png')
+            .setDescription("Going back home")
+            .setImage('https://imgur.com/si7QsRB.png')
             await message.channel.send(Embed)
             params = {
                 userID: message.author.id,
@@ -53,7 +54,7 @@ async function fightAgain(message, args, cmd, client, Discord, profileData) {
                 },
                 {
                     $set: {
-                        location: goTown
+                        location: goHome
                     },
                 },
                 {

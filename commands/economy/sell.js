@@ -8,53 +8,7 @@ module.exports = {
         const itemToSell = arg;
         if(!itemToSell) return message.reply("At least tell me what to sell...")
         
-        if(itemToSell === "borgor") {
-            if(profileData.inventory.find((x) => x.toLowerCase() === "borgor") === undefined ) {
-                return message.channel.send("You dont have this item mate")
-            }
-            addMoreCoins = {
-                $add:[
-                    "$coins",10
-                ]}
-            onefewerborgor = { 
-                $reduce : { 
-                    input: "$inventory", 
-            initialValue: {
-                stilllooking:true, 
-                i:[] 
-            } , 
-            in :{ 
-                $cond  :
-                { if: 
-                    {$and : 
-                        [{
-                            $eq : 
-                            [
-                                "$$this","borgor"
-                        ]},
-                            "$$value.stilllooking"
-                        ]} , 
-                          then: {stilllooking:false, i:"$$value.i"},
-                          else : { stilllooking:"$$value.stilllooking", i: {$concatArrays:["$$value.i",["$$this"]]}}}}}}
-
-
-            changes = [{
-                $set : 
-                { 
-                    coins: addMoreCoins, 
-                    inventory: onefewerborgor 
-                }
-            },
-            {
-                $set: 
-                {
-                    inventory:"$inventory.i"
-                }
-            }]
-            await profileModel.findOneAndUpdate({
-                userID: message.author.id
-            }, changes)
-        } else if(itemToSell === "fishing rod") {
+        if(itemToSell === "fishing rod") {
             if(profileData.inventory.find((x) => x.toLowerCase() === "fishing rod") === undefined ) {
                 return message.channel.send("You dont have this item mate")
             }
