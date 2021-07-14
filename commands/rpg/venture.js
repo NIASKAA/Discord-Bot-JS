@@ -3,7 +3,7 @@ const locations = require('../../models/locations');
 const { MessageEmbed } = require('discord.js');
 const warriorBattle = require("../rpg/warriorAI");
 const mageBattle = require("../rpg/mageAI");
-const thiefBattle = require("../rpg/thiefAI");
+const thiefBattle = require("../rpg/battleAI");
 module.exports = {
     name: 'venture',
     description: 'Adventure time',
