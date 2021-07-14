@@ -12,7 +12,7 @@ module.exports = {
         const itemToBuy = arg;
 
         const validWeapon = !!weaponItem.find((val) => val.name.toLowerCase() === itemToBuy);
-        if(!validWeapon) return message.reply('THe item is not valid')
+        if(!validWeapon) return message.reply('The item is not valid')
 
         const weaponPrice = weaponItem.find((val) => val.name.toLowerCase() === itemToBuy).price;
         const weaponLevel = weaponItem.find((val) => val.name.toLowerCase() === itemToBuy).level;

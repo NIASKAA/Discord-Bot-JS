@@ -70,7 +70,7 @@ module.exports = [
         image: "https://imgur.com/dCpryZV.png"
     },
     {
-        name: 'Shine Wand',
+        name: 'shine Wand',
         type: 'Mage',
         damage: 0,
         mDamage: 10,
@@ -90,7 +90,7 @@ module.exports = [
         image: "https://imgur.com/uc9QXrG.png"
     },
     {
-        name: "M4 Rifle",
+        name: "m4 rifle",
         type: 'Archer',
         damage: 8,
         mDamage: 0,
@@ -100,7 +100,7 @@ module.exports = [
         image: "https://imgur.com/g33fy1F.png"
     },
     {
-        name: "Masamune",
+        name: "masamune",
         type: 'Warrior/Thief',
         damage: 12,
         mDamage: 0,
@@ -110,7 +110,7 @@ module.exports = [
         image: "https://imgur.com/J4svCho.png"
     },
     {
-        name: "Elemental Staff",
+        name: "elemental Staff",
         type: 'Mage',
         damage: 0,
         mDamage: 14,
@@ -120,7 +120,7 @@ module.exports = [
         image: "https://imgur.com/cl0mAHq.png"
     },
     {
-        name: 'Black Neos Helmet',
+        name: 'black neos helmet',
         type: 'Warrior',
         damage: 0,
         mDamage: 0,
@@ -130,7 +130,7 @@ module.exports = [
         image: "https://imgur.com/LGT1wjM.png"
     },
     {
-        name: 'Black Neos Armor',
+        name: 'black neos armor',
         type: 'Warrior',
         damage: 0,
         mDamage: 0,
@@ -140,7 +140,7 @@ module.exports = [
         image: "https://imgur.com/b7OjuY6.png"
     },
     {
-        name: 'Black Neos Legs',
+        name: 'black neos legs',
         type: 'Warrior',
         damage: 0,
         mDamage: 0,
@@ -150,7 +150,7 @@ module.exports = [
         image: "https://imgur.com/W5CW5Kx.png"
     },
     {
-        name: 'Chaos Hat',
+        name: 'chaos hat',
         type: 'Mage',
         damage: 0,
         mDamage: 0,
@@ -160,7 +160,7 @@ module.exports = [
         image: "https://imgur.com/JWmXcvn.png"
     },
     {
-        name: 'Black Chaos Robe',
+        name: 'black chaos robe',
         type: 'Mage',
         damage: 0,
         mDamage: 0,
@@ -170,7 +170,7 @@ module.exports = [
         image: "https://imgur.com/Vqwp2RI.png"
     },
     {
-        name: 'Black Chaos Leggings',
+        name: 'black chaos leggings',
         type: 'Mage',
         damage: 0,
         mDamage: 0,
@@ -180,7 +180,7 @@ module.exports = [
         image: "https://imgur.com/XQI6fob.png"
     },
     {
-        name: 'Dark Identity',
+        name: 'dark identity',
         type: 'Thief',
         damage: 0,
         mDamage: 0,
@@ -190,7 +190,7 @@ module.exports = [
         image: "https://imgur.com/Vi78RQM.png"
     },
     {
-        name: 'Dark Katinas',
+        name: 'dark katinas',
         type: 'Thief',
         damage: 0,
         mDamage: 0,
@@ -200,7 +200,7 @@ module.exports = [
         image: "https://imgur.com/Vvc9dOs.png"
     },
     {
-        name: 'Dark Studded Pants',
+        name: 'dark studded pants',
         type: 'Thief',
         damage: 0,
         mDamage: 0,
