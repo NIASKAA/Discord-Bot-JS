@@ -400,7 +400,7 @@ module.exports = {
                     defense: 1.1
                 }
             })
-        } else if(itemToEquip === "dark Identity") {
+        } else if(itemToEquip === "dark identity") {
             if(!profileData.inventory.includes('dark identity')) return message.channel.send("You don't have that item!")
             item = { 
                 $reduce : { 
