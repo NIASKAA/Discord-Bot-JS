@@ -6,7 +6,7 @@ A Discord bot made for fun used in my own server. It can respond to certain mess
 
 **Client:** ffmpeg, yt-search, ytdl-core
 
-**Server** Node.Js, Dotenv, Discord.Js
+**Server** Node.Js, Dotenv, Discord.Js, MongoDB
 
 
 ## Badges
@@ -16,10 +16,12 @@ Add badges from somewhere like:
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
   
-## Deployment
+## Installation 
 
-Link to github: https://github.com/NIASKAA/Discord-Bot-JS
-
+Clone this repository to receive all of the files
+Set up your environment variables in a .env file
+Run "npm install" in the command line of your terminal to set up all of the dependencies
+Run "npm start" to start the application's connection
 
 ## Authors
 
