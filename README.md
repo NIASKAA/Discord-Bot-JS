@@ -1,5 +1,7 @@
 # Haro, the Discord Bot
-A Discord bot made for fun used in my own server. It can respond to certain messages, play music, and soon to give each member roles.
+
+## User Story
+A Discord bot made for fun usage in my own server. It can respond to certain messages, play music and lets users engage in a mini rpg game. 
 
     
 ## Tech Usage
