@@ -3,10 +3,12 @@
 ## User Story
 A Discord bot made for fun usage in my own server. It can respond to certain messages, play music and lets users engage in a mini rpg game. 
 
+![Demo1](https://res.cloudinary.com/ddtqwizaf/image/upload/v1629836843/discord1_lkgd38.png)
+![Demo2](https://media.giphy.com/media/vfUv5aYjgujNd1WBmp/giphy.gif)
     
 ## Tech Usage
 
-**Client:** ffmpeg, yt-search, ytdl-core
+**Client:** ffmpeg, yt-search, ytdl-core, Axios, News API
 
 **Server** Node.Js, Dotenv, Discord.Js, MongoDB
 
