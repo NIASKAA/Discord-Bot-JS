@@ -2,13 +2,16 @@ const profileModel = require('../../models/profileSchema')
 const {MessageEmbed} = require('discord.js')
 const {locations} = require('../../models/victoriaIsland');
 const encounterShop = require('./encounterShop');
+const thiefMaple = require('../maplerpg/thiefMaple')
 module.exports = {
     name: "exploreMaple",
     aliases: ["ex"],
     description: "explore victoria island!",
     async execute(message, args, cmd, client, Discord, profileData) {
         const shopChance = Math.random()
+        const encounterEnemy = Math.random()
         let shopChanceRate = 0.1
+        let enemyEncounterRate = 1
         const question = "Where would you like to go?"
         const Embed = new MessageEmbed()
         .setColor("RED")
@@ -37,6 +40,9 @@ module.exports = {
                 let newLocation = locations.find(val => val.name).name
                 let newLocationImage = locations.find(val => val.name).image
                 msg.edit(Embed.setColor("ORANGE").setTitle(`Moved to ${newLocation}`).setImage(`${newLocationImage}`))
+                if(encounterEnemy < enemyEncounterRate) {
+                    thiefMaple.run(message, args, cmd, client, Discord, profileData)
+                }
             }
         })
 
@@ -51,6 +57,9 @@ module.exports = {
                 let newLocation = locations.find(val => val.name).name
                 let newLocationImage = locations.find(val => val.name).image
                 msg.edit(Embed.setColor("ORANGE").setTitle(`Moved to ${newLocation}`).setImage(`${newLocationImage}`))
+                if(encounterEnemy < enemyEncounterRate) {
+                    thiefMaple.run(message, args, cmd, client, Discord, profileData)
+                }
             }
         })
     }
