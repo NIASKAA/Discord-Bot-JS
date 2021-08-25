@@ -1,6 +1,7 @@
 const profileModel = require('../../models/profileSchema')
 const {MessageEmbed} = require('discord.js')
 const {locations} = require('../../models/victoriaIsland');
+const encounterShop = require('./encounterShop');
 module.exports = {
     name: "exploreMaple",
     aliases: ["ex"],
@@ -28,7 +29,7 @@ module.exports = {
         left.on("collect", async(erase) => {
             erase.users.remove(message.author.id)
             if(shopChance < shopChanceRate) {
-                shop.run(message, args, cmd, client, Discord, profileData)
+                await encounterShop.run(message, args, cmd, client, Discord, profileData)
             } else {
                 moveLeft = locations => locations.unshift(locations.pop());
                 moveLeft(locations);

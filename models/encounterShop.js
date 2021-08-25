@@ -1,4 +1,4 @@
-module.exports = [
+items = [
     {
         name: "chogokin sword",
         type: "Warrior",
@@ -170,3 +170,5 @@ module.exports = [
         image: "https://imgur.com/rAZeTNA.png"
     },
 ]
+
+module.exports = {items}
