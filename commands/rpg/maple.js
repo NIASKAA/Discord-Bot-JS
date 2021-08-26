@@ -93,7 +93,9 @@ module.exports = {
                     });
                 })
                 if(encounterEnemy < enemyEncounterRate) {
-                    thiefMaple.run(message, args, cmd, client, Discord, profileData)
+                    if(profileData.class == "Thief") {
+                        thiefMaple.run(message, args, cmd, client, Discord, profileData)
+                    }
                 }
             }
         })

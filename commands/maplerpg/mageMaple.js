@@ -6,6 +6,7 @@ const utils = require('../../events/utils');
 module.exports.run = async(message, args, cmd, client, Discord, profileData) => {
     let currentHealth = await profileModel.findOne({userID: message.author.id})
     let weaponDamage = profileData.damage
+    let magicDamage = profileData.mDamage
     let defense = profileData.defense
     let enemy = new Enemy();
     let userLuck = Math.floor(Math.random() *3)
@@ -38,7 +39,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
         let battleMsg = await message.channel.send(Embed2)
 
         await battleMsg.react('🗡️')
-        await battleMsg.react('🌀');
+        await battleMsg.react('🌀')
 
         const attackReact = (reaction, user) => reaction.emoji.name === '🗡️' && user.id === message.author.id;
         const spellsReact =(reaction, user) => reaction.emoji.name === "🌀" && user.id === message.author.id;
@@ -53,10 +54,10 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
             const collector = message.channel.createMessageCollector(filter, {max: 1})
 
             collector.on('collect', async (m) => {
-                if(m.content === "double stab" || "Double Stab"){
+                if(m.content === "fira" || "Fira"){
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
-                    let mana = 25
-                    if(profileData.spells.find((x) => x.toLowerCase() === "double stab") === undefined ) {
+                    let mana = 20
+                    if(profileData.spells.find((x) => x.toLowerCase() === "fira") === undefined ) {
                         return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
                     if(currentHealth.manaP < 0) {
@@ -64,17 +65,17 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     if(userLuck >= enemyLuck) {
                         if(userCrit <= critChance){
-                        successAttack = `You attacked ${enemy.name} with double stab for ${weaponDamage * 1.4}!`
-                        enemy.health -= (weaponDamage * 1.4)
+                        successAttack = `You attacked ${enemy.name} with fira for ${magicDamage}!`
+                        enemy.health -= (magicDamage)
                         } else {
-                            successAttack = `You landed a critical hit on ${enemy.name} for ${weaponDamage * 3}!`
-                            enemy.health -= (weaponDamage* 3)
+                            successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
+                            enemy.health -= (magicDamage* 2)
                         }
                     } else {
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/kkmpWqe.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/Nv0CaXX.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 1000);
                     if(enemy.health <= 0) {
                         enemy.health = 0
@@ -114,7 +115,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                             newDamage *=2
                             enemyAction = `The ${enemy.name} lands a critical hit on you for ${newDamage} damage!`
                         } else {
-                            
                             enemyAction = `The ${enemy.name} attacked back for ${newDamage} damage!`
                         }
                     } else {
@@ -135,10 +135,10 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     {
                         new: true
                     })
-                } else if (m.content === "shuriken burst" || "Shuriken Burst") {
+                } else if (m.content === "blizzard" || "Blizzard") {
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
-                    let mana = 30
-                    if(profileData.spells.find((x) => x.toLowerCase() === "shuriken burst") === undefined ) {
+                    let mana = 25
+                    if(profileData.spells.find((x) => x.toLowerCase() === "blizzard") === undefined ) {
                         return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
                     if(currentHealth.manaP < 0) {
@@ -146,17 +146,17 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     if(userLuck >= enemyLuck) {
                         if(userCrit <= critChance){
-                        successAttack = `You attacked ${enemy.name} with shuriken burst for ${weaponDamage * 1.8}!`
-                        enemy.health -= (weaponDamage * 1.8)
+                        successAttack = `You attacked ${enemy.name} with blizzard for ${magicDamage}!`
+                        enemy.health -= (magicDamage)
                         } else {
-                            successAttack = `You landed a critical hit on ${enemy.name} for ${weaponDamage * 3}!`
-                            enemy.health -= (weaponDamage* 3)
+                            successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
+                            enemy.health -= (magicDamage* 2)
                         }
                     } else {
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/B2358uS.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/tdc1xRv.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 2000);
 
                     if(enemy.health <= 0) {
@@ -203,7 +203,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                         enemyAction = `The ${enemy.name} misses!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/rS8bXq0.png").setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/wBMktTK.png").setDescription(enemyAction).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 3000);
                     await profileModel.updateOne({
                         userID: message.author.id
@@ -217,10 +217,10 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     {
                         new: true
                     })
-                } else if(m.content === "dark harmony" || "Dark Harmony") {
+                } else if(m.content === "thundaga" || "Thundaga") {
                     let currentHealth = await profileModel.findOne({userID: message.author.id})
-                    let mana = 35
-                    if(profileData.spells.find((x) => x.toLowerCase() === "dark harmony") === undefined ) {
+                    let mana = 25
+                    if(profileData.spells.find((x) => x.toLowerCase() === "thundaga") === undefined ) {
                         return battleMsg.edit(Embed2.setDescription("You didn't learn this spell yet...").setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }
                     if(currentHealth.manaP < 0) {
@@ -228,17 +228,17 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     }
                     if(userLuck >= enemyLuck) {
                         if(userCrit <= critChance){
-                        successAttack = `You attacked ${enemy.name} with dark harmony for ${weaponDamage * 1.8}!`
-                        enemy.health -= (weaponDamage * 1.8)
+                        successAttack = `You attacked ${enemy.name} with thundaga for ${magicDamage}!`
+                        enemy.health -= (magicDamage)
                         } else {
-                            successAttack = `You landed a critical hit on ${enemy.name} for ${weaponDamage * 3.5}!`
-                            enemy.health -= (weaponDamage* 3.5)
+                            successAttack = `You landed a critical hit on ${enemy.name} for ${magicDamage * 2}!`
+                            enemy.health -= (magicDamage* 2)
                         }
                     } else {
                         successAttack = `You missed ${enemy.name}!`
                     }
                     setTimeout(() => {
-                        battleMsg.edit(Embed2.setImage("https://imgur.com/A2Gjo7a.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
+                        battleMsg.edit(Embed2.setImage("https://imgur.com/VGaPXyy.png").setDescription(successAttack).setFooter(`Your Health: ${currentHealth.healthP} | Enemy Health: ${enemy.health}`))
                     }, 1000);
                     if(enemy.health <= 0) {
                         enemy.health = 0
@@ -273,7 +273,6 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
                     
                     let enemyDamage = enemy.dynamicDamage(enemy.weaponDamage)
                     let newDamage = enemyDamage - defense
-
                     if(enemyLuck >= userLuck) {
                         if(Math.random() <= enemy.weaponCritical) {
                             newDamage *=2
