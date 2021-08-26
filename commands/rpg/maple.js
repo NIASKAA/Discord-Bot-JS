@@ -3,6 +3,7 @@ const {MessageEmbed} = require('discord.js')
 const {locations} = require('../../models/victoriaIsland');
 const encounterShop = require('./encounterShop');
 const thiefMaple = require('../maplerpg/thiefMaple')
+
 module.exports = {
     name: "exploreMaple",
     aliases: ["ex"],
@@ -40,8 +41,26 @@ module.exports = {
                 let newLocation = locations.find(val => val.name).name
                 let newLocationImage = locations.find(val => val.name).image
                 msg.edit(Embed.setColor("ORANGE").setTitle(`Moved to ${newLocation}`).setImage(`${newLocationImage}`))
+                params = {
+                    userID: message.author.id,
+                }
+                profileModel.findOne(params, async(err, data) => {
+                    await profileModel.updateMany({
+                        userID: message.author.id,
+                    },
+                    {
+                        $set: {
+                            mapleLocation: newLocation
+                        },
+                    },
+                    {
+                        upsert: true
+                    });
+                })
                 if(encounterEnemy < enemyEncounterRate) {
-                    thiefMaple.run(message, args, cmd, client, Discord, profileData)
+                    if(profileData.class == "Thief") {
+                        thiefMaple.run(message, args, cmd, client, Discord, profileData)
+                    }
                 }
             }
         })
@@ -57,6 +76,22 @@ module.exports = {
                 let newLocation = locations.find(val => val.name).name
                 let newLocationImage = locations.find(val => val.name).image
                 msg.edit(Embed.setColor("ORANGE").setTitle(`Moved to ${newLocation}`).setImage(`${newLocationImage}`))
+                params = {
+                    userID: message.author.id,
+                }
+                profileModel.findOne(params, async(err, data) => {
+                    await profileModel.updateMany({
+                        userID: message.author.id,
+                    },
+                    {
+                        $set: {
+                            mapleLocation: newLocation
+                        },
+                    },
+                    {
+                        upsert: true
+                    });
+                })
                 if(encounterEnemy < enemyEncounterRate) {
                     thiefMaple.run(message, args, cmd, client, Discord, profileData)
                 }

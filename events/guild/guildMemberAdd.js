@@ -12,6 +12,7 @@ module.exports = async(client, Discord, member) => {
         healthP: 100,
         manaP: 100,
         location: ['home'],
+        mapleLocation: [],
         weapon: [],
         damage: 0,
         spells: [],

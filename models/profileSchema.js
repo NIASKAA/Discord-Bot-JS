@@ -10,6 +10,7 @@ const profileSchema = new mongoose.Schema({
     level: {type: Number, default: 1},
     spells: {type: Array},
     location: {type: Array, default: 'home'},
+    mapleLocation: {type: Array},
     weapon: {type: Array},
     healthP: {type: Number, default: 100, minimum: 0, maximum: 100},
     manaP: {type: Number, default: 100, minimum: 0, maximum: 100},
