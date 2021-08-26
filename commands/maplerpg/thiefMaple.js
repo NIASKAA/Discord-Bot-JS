@@ -13,7 +13,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
     let userCrit = Math.random()
     let critChance= Math.random()
 
-    const question = `You find yourself in front of a ${enemy.name} with ${enemy.health} health with a ${enemy.weaponName}! Will you confront it?`
+    const question = `You find yourself in front of a ${enemy.name} with ${enemy.health} health with a ${enemy.weaponName}! Fight it!`
     const Embed = new MessageEmbed()
     .setColor("RED")
     .setDescription(question)

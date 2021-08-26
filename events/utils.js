@@ -1,5 +1,4 @@
 const profileModel = require('../models/profileSchema')
-const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
 const warrior = require('../commands/rpg/warriorAI');
 const mage = require('../commands/rpg/mageAI')
