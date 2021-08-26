@@ -68,7 +68,7 @@ module.exports = {
         right.on("collect", async (erase) => {
             erase.users.remove(message.author.id)
             if(shopChance < shopChanceRate) {
-                shop.run(message, args, cmd, client, Discord, profileData)
+                await encounterShop.run(message, args, cmd, client, Discord, profileData)
             } else {
                 moveRight = locations => locations.push(locations.shift());
                 moveRight(locations);
