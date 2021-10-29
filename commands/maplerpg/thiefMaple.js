@@ -29,8 +29,7 @@ module.exports.run = async(message, args, cmd, client, Discord, profileData) => 
     battle.on("collect", async (erase) => {
         erase.users.remove(message.author.id);
         battle.stop()
-        run.stop()
-
+        
         const Embed2 = new MessageEmbed()
         .setColor("RED")
         .setTitle(`${message.author.username} VS ${enemy.name}`)
