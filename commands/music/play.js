@@ -91,11 +91,11 @@ const skipSong = (message, serverQueue) => {
         return message.channel.send('There are no songs in queue');
     }
 
-    serverQueue.connection.dispatcher.end();
+    serverQueue.connection.dispatcher.leave();
 }
 
 const stopSong = (message, serverQueue) => {
     if(!message.member.voice.channel) return message.channel.send('You need to be a voice channel brah');
     serverQueue.songs = [];
-    serverQueue.connection.dispatcher.end();
+    serverQueue.connection.dispatcher.leave();
 }
