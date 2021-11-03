@@ -62,6 +62,19 @@ module.exports = {
                 return message.channel.send(`${song.title} added to queue!`);
             }
         } 
+
+        if(cmd == "pause"){
+            if(server_queue.connection.dispatcher.paused) return message.channel.send("Song is already paused!");//Checks if the song is already paused.
+            serverQueue.connection.dispatcher.pause();//If the song isn't paused this will pause it.
+            message.channel.send("Paused the song!");//Sends a message to the channel the command was used in after it pauses.
+        }
+          
+        if(cmd == "unpause"){
+            if(!server_queue.connection.dispatcher.paused) return message.channel.send("Song isn't paused!");//Checks if the song isn't paused.
+            serverQueue.connection.dispatcher.resume();//If the song is paused this will unpause it.
+            message.channel.send("Unpaused the song!");//Sends a message to the channel the command was used in after it unpauses.
+        }
+
         else if(cmd === 'skip') skipSong(message, serverQueue);
         else if(cmd === 'stop') stopSong(message, serverQueue);
     }
@@ -91,11 +104,11 @@ const skipSong = (message, serverQueue) => {
         return message.channel.send('There are no songs in queue');
     }
 
-    serverQueue.connection.end();
+    serverQueue.connection.dispatcher.end();
 }
 
 const stopSong = (message, serverQueue) => {
     if(!message.member.voice.channel) return message.channel.send('You need to be a voice channel brah');
     serverQueue.songs = [];
-    serverQueue.connection.end();
+    serverQueue.connection.dispatcher.end();
 }
