@@ -5,7 +5,7 @@ const queue = new Map();
 
 module.exports = {
     name: 'play',
-    aliases: ['skip', 'stop'],
+    aliases: ['skip', 'stop', 'paused', 'unpaused', 'finish'],
     description: 'Cool beats bro',
     async execute(message, args, cmd, client, Discord, profileData) {
         const voiceChannel = message.member.voice.channel;
