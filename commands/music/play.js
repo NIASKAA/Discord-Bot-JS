@@ -64,13 +64,13 @@ module.exports = {
         } 
 
         if(cmd == "pause"){
-            if(server_queue.connection.dispatcher.paused) return message.channel.send("Song is already paused!");//Checks if the song is already paused.
+            if(serverQueue.connection.dispatcher.paused) return message.channel.send("Song is already paused!");//Checks if the song is already paused.
             serverQueue.connection.dispatcher.pause();//If the song isn't paused this will pause it.
             message.channel.send("Paused the song!");//Sends a message to the channel the command was used in after it pauses.
         }
           
         if(cmd == "unpause"){
-            if(!server_queue.connection.dispatcher.paused) return message.channel.send("Song isn't paused!");//Checks if the song isn't paused.
+            if(!serverQueue.connection.dispatcher.paused) return message.channel.send("Song isn't paused!");//Checks if the song isn't paused.
             serverQueue.connection.dispatcher.resume();//If the song is paused this will unpause it.
             message.channel.send("Unpaused the song!");//Sends a message to the channel the command was used in after it unpauses.
         }
