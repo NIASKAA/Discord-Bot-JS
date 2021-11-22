@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: "profile",
+    name: "stats",
     description: "Check user profile",
     async execute(message, args, cmd, client, Discord, profileData) {
         let list1 =(`
@@ -31,15 +31,19 @@ module.exports = {
         .setAuthor(`Profile: ${message.author.username}`, message.author.displayAvatarURL())
         .setDescription(pages[page - 1])
         .addFields(
-            {name: 'Weapon', value: `${profileData.weapon}`},
-            {name: 'Helmet', value: `${profileData.equip[0].helmet}`, inline: true},
-            {name: 'Armor', value: `${profileData.equip[0].armor}`, inline: true},
-            {name: 'Leg', value: `${profileData.equip[0].leg}`, inline: true},
-            {name: 'Accessories', value: `${profileData.equip[0].aces}`, inline: true},
-            {name: 'Spells', value: `${profileData.spells}`}
+            {name: 'Weapon', value: `${profileData.weapon}` ? `${profileData.weapon}` : 'Unknown'},
+            {name: 'Helmet', value: `${profileData.equip[0].helmet}` ? `${profileData.equip[0].helmet}` : 'Unknown', inline: true},
+            {name: 'Armor', value: `${profileData.equip[0].armor}` ? `${profileData.equip[0].armor}` : 'Unknown', inline: true},
+            {name: 'Leg', value: `${profileData.equip[0].leg}` ? `${profileData.equip[0].leg}` : 'Unknown', inline: true},
+            {name: 'Accessories', value: `${profileData.equip[0].aces}` ? `${profileData.equip[0].aces}` : 'Unknown', inline: true},
+            {name: 'Spells', value: `${profileData.spells}` ? `${profileData.spells}` : 'Unknown'}
         )
         .setFooter(`Page: ${page} / ${pages.length}`)
         let msg = await message.channel.send(Embed)
+        msg.catch(error => {
+            console.log(error)
+        });
+
         await msg.react("⬅️");
         await msg.react("➡️");
 
