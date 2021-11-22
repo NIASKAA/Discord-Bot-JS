@@ -4,24 +4,21 @@ module.exports = {
     name: "stats",
     description: "Check user profile",
     async execute(message, args, cmd, client, Discord, profileData) {
-        let list1 =(`
-        Basic Info: \n
-        Level: ${profileData.level} \n
-        On you: ${profileData.coins} \n
-        Bank: ${profileData.bank} \n
-        Inventory: ${profileData.inventory} \n
-        Location: ${profileData.location} \n
-        Class: ${profileData.class} \n
-        `)
+        let list1 =(
+            {name: 'Level', value: `${profileData.level}` ? `${profileData.level}` : 'Unknown'},
+            {name: 'Pocket Money', value: `${profileData.coins}` ? `${profileData.coins}` : 'Unknown'},
+            {name:  'Bank', value: `${profileData.bank}` ? `${profileData.bank}` : 'Unknown'},
+            {name: 'Inventory', value: `${profileData.inventory}` ? `${profileData.inventory}` : 'Unknown'},
+            {name: 'Location', value: `${profileData.location}` ? `${profileData.location}` : 'Unknown'},
+            {name: 'Class', value: `${profileData.class}` ? `${profileData.class}` : 'Unknown'}
+        )
 
-        let list2 =(`
-        Stats: \n
-        Health: ${profileData.healthP} \n
-        Mana: ${profileData.manaP} \n
-        Physical Damage: ${profileData.damage} \n
-        Magic Damage: ${profileData.mDamage} \n
-        Defense: 
-        `)
+        let list2 =(
+            {name: 'Health', value: `${profileData.healthP}` ? `${profileData.healthP}` : 'Unknown'},
+            {name: 'Mana', value: `${profileData.manaP}` ? `${profileData.manaP}` : 'Unknown'},
+            {name: 'Physical Damage', value: `${profileData.damage}` ? `${profileData.damage}` : 'Unknown'},
+            {name: 'Magic Damage', value: `${profileData.mDamage}` ? `${profileData.mDamage}` : 'Unknown'}
+        )
 
         let pages = [list1, list2]
         let page = 1
