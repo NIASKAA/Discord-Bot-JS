@@ -28,7 +28,7 @@ module.exports = async (Discord, client, message) => {
                 mDamage: 0,
                 defense: 0,
                 spells: [],
-                class: [],
+                class: ['none'],
                 crit: 0,
                 equip: [{helmet: [], armor: [], leg: [], aces: []}]
             });

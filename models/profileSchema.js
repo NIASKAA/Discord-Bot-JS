@@ -18,7 +18,7 @@ const profileSchema = new mongoose.Schema({
     mDamage: {type: Number},
     defense : {type: Number},
     crit: {type: Number},
-    class: {type: Array},
+    class: {type: Array}, default: 'none',
     equip: [{
         helmet: Array, armor: Array, leg: Array, aces: Array
     }]
